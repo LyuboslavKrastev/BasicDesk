@@ -1,0 +1,14 @@
+﻿@model UserDetailsViewModel
+@{
+    ViewData["Title"] = "Ban";
+}
+
+<h2 class="text-center">Ban @Model.UserName</h2>
+<hr />
+<form class="form-horizontal center-block" method="post">
+    @Html.DisplayForModel()
+
+    <div class="col-sm-10 col-sm-push-2">
+        <input type="submit" value="Ban" class="btn btn-success" />
+    </div>
+</form>

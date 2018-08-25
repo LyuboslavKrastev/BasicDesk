@@ -1,0 +1,12 @@
+﻿@model UserDetailsViewModel
+
+@Html.DisabledInputFormGroupFor(m => m.Id)
+@Html.DisabledInputFormGroupFor(m => m.UserName)
+@Html.DisabledInputFormGroupFor(m => m.FullName)
+<div class="text-center"> <strong>Email: </strong><a href="mailto://@Model.Email">@Model.Email</a></div>
+@if (!String.IsNullOrWhiteSpace(Model.Phone))
+{
+    @Html.DisabledInputFormGroupFor(m => m.Phone)
+}
+
+

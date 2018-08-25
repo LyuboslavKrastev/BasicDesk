@@ -1,0 +1,56 @@
+﻿@page
+@model BasicDesk.App.Pages.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+@if (!User.Identity.IsAuthenticated)
+{
+    <div class="jumbotron mt-3" style="background-color:gold">
+        <h1>Welcome to BasicDesk</h1>
+        <h2>Helpdesk Management System</h2>
+        <hr class="bg-dark" />
+        <h3><a asp-area="Identity" asp-page="/Account/Login">Login </a> if you have an account.</h3>
+        <h3><a asp-area="Identity" asp-page="/Account/Register">Register </a> if you don't.</h3>
+    </div>
+}
+else
+{
+    <div class="jumbotron mt-3" style="background-color:gold">
+        <div class="container-fluid text-center">
+            <h2>Greetings, @User.Identity.Name!</h2>
+            <hr />
+        </div>
+        <div class="col-sm-12">
+            <div class="text-center">
+                <a asp-area="" asp-controller="Requests" asp-action="Create" class="btn btn-lg btn-primary">
+                    Create Reqeust <i class="glyphicon-plus"></i>
+                </a>
+            </div>
+        </div>
+        <hr class="hr-2 bg-dark" />
+        <div class="row">
+            <div class="card col-sm-4 text-center">
+                <h3 class="card-header">My Open Requests</h3>
+                <div class="card-body">
+                    <a asp-controller="Requests" asp-action="Index" asp-route-currentFilter="MyOpen" class="btn btn-primary">View</a>
+                </div>
+
+            </div>
+
+            <div class="card col-sm-4 text-center">
+                <h3 class="card-header">My Closed Requests</h3>
+                <div class="card-body">
+                    <a asp-controller="Requests" asp-action="Index" asp-route-currentFilter="MyClosed" class="btn btn-primary">View</a>
+                </div>
+            </div>
+            <div class="card col-sm-4 text-center">
+                <h3 class="card-header text-ce">All Requests</h3>
+                <div class="card-body">
+                    <a asp-controller="Requests" asp-action="Index" class="btn btn-primary">View</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

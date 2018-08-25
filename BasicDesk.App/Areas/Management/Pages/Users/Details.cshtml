@@ -1,0 +1,11 @@
+﻿@page
+@model BasicDesk.App.Pages.DetailsModel
+@{
+    ViewData["Title"] = "User Details";
+}
+
+<h2 class="text-center">User Details</h2>
+<hr />
+<form class="form-horizontal center-block" method="post">
+    @Html.DisplayFor(m => m.UserDetailsView)
+</form>

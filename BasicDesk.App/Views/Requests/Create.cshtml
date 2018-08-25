@@ -1,0 +1,28 @@
+﻿@model RequestCreationBindingModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2 class="text-center">Create a request</h2>
+<hr />
+<form method="post" class="form-horizontal" enctype="multipart/form-data">
+    @Html.InputFormGroupFor(m => m.Subject)
+    @Html.TextAreaFormGroupFor(m => m.Description)
+    <div class="form-group">
+        <label class="control-label col-sm-2" asp-for="CategoryId"></label>
+        <div class="col-sm-8">
+            <select class="form-control" asp-for="CategoryId" asp-items="Model.Categories"></select>
+        </div>
+    </div>
+    <input class="center-block" asp-for="Attachment" />
+    <div class="form-group">
+        <div class="col-sm-10 col-sm-push-2">
+            <input type="submit" value="Create" class="btn btn-success" />
+            <a asp-page="/Index" class="btn btn-default">Cancel</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

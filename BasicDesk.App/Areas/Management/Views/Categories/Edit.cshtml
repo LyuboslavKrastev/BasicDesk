@@ -1,0 +1,17 @@
+﻿@model CategoryViewModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2 class="text-center">Edit Category</h2>
+<hr />
+<form method="post">
+    @Html.InputFormGroupFor(m => m.Name)
+
+    <button type="submit" class="btn btn-default btn btn-success">Save</button>
+    <a asp-area="Management" asp-controller="Categories" asp-action="/Index" class="btn btn-default">Cancel</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

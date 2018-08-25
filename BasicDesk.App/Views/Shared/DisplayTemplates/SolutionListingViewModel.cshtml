@@ -1,0 +1,9 @@
+﻿@model SolutionListingViewModel
+
+<div class="card text-center bg-info col-md-3">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Title</h5>
+        <p class="card-text">Author: @Model.Author</p>
+        <a asp-area="" asp-controller="Solutions" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-lg btn-primary">View</a>
+    </div>
+</div>

@@ -1,0 +1,92 @@
+﻿using AutoMapper;
+using BasicDesk.App.Areas.Management.Models.BindingModels;
+using BasicDesk.App.Common;
+using BasicDesk.App.Helpers.Messages;
+using BasicDesk.Data;
+using BasicDesk.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace BasicDesk.App.Areas.Management.Pages.Solutions
+{
+    public class CreateModel : BasePageModel
+    {
+        private BasicDeskDbContext dbContext;
+        private UserManager<User> userManager;
+        private readonly IMapper mapper;
+
+        [BindProperty]
+        public SolutionCreationBindingModel Model {get; set; }
+
+        public CreateModel(BasicDeskDbContext dbContext, UserManager<User> userManager, IMapper mapper)
+        {
+            this.Model = new SolutionCreationBindingModel();
+            this.dbContext = dbContext;
+            this.userManager = userManager;
+            this.mapper = mapper;
+        }
+
+        public async Task<IActionResult> OnPost()
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var solution = mapper.Map<Solution>(Model);
+            solution.AuthorId = this.userManager.GetUserId(User);
+
+            this.dbContext.Solutions.Add(solution);
+
+            if (Model.Attachment != null)
+            {
+                var extension = Model.Attachment.FileName.Split('.').Last();
+
+                var isAllowedFileFormat = FileFormatValidator.IsValidFormat(extension);
+
+                if (!isAllowedFileFormat)
+                {
+                    this.TempData.Put("__Message", new MessageModel()
+                    {
+                        Type = MessageType.Danger,
+                        Message = "Forbidden file type!"
+                    });
+                    return this.Page();
+                }
+
+                await CreateAttachmentAsync(Model, solution);
+            }
+
+            this.dbContext.SaveChanges();
+
+            this.TempData.Put("__Message", new MessageModel()
+            {
+                Type = MessageType.Success,
+                Message = "Solution created successfully"
+            });
+
+
+            return RedirectToPage("/Index");
+        }
+
+        private async Task CreateAttachmentAsync(SolutionCreationBindingModel model, Solution solution)
+        {
+            string path = Path.Combine(Directory.GetCurrentDirectory(), "Files", "Solutions", model.Attachment.FileName);
+            var fileStream = new FileStream(path, FileMode.Create);
+            using (fileStream)
+            {
+                await model.Attachment.CopyToAsync(fileStream);
+            }
+
+            this.dbContext.SolutionAttachments.Add(new SolutionAttachment
+            {
+                FileName = model.Attachment.FileName,
+                PathToFile = path,
+                SolutionId = solution.Id
+            });
+        }
+    }
+}

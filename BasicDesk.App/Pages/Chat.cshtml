@@ -1,0 +1,22 @@
+﻿@page
+@model BasicDesk.App.Pages.ChatModel
+<h2 class="text-center">Chat Room</h2>
+<hr />
+
+<div id="questions" class="row">
+
+</div>
+<hr />
+<div class="row">
+    <form class="form-horizontal col-md-6 col-lg-offset-3">
+        <input class="form-control text-center" type="text" id="username" value="@Model.FullName" disabled />
+        <textarea class="form-control" id="question" placeholder="What is on your mind?" rows="5"></textarea>
+        <br />
+        <input type="submit" value="Submit" id="submit-button"  class="btn btn-info  col-md-offset-5" />
+    </form>
+</div>
+
+<br />
+
+<script src="~/signalr/signalr.js"></script>
+<script src="~/js/chat.js"></script>

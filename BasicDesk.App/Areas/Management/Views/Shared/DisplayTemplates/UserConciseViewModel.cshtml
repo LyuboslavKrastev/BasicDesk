@@ -1,0 +1,42 @@
+﻿@model UserConciseViewModel
+
+<tr>
+    <td>@Model.Id</td>
+    <td>@Model.UserName</td>
+    <td>@Model.Email</td>
+    <td>@Html.DisplayFor(model => model.IsHelpdeskAgent)</td>
+    <td>@Html.DisplayFor(model => model.IsAdmin)</td>
+    <td>
+        <a asp-area="Management" asp-page="/Users/Details" asp-route-id="@Model.Id"
+           class="btn btn-default">Details</a>
+        @if (!Model.IsHelpdeskAgent && !Model.IsAdmin)
+        {
+            <a asp-area="Management" asp-controller="Users" asp-action="PromoteToHelpdesk" asp-route-id="@Model.Id"
+               class="btn btn-primary">
+                Promote to HelpDesk Agent
+            </a>
+        }
+        else
+        {
+            <a asp-area="Management" asp-controller="Users" asp-action="DemoteToUser" asp-route-id="@Model.Id"
+               class="btn btn-primary">
+                Demote to User
+            </a>
+        }
+        @if (!Model.IsBanned)
+        {
+            <a asp-area="Management" asp-controller="Users" asp-action="Ban" asp-route-id="@Model.Id"
+               class="btn btn-danger">
+                Ban
+            </a>
+        }
+        else
+        {
+            <a asp-area="Management" asp-controller="Users" asp-action="Unban" asp-route-id="@Model.Id"
+               class="btn btn-info">
+                Unban
+            </a>
+        }
+
+    </td>
+</tr>

@@ -1,0 +1,30 @@
+﻿@using BasicDesk.Common.Constants
+    <nav class="nav navbar-default navbar-fixed-top" style="background-color:gold">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand"><strong>BasicDesk</strong></a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a asp-area="" asp-page="/Index">Home</a></li>
+                    <li><a asp-area="" asp-controller="Requests" asp-action="Index">Requests</a></li>
+                    <li><a asp-area="" asp-controller="Solutions" asp-action="Index">Solutions</a></li>
+                    <li><a asp-area="" asp-page="/Chat">Chat</a></li>
+                    @if(User.IsInRole(WebConstants.AdminRole))
+                    {
+                        <li><a asp-area="Management" asp-controller="Users" asp-action="Index">Users</a></li>
+                        <li><a asp-area="Management" asp-controller="Categories" asp-action="Index">Categories</a></li>
+                    }
+                </ul>
+                <partial name="_LoginPartial" />
+            </div>
+        </div>
+    </nav>
+<br />
+

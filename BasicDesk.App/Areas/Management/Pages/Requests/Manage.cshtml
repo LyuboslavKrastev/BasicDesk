@@ -1,0 +1,72 @@
+﻿@page
+@model BasicDesk.App.Areas.Management.Pages.Requests.ManageModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2 class="text-center">Details for request @Model.ViewModel.Id</h2>
+<form method="post">
+    <div class="container">
+        <div class="panel-group">
+            <div class="panel panel-primary">
+                <div class="panel-heading clearfix">
+                    <div class="pull-left"><strong>Subject:</strong> @Model.ViewModel.Subject</div>
+                    <div class="pull-right"><strong>Created On:</strong> @Model.ViewModel.Subject</div>
+                </div>
+                <div class="panel-body"><strong>Description:</strong> <p>@Model.ViewModel.Description</p></div>
+                <div class="panel-footer clearfix">
+                    <div class="pull-left"><strong>Status:</strong> @Model.ViewModel.Status</div>
+                    <div class="pull-right"><strong>Assigned To: </strong> @Model.ViewModel.AssignedToName</div>
+                </div>
+                <div class="panel-footer clearfix">
+                    <div class="pull-left"><strong>Category:</strong> @Model.ViewModel.Category</div>
+
+                    <div class="pull-right">
+                        <strong>Email: </strong><a href="mailto://@Model.ViewModel.AssignedToEmail">@Model.ViewModel.AssignedToEmail</a>
+                    </div>
+                </div>
+                <div class="panel-footer clearfix">
+                    <div class="text-center"><strong> Author:</strong><a asp-area="Management" asp-page="/Users/Details" asp-route-id="@Model.ViewModel.AuthorId">@Model.ViewModel.Author</a> </div>
+                </div>
+                @if (Model.ViewModel.Attachment != null)
+                {
+                    <div class="panel-footer clearfix">
+                        <div class="text-center">
+                            <label asp-for="ViewModel.Attachment">Attachment: </label>
+                            <a asp-area="" asp-controller="Requests" asp-action="Download"
+                               asp-route-filename="@Model.ViewModel.Attachment.FileName" asp-route-filePath="@Model.ViewModel.Attachment.PathToFile" asp-route-requestId="@Model.ViewModel.Id">
+                                @Model.ViewModel.Attachment.FileName
+                            </a>
+                        </div>
+                    </div>
+                }
+                <div class="panel-footer clearfix">
+                    <label class="control-label col-sm-2" asp-for="bindingModel.CategoryId"></label>
+                    <div class="col-sm-8">
+                        <select class="form-control" asp-for="bindingModel.CategoryId" asp-items="Model.ViewModel.Categories"></select>
+                    </div>
+                </div>
+                <div class="panel-footer clearfix">
+                    <label class="control-label col-sm-2" asp-for="bindingModel.StatusId"></label>
+                    <div class="col-sm-8">
+                        <select class="form-control" asp-for="bindingModel.StatusId" asp-items="Model.ViewModel.Statuses"></select>
+                    </div>
+                </div>
+                <div class="panel-footer clearfix">
+                    <label class="control-label col-sm-2" asp-for="bindingModel.AssignToId"></label>
+                    <div class="col-sm-8">
+                        <select class="form-control" asp-for="bindingModel.AssignToId" asp-items="Model.ViewModel.Employees"></select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-10 col-sm-push-2">
+            <input type="submit" value="Set" class="btn btn-success" />
+            <a asp-page="/Index" class="btn btn-default">Cancel</a>
+            <a asp-area="" asp-controller="Requests" asp-action="Index" class="btn btn-info">Back to Requests</a>
+        </div>
+    </div>
+</form>
+
+

@@ -1,0 +1,20 @@
+﻿@using BasicDesk.Common.Constants
+@model ICollection<SolutionListingViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2 class="text-center">Solutions</h2>
+<hr />
+
+@if (User.IsInRole(WebConstants.AdminRole) || User.IsInRole(WebConstants.HelpdeskRole))
+{
+    <div class="text-center">
+        <a asp-area="Management" asp-controller="Solutions" asp-action="Create" class="btn btn-lg btn-primary">
+            Create Solution <i class="glyphicon-plus"></i>
+        </a>
+    </div>
+    <br />
+}
+
+@Html.DisplayForModel()

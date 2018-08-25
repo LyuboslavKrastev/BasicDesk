@@ -1,0 +1,22 @@
+﻿@model IEnumerable<UserConciseViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2 class="text-center">All Users</h2>
+<hr />
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Helpdesk Agent?</th>
+            <th>Admin?</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @Html.DisplayForModel()
+    </tbody>
+</table>
