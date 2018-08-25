@@ -1,0 +1,22 @@
+﻿@page
+@model BasicDesk.App.Areas.Management.Pages.Statuses.CreateModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2 class="text-center">Create a Request Status</h2>
+<hr />
+
+<form method="post" class="form-horizontal">
+    @Html.InputFormGroupFor(m => m.StatusName)
+    <div class="form-group">
+        <div class="col-sm-10 col-sm-push-2">
+            <input type="submit" value="Create" class="btn btn-success" />
+            <a asp-page="/Index" class="btn btn-default">Cancel</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,8 @@
+C:\Users\Zorko\source\repos\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Common\bin\Debug\netcoreapp2.1\BasicDesk.Common.deps.json
+C:\Users\Zorko\source\repos\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Common\bin\Debug\netcoreapp2.1\BasicDesk.Common.dll
+C:\Users\Zorko\source\repos\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Common\bin\Debug\netcoreapp2.1\BasicDesk.Common.pdb
+C:\Users\Zorko\source\repos\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Common\obj\Debug\netcoreapp2.1\BasicDesk.Common.csproj.CoreCompileInputs.cache
+C:\Users\Zorko\source\repos\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Common\obj\Debug\netcoreapp2.1\BasicDesk.Common.AssemblyInfoInputs.cache
+C:\Users\Zorko\source\repos\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Common\obj\Debug\netcoreapp2.1\BasicDesk.Common.AssemblyInfo.cs
+C:\Users\Zorko\source\repos\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Common\obj\Debug\netcoreapp2.1\BasicDesk.Common.dll
+C:\Users\Zorko\source\repos\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Common\obj\Debug\netcoreapp2.1\BasicDesk.Common.pdb

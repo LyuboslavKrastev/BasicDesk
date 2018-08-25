@@ -1,0 +1,4 @@
+C:\Users\Zorko\source\repos\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Models\obj\Debug\netcoreapp2.1\BasicDesk.Models.csprojAssemblyReference.cache
+C:\Users\Zorko\source\repos\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Models\obj\Debug\netcoreapp2.1\BasicDesk.Models.csproj.CoreCompileInputs.cache
+C:\Users\Zorko\source\repos\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Models\obj\Debug\netcoreapp2.1\BasicDesk.Models.AssemblyInfoInputs.cache
+C:\Users\Zorko\source\repos\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Models\obj\Debug\netcoreapp2.1\BasicDesk.Models.AssemblyInfo.cs

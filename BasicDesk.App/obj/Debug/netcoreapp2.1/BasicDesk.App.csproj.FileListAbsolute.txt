@@ -1,0 +1,7 @@
+C:\Users\Zorko\source\repos\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.App\obj\Debug\netcoreapp2.1\BasicDesk.App.csprojAssemblyReference.cache
+C:\Users\Zorko\source\repos\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.App\obj\Debug\netcoreapp2.1\BasicDesk.App.csproj.CoreCompileInputs.cache
+C:\Users\Zorko\source\repos\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.App\obj\Debug\netcoreapp2.1\BasicDesk.App.RazorAssemblyInfo.cache
+C:\Users\Zorko\source\repos\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.App\obj\Debug\netcoreapp2.1\BasicDesk.App.RazorAssemblyInfo.cs
+C:\Users\Zorko\source\repos\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.App\obj\Debug\netcoreapp2.1\UserSecretsAssemblyInfo.cs
+C:\Users\Zorko\source\repos\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.App\obj\Debug\netcoreapp2.1\BasicDesk.App.AssemblyInfoInputs.cache
+C:\Users\Zorko\source\repos\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.App\obj\Debug\netcoreapp2.1\BasicDesk.App.AssemblyInfo.cs

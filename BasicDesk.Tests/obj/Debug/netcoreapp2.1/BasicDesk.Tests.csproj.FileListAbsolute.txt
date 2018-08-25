@@ -1,0 +1,6 @@
+C:\Users\Zorko\source\repos\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Tests\obj\Debug\netcoreapp2.1\BasicDesk.Tests.csprojAssemblyReference.cache
+C:\Users\Zorko\source\repos\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Tests\obj\Debug\netcoreapp2.1\BasicDesk.Tests.csproj.CoreCompileInputs.cache
+C:\Users\Zorko\source\repos\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Tests\obj\Debug\netcoreapp2.1\BasicDesk.Tests.RazorAssemblyInfo.cache
+C:\Users\Zorko\source\repos\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Tests\obj\Debug\netcoreapp2.1\BasicDesk.Tests.RazorAssemblyInfo.cs
+C:\Users\Zorko\source\repos\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Tests\obj\Debug\netcoreapp2.1\BasicDesk.Tests.AssemblyInfoInputs.cache
+C:\Users\Zorko\source\repos\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Tests\obj\Debug\netcoreapp2.1\BasicDesk.Tests.AssemblyInfo.cs
