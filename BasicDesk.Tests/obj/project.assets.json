@@ -13313,11 +13313,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Zorko\\source\\repos\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Tests\\BasicDesk.Tests.csproj",
+      "projectUniqueName": "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Tests\\BasicDesk.Tests.csproj",
       "projectName": "BasicDesk.Tests",
-      "projectPath": "C:\\Users\\Zorko\\source\\repos\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Tests\\BasicDesk.Tests.csproj",
+      "projectPath": "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Tests\\BasicDesk.Tests.csproj",
       "packagesPath": "C:\\Users\\Zorko\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Zorko\\source\\repos\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Tests\\obj\\",
+      "outputPath": "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -13336,8 +13336,8 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "C:\\Users\\Zorko\\source\\repos\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.App\\BasicDesk.App.csproj": {
-              "projectPath": "C:\\Users\\Zorko\\source\\repos\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.App\\BasicDesk.App.csproj"
+            "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.App\\BasicDesk.App.csproj": {
+              "projectPath": "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.App\\BasicDesk.App.csproj"
             }
           }
         }

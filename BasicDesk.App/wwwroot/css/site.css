@@ -35,3 +35,84 @@ body {
         display: none;
     }
 }
+
+.jumbotron {
+    background-color: white;
+    color: black;
+}
+
+textarea {
+    width: 100% !important;
+}
+
+hr {
+    margin: 5px 5px;
+}
+
+hr {
+    border-style: solid;
+    border-width: 1px;
+}
+
+.panel {
+    background: #C6E2FF;
+}
+
+.panel-heading {
+    background-color: cornflowerblue;
+    color: white;
+}
+
+.panel-footer {
+    background-color: cornflowerblue;
+    color: white;
+}
+
+.table {
+    background-color: #C6E2FF;
+    color: black;
+}
+
+table, td, th {
+    border: 2px solid black;
+}
+
+.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+    background-color: white;
+}
+
+.navbar-inverse {
+    background-color: #1C86EE;
+    border-color: #080808;
+}
+
+    .navbar-inverse .navbar-nav > li > a {
+        color: #ffffff;
+    }
+
+    .navbar-inverse .navbar-nav > .open > a,
+    .navbar-inverse .navbar-nav > .open > a:hover,
+    .navbar-inverse .navbar-nav > .open > a:focus {
+        color: #fff;
+        background-color: #42C0FB;
+    }
+
+.dropdown-menu {
+    background: #42C0FB;
+}
+
+.navbar-inverse .navbar-nav .open .dropdown-menu > li > a, .navbar-default .navbar-nav .open .dropdown-menu {
+    background: #42C0FB;
+    color: white;
+}
+
+    .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover,
+    .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:focus {
+        color: white;
+        background-color: #1C86EE;
+    }
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+    background-color: #42C0FB;
+    color: white;
+}

@@ -687,11 +687,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Zorko\\source\\repos\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Common\\BasicDesk.Common.csproj",
+      "projectUniqueName": "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Common\\BasicDesk.Common.csproj",
       "projectName": "BasicDesk.Common",
-      "projectPath": "C:\\Users\\Zorko\\source\\repos\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Common\\BasicDesk.Common.csproj",
+      "projectPath": "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Common\\BasicDesk.Common.csproj",
       "packagesPath": "C:\\Users\\Zorko\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Zorko\\source\\repos\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Common\\obj\\",
+      "outputPath": "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Common\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

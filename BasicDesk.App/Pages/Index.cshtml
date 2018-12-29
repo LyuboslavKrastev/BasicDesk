@@ -6,17 +6,17 @@
 
 @if (!User.Identity.IsAuthenticated)
 {
-    <div class="jumbotron mt-3" style="background-color:gold">
-        <h1>Welcome to BasicDesk</h1>
+    <div class="jumbotron text-center">
+        <h1>BasicDesk</h1>
         <h2>Helpdesk Management System</h2>
         <hr class="bg-dark" />
-        <h3><a asp-area="Identity" asp-page="/Account/Login">Login </a> if you have an account.</h3>
-        <h3><a asp-area="Identity" asp-page="/Account/Register">Register </a> if you don't.</h3>
+        <p><a asp-area="Identity" asp-page="/Account/Login">Login </a> if you have an account.</p>
+        <p><a asp-area="Identity" asp-page="/Account/Register">Register </a> if you don't.</p>
     </div>
 }
 else
 {
-    <div class="jumbotron mt-3" style="background-color:gold">
+    <div class="jumbotron mt-3">
         <div class="container-fluid text-center">
             <h2>Greetings, @User.Identity.Name!</h2>
             <hr />

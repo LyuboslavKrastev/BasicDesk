@@ -135,7 +135,14 @@ namespace BasicDesk.App.Controllers
 
             var resuestDetailsViewModel =  await GetRequestDetailsAsync(int.Parse(id));
 
-            return this.View(resuestDetailsViewModel);
+            if (User.IsInRole("Administrator"))
+            {
+                return this.Redirect($"/Management/Requests/Manage?id={id}");
+            }
+            else
+            {
+                return this.View(resuestDetailsViewModel);
+            }
         }
 
         private async Task<RequestDetailsViewModel> GetRequestDetailsAsync (int id)

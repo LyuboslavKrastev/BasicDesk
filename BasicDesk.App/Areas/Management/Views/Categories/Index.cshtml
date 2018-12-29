@@ -6,7 +6,7 @@
 <h2 class="text-center">Manage Request Categories</h2>
 <hr />
 
-<div class="col-md-6 col-lg-offset-3">
+<div class="col-md-4 col-lg-offset-4">
     <form method="post" class="form-horizontal">
         <h3 class="text-center">Create new category</h3>
         <hr />
@@ -26,7 +26,7 @@
                 <th>
                     <strong>Name</strong>
                 </th>
-                <th class="pull-right">
+                <th>
                     <strong>Action</strong>
                 </th>
             </tr>
@@ -38,7 +38,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => category.Name)
                     </td>
-                    <td class="pull-right">
+                    <td>
                         <a asp-area="management" asp-controller="categories" asp-action="edit" asp-route-id="@category.Id" class="btn btn-info">Edit</a>
                     </td>
                 </tr>

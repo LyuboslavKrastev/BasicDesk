@@ -4,52 +4,106 @@
     ViewData["Title"] = "Details";
 }
 
-<h2 class="text-center">Details for Request #@Model.Id</h2>
+<div class="btn-group btn-group-toggle" data-toggle="buttons">
+<button class="btn disabled btn" style="display:table; background-color: #00611C; color:white;">Request ID: @Model.Id</button>
+        <button id="btn_desc" class="btn btn-danger">Request</button>
+        <button id="btn_res" class="btn">Resolution</button>
+        <button id="btn_hist" class="btn">History</button>
+</div>
 
-<div class="container">
-    <div class="panel-group">
-        <div class="panel panel-primary">
-            <div class="panel-heading clearfix">
-                <div class="pull-left"><strong>Subject:</strong> @Model.Subject</div>
-                <div class="pull-right"><strong>Created On:</strong> @Model.CreatedOn</div>
-            </div>
-            <div class="panel-body"><strong>Description:</strong> <p>@Model.Description</p></div>
-            <div class="panel-footer clearfix">
-                <div class="pull-left"><strong>Status:</strong> @Model.Status</div>
-                <div class="pull-right"><strong>Assigned To: </strong> @Model.AssignedToName</div>
-            </div>
-            <div class="panel-footer clearfix">
-                <div class="pull-left"><strong>Category:</strong> @Model.Category</div>
-
-                <div class="pull-right">
-                    <strong>Email: </strong><a href="mailto://@Model.AssignedToEmail">@Model.AssignedToEmail</a>
-                </div>
-            </div>
-            <div class="panel-footer clearfix">
-                <div class="text-center"><strong> Author:</strong> @Model.Author</div>
-            </div>
-
-            @if (Model.Attachment != null)
-            {
-                <div class="panel-footer clearfix">
-                    <div class="text-center">
-                        <label asp-for="@Model.Attachment">Attachment: </label>
-                        <a asp-controller="Requests" asp-action="Download"
-                           asp-route-filename="@Model.Attachment.FileName" asp-route-filePath="@Model.Attachment.PathToFile" asp-route-requestId="@Model.Id">
-                            @Model.Attachment.FileName
-                        </a>
-                    </div>
-                </div>
-            }
+<div class="panel-group" id="request">
+        <div class="panel">
+        <div class="panel-heading clearfix">
+            <div class="pull-left"><strong>Requester:</strong> @Model.Author</div>
+            <div class="pull-right"><strong>Created On:</strong> @Model.CreatedOn</div>
         </div>
-        
+        <div class="panel-body">
+            <p><strong>Subject:</strong> @Model.Subject</p>
+            <hr>
+            <strong>Description</strong><hr>
+            <p>@Model.Description</p>     
+        </div>
+       
+        <div class="panel-footer clearfix">
+            <div class="pull-left"><strong>Status:</strong> @Model.Status</div>
+            <div class="pull-right"><strong>Technician: </strong> @Model.AssignedToName</div>
+            <br /><hr />
+            <div class="pull-left"><strong>Category:</strong> @Model.Category</div>
 
+            <div class="pull-right">
+                <strong>Email: </strong><a href="mailto://@Model.AssignedToEmail">@Model.AssignedToEmail</a>
+            </div>
+        </div>
+
+        @if (Model.Attachment != null)
+        {
+            <div class="panel-footer clearfix">
+                <div class="text-center">
+                    <label asp-for="@Model.Attachment">Attachment: </label>
+                    <a asp-controller="Requests" asp-action="Download"
+                       asp-route-filename="@Model.Attachment.FileName" asp-route-filePath="@Model.Attachment.PathToFile" asp-route-requestId="@Model.Id">
+                        @Model.Attachment.FileName
+                    </a>
+                </div>
+            </div>
+        }
     </div>
 </div>
-<div class="col-sm-offset-5">
-    <a asp-area="" asp-controller="Requests" asp-action="Index" class="btn btn-info">Back to Requests</a>
-    @if (User.IsInRole(WebConstants.AdminRole) || User.IsInRole(WebConstants.HelpdeskRole))
-    {
-        <a asp-area="Management" asp-page="/Requests/Manage" asp-route-id="@Model.Id" class="btn btn-warning">Manage</a>
-    }
+
+<div class="panel-group" id="resolution" style="display:none">
+    <div class="panel">
+        <div class="panel-heading clearfix">
+            <div class="pull-left"><strong>Resolution</strong></div>
+        </div>
+        <div class="panel-body">
+            <textarea class="form-control" rows="3" style="resize:none;"></textarea>
+        </div>
+        <div class="panel-footer clearfix">
+            <div class="col-md-offset-6">
+                <button id="btn_edit" class="btn btn-success">Save</button>
+                <button id="btn_edit" class="btn btn-warning">Edit</button>
+
+            </div>
+        </div>
+    </div>
 </div>
+
+<div class="panel-group" id="history" style="display:none">
+    <div class="panel">
+        <div class="panel-heading clearfix">
+            <div class="pull-left"><strong>History</strong></div>
+        </div>
+        <div class="panel-body"><p>Model.History</p></div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<script>
+    $('#btn_desc').on('click', function(){
+        $('#history').hide();
+        $('#resolution').hide();
+        $('#request').show();
+        $('#btn_res').removeClass('btn-danger');
+        $('#btn_hist').removeClass('btn-danger');
+        $('#btn_desc').addClass('btn-danger');
+    });
+    $('#btn_res').on('click', function(){
+        $('#history').hide();  
+        $('#request').hide();
+        $('#resolution').show();
+        $('#btn_desc').removeClass('btn-danger');
+        $('#btn_hist').removeClass('btn-danger');
+        $('#btn_res').addClass('btn-danger');
+
+    });
+    $('#btn_hist').on('click', function(){      
+        $('#request').hide();
+        $('#resolution').hide();
+        $('#history').show();  
+        $('#btn_desc').removeClass('btn-danger');
+        $('#btn_res').removeClass('btn-danger');
+        $('#btn_hist').addClass('btn-danger');
+    });
+</script>
+

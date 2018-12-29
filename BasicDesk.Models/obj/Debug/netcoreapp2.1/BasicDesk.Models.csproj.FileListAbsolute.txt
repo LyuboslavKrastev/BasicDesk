@@ -2,3 +2,17 @@ C:\Users\Zorko\source\repos\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-AS
 C:\Users\Zorko\source\repos\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Models\obj\Debug\netcoreapp2.1\BasicDesk.Models.csproj.CoreCompileInputs.cache
 C:\Users\Zorko\source\repos\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Models\obj\Debug\netcoreapp2.1\BasicDesk.Models.AssemblyInfoInputs.cache
 C:\Users\Zorko\source\repos\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Models\obj\Debug\netcoreapp2.1\BasicDesk.Models.AssemblyInfo.cs
+C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Models\bin\Debug\netcoreapp2.1\BasicDesk.Models.deps.json
+C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Models\bin\Debug\netcoreapp2.1\BasicDesk.Models.dll
+C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Models\bin\Debug\netcoreapp2.1\BasicDesk.Models.pdb
+C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Models\bin\Debug\netcoreapp2.1\BasicDesk.Common.dll
+C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Models\bin\Debug\netcoreapp2.1\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Models\bin\Debug\netcoreapp2.1\BasicDesk.Common.pdb
+C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Models\bin\Debug\netcoreapp2.1\Microsoft.Extensions.Identity.Stores.xml
+C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Models\obj\Debug\netcoreapp2.1\BasicDesk.Models.csprojAssemblyReference.cache
+C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Models\obj\Debug\netcoreapp2.1\BasicDesk.Models.csproj.CoreCompileInputs.cache
+C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Models\obj\Debug\netcoreapp2.1\BasicDesk.Models.AssemblyInfoInputs.cache
+C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Models\obj\Debug\netcoreapp2.1\BasicDesk.Models.AssemblyInfo.cs
+C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Models\obj\Debug\netcoreapp2.1\BasicDesk.Models.csproj.CopyComplete
+C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Models\obj\Debug\netcoreapp2.1\BasicDesk.Models.dll
+C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Models\obj\Debug\netcoreapp2.1\BasicDesk.Models.pdb

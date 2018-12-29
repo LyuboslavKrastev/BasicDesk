@@ -12,15 +12,7 @@ namespace BasicDesk.App.Areas.Management.Models.ViewModels
 
         public string Description { get; set; }
 
-        public string AssignedToName { get; set; }
-
-        public string AssignedToEmail { get; set; }
-
         public string CreatedOn { get; set; }
-
-        public string Status { get; set; }
-
-        public string Category { get; set; }
 
         public string AuthorId { get; set; }
 

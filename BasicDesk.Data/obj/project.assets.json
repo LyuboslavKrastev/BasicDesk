@@ -4461,11 +4461,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Zorko\\source\\repos\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Data\\BasicDesk.Data.csproj",
+      "projectUniqueName": "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Data\\BasicDesk.Data.csproj",
       "projectName": "BasicDesk.Data",
-      "projectPath": "C:\\Users\\Zorko\\source\\repos\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Data\\BasicDesk.Data.csproj",
+      "projectPath": "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Data\\BasicDesk.Data.csproj",
       "packagesPath": "C:\\Users\\Zorko\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Zorko\\source\\repos\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Data\\obj\\",
+      "outputPath": "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Data\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -4484,8 +4484,8 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "C:\\Users\\Zorko\\source\\repos\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Models\\BasicDesk.Models.csproj": {
-              "projectPath": "C:\\Users\\Zorko\\source\\repos\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Models\\BasicDesk.Models.csproj"
+            "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Models\\BasicDesk.Models.csproj": {
+              "projectPath": "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Models\\BasicDesk.Models.csproj"
             }
           }
         }

@@ -11,14 +11,14 @@
 using System;
 using System.Reflection;
 
-[assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("BasicDesk.App", "C:\\Users\\Zorko\\source\\repos\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP" +
-    ".NET-Core\\BasicDesk.App", "BasicDesk.App.csproj", "0")]
-[assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("BasicDesk.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", "C:\\Users\\Zorko\\source\\repos\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP" +
-    ".NET-Core\\BasicDesk.Common", "BasicDesk.Common.csproj", "0")]
-[assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("BasicDesk.Data", "C:\\Users\\Zorko\\source\\repos\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP" +
-    ".NET-Core\\BasicDesk.Data", "BasicDesk.Data.csproj", "0")]
-[assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("BasicDesk.Models", "C:\\Users\\Zorko\\source\\repos\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP" +
-    ".NET-Core\\BasicDesk.Models", "BasicDesk.Models.csproj", "0")]
+[assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("BasicDesk.App", "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NE" +
+    "T-Core\\BasicDesk.App", "BasicDesk.App.csproj", "0")]
+[assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("BasicDesk.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NE" +
+    "T-Core\\BasicDesk.Common", "BasicDesk.Common.csproj", "0")]
+[assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("BasicDesk.Data", "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NE" +
+    "T-Core\\BasicDesk.Data", "BasicDesk.Data.csproj", "0")]
+[assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("BasicDesk.Models", "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NE" +
+    "T-Core\\BasicDesk.Models", "BasicDesk.Models.csproj", "0")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("BasicDesk.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]

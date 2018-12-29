@@ -37,9 +37,11 @@ namespace BasicDesk.App.Areas.Management.Pages.Requests
         public async Task<IActionResult> OnGet(string id)
         {
             var request = await GetRequestDetails(id);
-            var requestCategories = await GetRequestCategories();
+            var dbCategories = await GetRequestCategories();
+            var categories = dbCategories.Where(c => c != request.Category).ToList();
+            categories.Insert(0, request.Category);
 
-            foreach (var requestCategory in requestCategories)
+            foreach (var requestCategory in categories)
             {
                 this.ViewModel.Categories.Add(new SelectListItem
                 {
@@ -52,18 +54,9 @@ namespace BasicDesk.App.Areas.Management.Pages.Requests
             this.ViewModel.Subject = request.Subject;
             this.ViewModel.Description = request.Description;
             this.ViewModel.CreatedOn = request.StartTime.ToString();
-            this.ViewModel.Status = request.Status.Name;
             this.ViewModel.Attachment = request.Attachments.FirstOrDefault();
             this.ViewModel.Author = request.Requester.FullName;
-            this.ViewModel.Category = request.Category.Name;
             this.ViewModel.AuthorId = request.RequesterId;
-
-            if (request.AssignedTo != null)
-            {
-                string roles = string.Join(", ", await this.userManager.GetRolesAsync(request.AssignedTo));
-                this.ViewModel.AssignedToEmail = request.AssignedTo.Email;
-                this.ViewModel.AssignedToName = $"{request.AssignedTo.FullName} [{roles}]";
-            }
 
             SetStatusSelectList(request);
 
@@ -74,7 +67,7 @@ namespace BasicDesk.App.Areas.Management.Pages.Requests
 
         private async Task<ICollection<RequestCategory>> GetRequestCategories()
         {
-            return await dbContext.RequestCategories.ToArrayAsync();
+            return await dbContext.RequestCategories.AsNoTracking().ToArrayAsync();
         }
 
         private async Task<Request> GetRequestDetails(string id)

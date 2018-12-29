@@ -4,69 +4,115 @@
     ViewData["Title"] = "Details";
 }
 
-<h2 class="text-center">Details for request @Model.ViewModel.Id</h2>
+<div class="btn-group btn-group-toggle" data-toggle="buttons">
+    <button class="btn disabled btn" style="display:table; background-color: darkgoldenrod; color:white;">Request ID: @Model.ViewModel.Id</button>
+    <button id="btn_desc" class="btn btn-danger">Request</button>
+    <button id="btn_res" class="btn">Resolution</button>
+    <button id="btn_hist" class="btn">History</button>
+</div>
 <form method="post">
-    <div class="container">
-        <div class="panel-group">
-            <div class="panel panel-primary">
-                <div class="panel-heading clearfix">
-                    <div class="pull-left"><strong>Subject:</strong> @Model.ViewModel.Subject</div>
-                    <div class="pull-right"><strong>Created On:</strong> @Model.ViewModel.Subject</div>
-                </div>
-                <div class="panel-body"><strong>Description:</strong> <p>@Model.ViewModel.Description</p></div>
-                <div class="panel-footer clearfix">
-                    <div class="pull-left"><strong>Status:</strong> @Model.ViewModel.Status</div>
-                    <div class="pull-right"><strong>Assigned To: </strong> @Model.ViewModel.AssignedToName</div>
-                </div>
-                <div class="panel-footer clearfix">
-                    <div class="pull-left"><strong>Category:</strong> @Model.ViewModel.Category</div>
-
-                    <div class="pull-right">
-                        <strong>Email: </strong><a href="mailto://@Model.ViewModel.AssignedToEmail">@Model.ViewModel.AssignedToEmail</a>
-                    </div>
-                </div>
-                <div class="panel-footer clearfix">
-                    <div class="text-center"><strong> Author:</strong><a asp-area="Management" asp-page="/Users/Details" asp-route-id="@Model.ViewModel.AuthorId">@Model.ViewModel.Author</a> </div>
-                </div>
+    <div class="panel-group" id="request">
+        <div class="panel">
+            <div class="panel-heading clearfix">
+                <div class="pull-left"><strong>Requester:</strong> @Model.ViewModel.Author</div>
+                <div class="pull-right"><strong>Created On:</strong> @Model.ViewModel.CreatedOn</div>
+            </div>
+            <div class="panel-body">
+                <p><strong>Subject:</strong> @Model.ViewModel.Subject</p>
+                <hr>
+                <strong>Description</strong><hr>
+                <p>@Model.ViewModel.Description</p>
+            </div>
+            <div class="panel-footer clearfix">
                 @if (Model.ViewModel.Attachment != null)
                 {
-                    <div class="panel-footer clearfix">
-                        <div class="text-center">
-                            <label asp-for="ViewModel.Attachment">Attachment: </label>
-                            <a asp-area="" asp-controller="Requests" asp-action="Download"
-                               asp-route-filename="@Model.ViewModel.Attachment.FileName" asp-route-filePath="@Model.ViewModel.Attachment.PathToFile" asp-route-requestId="@Model.ViewModel.Id">
-                                @Model.ViewModel.Attachment.FileName
-                            </a>
-                        </div>
+                    <br /><hr />
+                    <div class="text-center">
+                        <label asp-for="@Model.ViewModel.Attachment">Attachment: </label>
+                        <a asp-controller="Requests" asp-action="Download"
+                           asp-route-filename="@Model.ViewModel.Attachment.FileName" asp-route-filePath="@Model.ViewModel.Attachment.PathToFile" asp-route-requestId="@Model.ViewModel.Id">
+                            @Model.ViewModel.Attachment.FileName
+                        </a>
                     </div>
+
                 }
-                <div class="panel-footer clearfix">
-                    <label class="control-label col-sm-2" asp-for="bindingModel.CategoryId"></label>
-                    <div class="col-sm-8">
-                        <select class="form-control" asp-for="bindingModel.CategoryId" asp-items="Model.ViewModel.Categories"></select>
-                    </div>
+                <label class="control-label pull-left col-sm-1" asp-for="bindingModel.CategoryId"></label>
+                <div class="col-sm-3 pull-left">
+                    <select class="form-control" asp-for="bindingModel.CategoryId" asp-items="Model.ViewModel.Categories" Selected="true" Value="3"></select>
                 </div>
-                <div class="panel-footer clearfix">
-                    <label class="control-label col-sm-2" asp-for="bindingModel.StatusId"></label>
-                    <div class="col-sm-8">
-                        <select class="form-control" asp-for="bindingModel.StatusId" asp-items="Model.ViewModel.Statuses"></select>
-                    </div>
+                <div class="col-sm-3 pull-right">
+                    <select class="form-control" asp-for="bindingModel.AssignToId" asp-items="Model.ViewModel.Employees"></select>
                 </div>
-                <div class="panel-footer clearfix">
-                    <label class="control-label col-sm-2" asp-for="bindingModel.AssignToId"></label>
-                    <div class="col-sm-8">
-                        <select class="form-control" asp-for="bindingModel.AssignToId" asp-items="Model.ViewModel.Employees"></select>
-                    </div>
+                <label class="control-label pull-right col-sm-1" asp-for="bindingModel.AssignToId"></label>
+                <br /><br />
+                <label class="control-label pull-left col-sm-1" asp-for="bindingModel.StatusId"></label>
+                <div class="col-sm-3">
+                    <select class="form-control" asp-for="bindingModel.StatusId" asp-items="Model.ViewModel.Statuses"></select>
+                </div>
+                <br />
+                <div class="col-md-offset-6">
+                    <input type="submit" value="Set" class="btn btn-success" />
+                    <a asp-area="" asp-controller="Requests" asp-action="Index" class="btn btn-danger">Cancel</a>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="col-sm-10 col-sm-push-2">
-            <input type="submit" value="Set" class="btn btn-success" />
-            <a asp-page="/Index" class="btn btn-default">Cancel</a>
-            <a asp-area="" asp-controller="Requests" asp-action="Index" class="btn btn-info">Back to Requests</a>
+    <div class="panel-group" id="resolution" style="display:none">
+        <div class="panel">
+            <div class="panel-heading clearfix">
+                <div class="pull-left"><strong>Resolution</strong></div>
+            </div>
+            <div class="panel-body">
+                <textarea class="form-control" rows="3" style="resize:none;"></textarea>
+            </div>
+            <div class="panel-footer clearfix">
+                <div class="col-md-offset-6">
+                    <button id="btn_edit" class="btn btn-success">Save</button>
+                    <button id="btn_edit" class="btn btn-warning">Edit</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-group" id="history" style="display:none">
+        <div class="panel">
+            <div class="panel-heading clearfix">
+                <div class="pull-left"><strong>History</strong></div>
+            </div>
+            <div class="panel-body"><p>Model.History</p></div>
         </div>
     </div>
 </form>
 
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<script>
+    $('#btn_desc').on('click', function () {
+        $('#history').hide();
+        $('#resolution').hide();
+        $('#request').show();
+        $('#btn_res').removeClass('btn-danger');
+        $('#btn_hist').removeClass('btn-danger');
+        $('#btn_desc').addClass('btn-danger');
+    });
+    $('#btn_res').on('click', function () {
+        $('#history').hide();
+        $('#request').hide();
+        $('#resolution').show();
+        $('#btn_desc').removeClass('btn-danger');
+        $('#btn_hist').removeClass('btn-danger');
+        $('#btn_res').addClass('btn-danger');
 
+    });
+    $('#btn_hist').on('click', function () {
+        $('#request').hide();
+        $('#resolution').hide();
+        $('#history').show();
+        $('#btn_desc').removeClass('btn-danger');
+        $('#btn_res').removeClass('btn-danger');
+        $('#btn_hist').addClass('btn-danger');
+    });
+</script>
