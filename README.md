@@ -1,2 +1,2 @@
 # BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core
-A Basic Helpdesk Management System
+A basic Helpdesk management system
