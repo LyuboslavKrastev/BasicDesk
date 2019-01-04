@@ -1,4 +1,4 @@
-﻿using BasicDesk.Models;
+﻿using BasicDesk.Models.Requests;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 
@@ -20,7 +20,7 @@ namespace BasicDesk.App.Areas.Management.Models.ViewModels
 
         public string Resolution { get; set; }
 
-        public RequestAttachment Attachment { get; set; }
+        public IEnumerable<RequestAttachment> Attachments { get; set; }
 
         public ICollection<SelectListItem> Categories { get; set; } = new List<SelectListItem>();
 

@@ -24,16 +24,21 @@
                 <p>@Model.ViewModel.Description</p>
             </div>
             <div class="panel-footer clearfix">
-                @if (Model.ViewModel.Attachment != null)
+                @if (Model.ViewModel.Attachments != null)
                 {
                     <br /><hr />
-                    <div class="text-center">
-                        <label asp-for="@Model.ViewModel.Attachment">Attachment: </label>
-                        <a asp-controller="Requests" asp-action="Download"
-                           asp-route-filename="@Model.ViewModel.Attachment.FileName" asp-route-filePath="@Model.ViewModel.Attachment.PathToFile" asp-route-requestId="@Model.ViewModel.Id">
-                            @Model.ViewModel.Attachment.FileName
-                        </a>
-                    </div>
+                          <div class="text-center">
+                              @foreach (var attachment in Model.ViewModel.Attachments)
+                              {
+                                  <label asp-for="@attachment">Attachment: </label>
+                                  <a asp-area="" asp-controller="Requests" asp-action="Download"
+                                     asp-route-filename="@attachment.FileName" asp-route-filePath="@attachment.PathToFile" asp-route-requestId="@Model.ViewModel.Id">
+                                      @attachment.FileName
+                                  </a>
+                                  <br />
+                              }
+
+                          </div>
 
                 }
                 <label class="control-label pull-left col-sm-1" asp-for="bindingModel.CategoryId"></label>

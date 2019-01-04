@@ -1,4 +1,5 @@
-﻿using BasicDesk.Models;
+﻿using BasicDesk.Models.Requests;
+using System.Collections.Generic;
 
 namespace BasicDesk.App.Models.ViewModels
 {
@@ -24,6 +25,6 @@ namespace BasicDesk.App.Models.ViewModels
 
         public string Resolution { get; set; }
 
-        public RequestAttachment Attachment { get; set; }
+        public IEnumerable<RequestAttachment> Attachments { get; set; }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using BasicDesk.Models;
+using BasicDesk.Models.Requests;
+
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,6 +20,8 @@ namespace BasicDesk.Data
         public DbSet<RequestAttachment> RequestAttachments { get; set; }
 
         public DbSet<Solution> Solutions { get; set; }
+
+        public DbSet<RequestNote> RequestNotes { get; set; }
 
         public DbSet<SolutionAttachment> SolutionAttachments { get; set; }
 

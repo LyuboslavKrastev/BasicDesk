@@ -5,6 +5,7 @@ using BasicDesk.App.Helpers.Messages;
 using BasicDesk.Common.Constants;
 using BasicDesk.Data;
 using BasicDesk.Models;
+using BasicDesk.Models.Requests;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -54,7 +55,7 @@ namespace BasicDesk.App.Areas.Management.Pages.Requests
             this.ViewModel.Subject = request.Subject;
             this.ViewModel.Description = request.Description;
             this.ViewModel.CreatedOn = request.StartTime.ToString();
-            this.ViewModel.Attachment = request.Attachments.FirstOrDefault();
+            this.ViewModel.Attachments = request.Attachments;
             this.ViewModel.Author = request.Requester.FullName;
             this.ViewModel.AuthorId = request.RequesterId;
             this.ViewModel.Resolution = request.Resolution;

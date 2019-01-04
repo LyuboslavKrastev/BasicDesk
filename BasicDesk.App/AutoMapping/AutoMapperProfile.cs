@@ -5,6 +5,7 @@ using BasicDesk.App.Models.BindingModels;
 using BasicDesk.App.Models.ViewModels;
 using BasicDesk.Models;
 using System.Linq;
+using BasicDesk.Models.Requests;
 
 namespace BasicDesk.App.AutoMapping
 {
@@ -15,7 +16,9 @@ namespace BasicDesk.App.AutoMapping
             this.CreateMap<User, UserConciseViewModel>();
             this.CreateMap<User, UserDetailsViewModel>();
             this.CreateMap<RequestCreationBindingModel, Request>()
-                .ForMember(r => r.CategoryId, opt => opt.MapFrom(r => r.CategoryId));
+                .ForMember(r => r.CategoryId, opt => opt.MapFrom(r => r.CategoryId))
+                .ForMember(r => r.Attachments, opt => opt.Ignore());
+            ;
 
             this.CreateMap<Request, RequestListingViewModel>()
                 .ForMember(r => r.Requester, opt => opt.MapFrom(req => req.Requester.FullName))
@@ -31,7 +34,7 @@ namespace BasicDesk.App.AutoMapping
                 .ForMember(r => r.Status, opt => opt.MapFrom(req => req.Status.Name))
                 .ForMember(r => r.Author, opt => opt.MapFrom(req => req.Requester.FullName))
                 .ForMember(r => r.Category, opt => opt.MapFrom(req => req.Category.Name))
-                .ForMember(r => r.Attachment, opt => opt.MapFrom(req => req.Attachments.FirstOrDefault()));
+                .ForMember(r => r.Attachments, opt => opt.MapFrom(req => req.Attachments));
 
             this.CreateMap<CategoryCreationBindingModel, RequestCategory>();
             this.CreateMap<RequestCategory, CategoryViewModel>();

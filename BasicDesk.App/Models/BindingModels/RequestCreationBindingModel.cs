@@ -26,6 +26,7 @@ namespace BasicDesk.App.Models.BindingModels
 
         public ICollection<SelectListItem> Categories { get; set; } = new List<SelectListItem>();
 
-        public IFormFile Attachment { get; set; }
+        [DataType(DataType.Upload)]
+        public ICollection<IFormFile> Attachments { get; set; }
     }
 }

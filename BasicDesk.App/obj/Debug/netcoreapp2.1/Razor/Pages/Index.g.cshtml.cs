@@ -99,7 +99,7 @@ using BasicDesk.App.Models.ViewModels;
             WriteLiteral("    <div class=\"jumbotron text-center\">\r\n        <h1>BasicDesk</h1>\r\n        <h2>Helpdesk Management System</h2>\r\n        <hr class=\"bg-dark\" />\r\n        <p>");
             EndContext();
             BeginContext(287, 59, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e75523a27b7344929eed807d4bb2508b", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a3bb00665249468393a16642a1017702", async() => {
                 BeginContext(336, 6, true);
                 WriteLiteral("Login ");
                 EndContext();
@@ -123,7 +123,7 @@ using BasicDesk.App.Models.ViewModels;
             WriteLiteral(" if you have an account.</p>\r\n        <p>");
             EndContext();
             BeginContext(387, 65, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "489553347a4b4ace889ee7ec7db96c47", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e13cb930550c49dc9ac965972e2028ef", async() => {
                 BeginContext(439, 9, true);
                 WriteLiteral("Register ");
                 EndContext();
@@ -167,7 +167,7 @@ else
             WriteLiteral("!</h2>\r\n            <hr />\r\n        </div>\r\n        <div class=\"col-sm-12\">\r\n            <div class=\"text-center\">\r\n                ");
             EndContext();
             BeginContext(759, 181, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8cb4f91c9ba948b1bfce9c853faba65e", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "494d7fe38a8e4b7db3d56b37389f94d3", async() => {
                 BeginContext(851, 85, true);
                 WriteLiteral("\r\n                    Create Request <i class=\"glyphicon-plus\"></i>\r\n                ");
                 EndContext();
@@ -202,7 +202,7 @@ else
                     ");
             EndContext();
             BeginContext(1219, 113, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "243cbb24de524e53afd3fbf2f5cb6293", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4fb24004eeba4526be3c7b79e0551e07", async() => {
                 BeginContext(1324, 4, true);
                 WriteLiteral("View");
                 EndContext();
@@ -233,7 +233,7 @@ else
             WriteLiteral("\r\n                </div>\r\n\r\n            </div>\r\n\r\n            <div class=\"card col-sm-4 text-center\">\r\n                <h3 class=\"card-header\">My Closed Requests</h3>\r\n                <div class=\"card-body\">\r\n                    ");
             EndContext();
             BeginContext(1561, 115, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3dea22220eaf465c8d13d60dbc6741c4", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f9257092eabf4f358985012b5806a7d9", async() => {
                 BeginContext(1668, 4, true);
                 WriteLiteral("View");
                 EndContext();
@@ -264,7 +264,7 @@ else
             WriteLiteral("\r\n                </div>\r\n            </div>\r\n            <div class=\"card col-sm-4 text-center\">\r\n                <h3 class=\"card-header text-ce\">All Requests</h3>\r\n                <div class=\"card-body\">\r\n                    ");
             EndContext();
             BeginContext(1903, 80, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e7d28377e6e241769087d8dff3898b99", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4ddd10a8f023474ab459cd35ef0467f7", async() => {
                 BeginContext(1975, 4, true);
                 WriteLiteral("View");
                 EndContext();

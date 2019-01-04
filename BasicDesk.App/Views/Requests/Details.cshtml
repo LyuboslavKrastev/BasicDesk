@@ -35,15 +35,19 @@
             </div>
         </div>
 
-        @if (Model.Attachment != null)
+        @if (Model.Attachments != null)
         {
             <div class="panel-footer clearfix">
                 <div class="text-center">
-                    <label asp-for="@Model.Attachment">Attachment: </label>
-                    <a asp-controller="Requests" asp-action="Download"
-                       asp-route-filename="@Model.Attachment.FileName" asp-route-filePath="@Model.Attachment.PathToFile" asp-route-requestId="@Model.Id">
-                        @Model.Attachment.FileName
-                    </a>
+                    @foreach (var attachment in Model.Attachments)
+                    {
+                        <label asp-for="@attachment">Attachment: </label>
+                        <a asp-controller="Requests" asp-action="Download"
+                           asp-route-filename="@attachment.FileName" asp-route-filePath="@attachment.PathToFile" asp-route-requestId="@Model.Id">
+                            @attachment.FileName
+                        </a>
+                        <br />
+                    }
                 </div>
             </div>
         }

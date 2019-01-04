@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace BasicDesk.Models
+namespace BasicDesk.Models.Requests
 {
     public class Request
     {
@@ -39,7 +39,7 @@ namespace BasicDesk.Models
         public ICollection<RequestAttachment> Attachments { get; set; } = new List<RequestAttachment>();
 		
 		//new additions
-		//public ICollection<RequestNotes> Notes { get; set; } = new List<RequestNotes>(); // note userid content
+		public ICollection<RequestNote> Notes { get; set; } = new List<RequestNote>(); // note userid content
 		public string Resolution {get; set;}
 		//public string History {get; set;}
     }

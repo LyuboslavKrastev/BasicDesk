@@ -7,6 +7,7 @@ using BasicDesk.App.Models.ViewModels;
 using BasicDesk.Common.Constants;
 using BasicDesk.Data;
 using BasicDesk.Models;
+using BasicDesk.Models.Requests;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -107,21 +108,8 @@ namespace BasicDesk.App.Controllers
 
             this.dbContext.Requests.Add(request);
 
-            if (model.Attachment != null)
+            if (model.Attachments != null)
             {
-                var extension = model.Attachment.FileName.Split('.').Last();
-                var isAllowedFileFormat = FileFormatValidator.IsValidFormat(extension);
-
-                if (!isAllowedFileFormat)
-                {
-                    this.TempData.Put("__Message", new MessageModel()
-                    {
-                        Type = MessageType.Danger,
-                        Message = "Forbidden file type!"
-                    });
-                    return this.Create();
-                }
-
                 await CreateAttachmentAsync(model, request);
             }
 
@@ -221,18 +209,34 @@ namespace BasicDesk.App.Controllers
 
         private async Task CreateAttachmentAsync(RequestCreationBindingModel model, Request request)
         {
-            string path = Path.Combine(Directory.GetCurrentDirectory(), "Files", "Requests", model.Attachment.FileName);
-            var fileStream = new FileStream(path, FileMode.Create);
-            using (fileStream)
+            foreach (var attachment in model.Attachments)
             {
-                await model.Attachment.CopyToAsync(fileStream);
+                var extension = attachment.FileName.Split('.').Last();
+                var isAllowedFileFormat = FileFormatValidator.IsValidFormat(extension);
+
+                if (!isAllowedFileFormat)
+                {
+                    this.TempData.Put("__Message", new MessageModel()
+                    {
+                        Type = MessageType.Danger,
+                        Message = "Forbidden file type!"
+                    });
+                    return;
+                }
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "Files", "Requests", attachment.FileName);
+                var fileStream = new FileStream(path, FileMode.Create);
+                using (fileStream)
+                {
+                    await attachment.CopyToAsync(fileStream);
+                }
+                this.dbContext.RequestAttachments.Add(new RequestAttachment
+                {
+                    FileName = attachment.FileName,
+                    PathToFile = path,
+                    RequestId = request.Id
+                });
+
             }
-            this.dbContext.RequestAttachments.Add(new RequestAttachment
-            {
-                FileName = model.Attachment.FileName,
-                PathToFile = path,
-                RequestId = request.Id
-            });
         }
 
         private string GetContentType(string path)
