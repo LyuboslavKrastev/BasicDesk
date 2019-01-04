@@ -40,7 +40,7 @@ namespace BasicDesk.Models
 		
 		//new additions
 		//public ICollection<RequestNotes> Notes { get; set; } = new List<RequestNotes>(); // note userid content
-		//public string Resolution {get; set;}
+		public string Resolution {get; set;}
 		//public string History {get; set;}
     }
 }

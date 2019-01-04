@@ -57,6 +57,7 @@ namespace BasicDesk.App.Areas.Management.Pages.Requests
             this.ViewModel.Attachment = request.Attachments.FirstOrDefault();
             this.ViewModel.Author = request.Requester.FullName;
             this.ViewModel.AuthorId = request.RequesterId;
+            this.ViewModel.Resolution = request.Resolution;
 
             SetStatusSelectList(request);
 

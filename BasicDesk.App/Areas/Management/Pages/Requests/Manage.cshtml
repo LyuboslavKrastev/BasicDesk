@@ -57,25 +57,28 @@
             </div>
         </div>
     </div>
+    </form>
 
     <div class="panel-group" id="resolution" style="display:none">
         <div class="panel">
             <div class="panel-heading clearfix">
                 <div class="pull-left"><strong>Resolution</strong></div>
             </div>
-            <div class="panel-body">
-                <textarea class="form-control" rows="3" style="resize:none;"></textarea>
-            </div>
-            <div class="panel-footer clearfix">
-                <div class="col-md-offset-6">
-                    <button id="btn_edit" class="btn btn-success">Save</button>
-                    <button id="btn_edit" class="btn btn-warning">Edit</button>
+            <form asp-area="" asp-controller="Requests" asp-action="SaveResolution" method="post">
+                <div class="panel-body">
+                    <input style="display:none" name="reqId" value="@Model.ViewModel.Id" />
+                    <textarea disabled class="form-control" rows="3" style="resize:none;" id="resol" name="resol">@Model.ViewModel.Resolution</textarea>
 
                 </div>
-            </div>
+                <div class="panel-footer clearfix">
+                    <div class="col-md-offset-6">
+                        <button class="btn btn-success" type="submit">Save</button>
+                    </div>
+                </div>
+            </form>
+            <button id="btn_edit" class="btn btn-warning">Edit</button>
         </div>
     </div>
-
     <div class="panel-group" id="history" style="display:none">
         <div class="panel">
             <div class="panel-heading clearfix">
@@ -84,7 +87,6 @@
             <div class="panel-body"><p>Model.History</p></div>
         </div>
     </div>
-</form>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -115,4 +117,11 @@
         $('#btn_res').removeClass('btn-danger');
         $('#btn_hist').addClass('btn-danger');
     });
+    $('#btn_edit').on('click', function () {
+        $('#resol').removeAttr('disabled');
+    });
+    $('#btn_save').on('click', function () {
+        $('#resol').attr('disabled');
+    });
 </script>
+

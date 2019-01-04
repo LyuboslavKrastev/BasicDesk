@@ -1,4 +1,5 @@
 ﻿using System;
+using X.PagedList;
 
 namespace BasicDesk.App.Models.ViewModels
 {
@@ -15,11 +16,11 @@ namespace BasicDesk.App.Models.ViewModels
         public string CurrentSort { get; set; }
         public string CurrentSearch { get; set; }
 
-        public RequestListingViewModel [] RequestViews { get; set; }
+        public IPagedList<RequestListingViewModel> RequestViews { get; set; }
 
         public void ConfigureSorting(string sortOrder)
         {
-            this.NameSort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            this.NameSort = sortOrder == "Name"? "name_desc" : "Name";
             this.StartDateSort = sortOrder == "StartDate" ? "startDate_desc" : "StartDate";
             this.EndDateSort = sortOrder == "EndDate" ? "endDate_desc" : "EndDate";
             this.IdSort = sortOrder == "Id" ? "id_desc" : "Id";

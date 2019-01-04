@@ -1,4 +1,7 @@
 ﻿@model RequestSortingViewModel
+@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+
 @{
     ViewData["Title"] = "Index";
 }
@@ -6,10 +9,10 @@
 <h3 class="text-center text-info">Requests</h3>
 <div>
     <div class="btn-group btn-group-toggle">
-    <a asp-area="" asp-controller="Requests" class="btn btn-success" asp-action="Index" asp-route-currentFilter="MyOpen">My Open Requests</a>
-    <a asp-area="" asp-controller="Requests" class="btn btn-success" asp-action="Index" asp-route-currentFilter="MyClosed">My Closed Requests</a>
-    <a asp-controller="Requests" asp-action="Index" class="btn btn-success">View All Requests</a>
-     </div>
+        <a asp-area="" asp-controller="Requests" class="btn btn-success" asp-action="Index" asp-route-currentFilter="MyOpen">My Open Requests</a>
+        <a asp-area="" asp-controller="Requests" class="btn btn-success" asp-action="Index" asp-route-currentFilter="MyClosed">My Closed Requests</a>
+        <a asp-controller="Requests" asp-action="Index" class="btn btn-success">View All Requests</a>
+    </div>
     <form asp-controller="Requests" asp-action="Index" method="get" class="pull-right input-group">
         <input class="text-right " type="text" placeholder="Search" name="SearchString" value="@Model.CurrentSearch" />
         <button class="btn btn-default">Search</button>
@@ -91,3 +94,11 @@
         }
     </tbody>
 </table>
+
+@{
+    var sortOrder = Model.CurrentSort;
+    var searchString = Model.CurrentSearch;
+    var currentFilter = Model.CurrentFilter;
+}
+
+@Html.PagedListPager(Model.RequestViews, page => Url.Action("Index", "Requests", new {sortOrder, searchString, currentFilter, page }))

@@ -37,6 +37,8 @@ namespace BasicDesk.App.Data.Migrations
 
                     b.Property<string>("RequesterId");
 
+                    b.Property<string>("Resolution");
+
                     b.Property<DateTime>("StartTime");
 
                     b.Property<int>("StatusId");

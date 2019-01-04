@@ -22,7 +22,6 @@ C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.N
 C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.App\obj\Debug\netcoreapp2.1\BasicDesk.App.csproj.CoreCompileInputs.cache
 C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.App\obj\Debug\netcoreapp2.1\BasicDesk.App.RazorAssemblyInfo.cache
 C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.App\obj\Debug\netcoreapp2.1\BasicDesk.App.RazorAssemblyInfo.cs
-C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.App\obj\Debug\netcoreapp2.1\UserSecretsAssemblyInfo.cs
 C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.App\obj\Debug\netcoreapp2.1\BasicDesk.App.AssemblyInfoInputs.cache
 C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.App\obj\Debug\netcoreapp2.1\BasicDesk.App.AssemblyInfo.cs
 C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.App\obj\Debug\netcoreapp2.1\BasicDesk.App.TagHelpers.input.cache
@@ -101,3 +100,4 @@ C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.N
 C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.App\obj\Debug\netcoreapp2.1\BasicDesk.App.dll
 C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.App\obj\Debug\netcoreapp2.1\BasicDesk.App.pdb
 C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.App\obj\Debug\netcoreapp2.1\Razor\Areas\Management\Pages\Reports\Index.g.cshtml.cs
+C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.App\obj\Debug\netcoreapp2.1\UserSecretsAssemblyInfo.cs

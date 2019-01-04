@@ -9,7 +9,6 @@
     <h2  class="text-center">@ViewData["Title"]</h2>
     <section>
         <form method="post">
-            <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Input.Username"></label>
@@ -30,15 +29,11 @@
                 </div>
             </div>
             <div class="form-group">
-                <button type="submit" class="btn-lg btn-success col-md-offset-5">Log in</button>
+                <button type="submit" class="btn btn-block btn-success">Log in</button>
             </div>
             <div class="form-group">
-                <p>
-                    <a asp-page="./ForgotPassword">Forgot your password?</a>
-                </p>
-                <p>
-                    <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
-                </p>
+                    <a asp-page="./ForgotPassword" class="pull-left">Forgot your password?</a>
+                    <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="pull-right">Register as a new user</a>
             </div>
         </form>
     </section>

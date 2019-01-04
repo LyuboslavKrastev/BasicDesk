@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BasicDesk.App.Areas.Management.Models.ViewModels;
 using BasicDesk.App.Common;
 using BasicDesk.App.Helpers.Messages;
 using BasicDesk.App.Models.BindingModels;
@@ -16,6 +17,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using X.PagedList;
 
 namespace BasicDesk.App.Controllers
 {
@@ -38,9 +40,12 @@ namespace BasicDesk.App.Controllers
         public RequestSortingViewModel RequestSorter { get; set; }
 
         [HttpGet]
-        public IActionResult Index(string sortOrder, string searchString, string currentFilter, int? pageIndex)
+        public IActionResult Index(string sortOrder, string searchString, string currentFilter, int? page, int? requestsPerPage)
         {
             ICollection<Request> requests;
+
+            var pageNumber = page ?? 1;
+            int requestsCount = requestsPerPage ?? 10;
 
             RequestSorter.CurrentSort = sortOrder;
             RequestSorter.CurrentFilter = currentFilter;
@@ -63,7 +68,9 @@ namespace BasicDesk.App.Controllers
             requests = this.SortRequests(requests, sortOrder);
 
 
-            this.RequestSorter.RequestViews = this.mapper.Map<ICollection<RequestListingViewModel>>(requests).ToArray();
+            var requestViewModels = this.mapper.Map<ICollection<RequestListingViewModel>>(requests).ToPagedList(pageNumber, requestsCount);
+
+            this.RequestSorter.RequestViews = requestViewModels;
 
             return this.View(this.RequestSorter);
         }
@@ -130,12 +137,13 @@ namespace BasicDesk.App.Controllers
         }
 
 
+
         public async Task<IActionResult> Details(string id)
         {
 
             var resuestDetailsViewModel =  await GetRequestDetailsAsync(int.Parse(id));
 
-            if (User.IsInRole("Administrator"))
+            if (User.IsInRole("Administrator") || User.IsInRole("HelpdeskAgent"))
             {
                 return this.Redirect($"/Management/Requests/Manage?id={id}");
             }
@@ -143,6 +151,23 @@ namespace BasicDesk.App.Controllers
             {
                 return this.View(resuestDetailsViewModel);
             }
+        }
+
+        [HttpPost]
+        public IActionResult SaveResolution(int reqId, string resol)
+        {
+            var req = this.dbContext.Requests.FirstOrDefault(r => r.Id == reqId);
+
+            req.Resolution = resol;
+
+            dbContext.SaveChanges();
+
+            this.TempData.Put("__Message", new MessageModel()
+            {
+                Type = MessageType.Success,
+                Message = $"Successfully saved resolution for request {reqId}"
+            });
+            return this.Redirect($"/Management/Requests/Manage?id={reqId}");
         }
 
         private async Task<RequestDetailsViewModel> GetRequestDetailsAsync (int id)
@@ -221,6 +246,8 @@ namespace BasicDesk.App.Controllers
         {
             switch (sortOrder)
             {
+                case "Name":
+                    return requests.OrderBy(s => s.Requester.FullName).ToArray();
                 case "name_desc":
                     return requests.OrderByDescending(s => s.Requester.FullName).ToArray();
                 case "StartDate":

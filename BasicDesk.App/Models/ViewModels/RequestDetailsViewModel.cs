@@ -22,6 +22,8 @@ namespace BasicDesk.App.Models.ViewModels
 
         public string Category { get; set; }
 
+        public string Resolution { get; set; }
+
         public RequestAttachment Attachment { get; set; }
     }
 }

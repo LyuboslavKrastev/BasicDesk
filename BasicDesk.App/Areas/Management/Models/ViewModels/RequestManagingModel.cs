@@ -18,6 +18,8 @@ namespace BasicDesk.App.Areas.Management.Models.ViewModels
 
         public string Author { get; set; }
 
+        public string Resolution { get; set; }
+
         public RequestAttachment Attachment { get; set; }
 
         public ICollection<SelectListItem> Categories { get; set; } = new List<SelectListItem>();

@@ -3,45 +3,46 @@ using BasicDesk.Data;
 using BasicDesk.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BasicDesk.App.Areas.Management.Pages.Reports
 {
     public class ReportModel : BasePageModel
     {
+        private class UserRequestsViewModel
+        {
+            public string Name { get; set; }
+            public int RequestsCount { get; set; }
+        }
+        private readonly BasicDeskDbContext dbContext;
 
         public List<ReportViewModel> Model { get; set; }
 
-        public ReportModel()
+        public ReportModel(BasicDeskDbContext dbContext)
         {
             this.Model = new List<ReportViewModel>();
+            this.dbContext = dbContext;
         }
 
         public IActionResult OnGet()
         {
-            Random rnd = new Random();
-
-            var rep = new ReportViewModel();
-            rep.DimensionOne = "hi";
-            rep.Quantity = 5;
-            Model.Add(rep);
-            Model.Add(new ReportViewModel {
-                DimensionOne = "gr8 success",
-                Quantity = 100
-            });
-
-            Model.Add(new ReportViewModel
+            var users = this.dbContext.Users.Select(u => new UserRequestsViewModel
             {
-                DimensionOne = "gr8er success",
-                Quantity = 150
-            });
+                Name = u.FullName,
+                RequestsCount = u.Requests.Count()
+            }).ToArray();
 
-            Model.Add(new ReportViewModel
+            foreach (var user in users)
             {
-                DimensionOne = "m@x success",
-                Quantity = 200
-            });
+                Model.Add(new ReportViewModel
+                {
+                    DimensionOne = user.Name,
+                    Quantity = user.RequestsCount
+                });
+            }
 
             TempData["Type"] = "bar";
 

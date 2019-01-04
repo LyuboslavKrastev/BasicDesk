@@ -2,7 +2,7 @@
  <nav class="navbar-inverse navbar-fixed-top">
      <div class="container-fluid">
          <div class="navbar-header">
-             <a class="navbar-brand" href="/requests">BasicDesk</a>
+             <a class="navbar-brand" href="/">BasicDesk</a>
          </div>
          <ul class="nav navbar-nav">
              <li class="dropdown">
@@ -32,6 +32,11 @@
                      </ul>
                  </li>
              }
+                 <li class="pull-right">
+                             <a asp-area="" asp-controller="Requests" asp-action="Create">
+                                 Create Request <i class="glyphicon-plus"></i>
+                             </a>
+                 </li>
          </ul>
          <partial name="_LoginPartial" />
      </div>
