@@ -32,3 +32,5 @@ C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.N
 C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Tests\obj\Debug\netcoreapp2.1\BasicDesk.Tests.csproj.CopyComplete
 C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Tests\obj\Debug\netcoreapp2.1\BasicDesk.Tests.dll
 C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Tests\obj\Debug\netcoreapp2.1\BasicDesk.Tests.pdb
+C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Tests\bin\Debug\netcoreapp2.1\BasicDesk.Services.dll
+C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Tests\bin\Debug\netcoreapp2.1\BasicDesk.Services.pdb

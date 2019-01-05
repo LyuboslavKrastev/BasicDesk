@@ -4715,6 +4715,19 @@
         "runtime": {
           "bin/placeholder/BasicDesk.Models.dll": {}
         }
+      },
+      "BasicDesk.Services/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.1",
+        "dependencies": {
+          "BasicDesk.Data": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/BasicDesk.Services.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BasicDesk.Services.dll": {}
+        }
       }
     }
   },
@@ -12423,6 +12436,11 @@
       "type": "project",
       "path": "../BasicDesk.Models/BasicDesk.Models.csproj",
       "msbuildProject": "../BasicDesk.Models/BasicDesk.Models.csproj"
+    },
+    "BasicDesk.Services/1.0.0": {
+      "type": "project",
+      "path": "../BasicDesk.Services/BasicDesk.Services.csproj",
+      "msbuildProject": "../BasicDesk.Services/BasicDesk.Services.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -12431,6 +12449,7 @@
       "BasicDesk.Common >= 1.0.0",
       "BasicDesk.Data >= 1.0.0",
       "BasicDesk.Models >= 1.0.0",
+      "BasicDesk.Services >= 1.0.0",
       "Microsoft.AspNetCore.App >= 2.1.1",
       "Microsoft.NETCore.App >= 2.1.0",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.1.1",
@@ -12476,6 +12495,9 @@
             },
             "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Models\\BasicDesk.Models.csproj": {
               "projectPath": "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Models\\BasicDesk.Models.csproj"
+            },
+            "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Services\\BasicDesk.Services.csproj": {
+              "projectPath": "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Services\\BasicDesk.Services.csproj"
             }
           }
         }

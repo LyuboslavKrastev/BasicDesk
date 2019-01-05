@@ -14,6 +14,8 @@ using System.Linq;
 using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using BasicDesk.Models.Requests;
+using BasicDesk.Services;
 
 namespace BasicDesk.Tests.RequestsControllerTests
 {
@@ -21,6 +23,7 @@ namespace BasicDesk.Tests.RequestsControllerTests
     public class IndexTests
     {
         private BasicDeskDbContext dbContext;
+        private RequestService requestservice;
 
         [TestInitialize]
         public void InitializeTests()
@@ -75,7 +78,7 @@ namespace BasicDesk.Tests.RequestsControllerTests
 
             var mockUserManager = TestsUserManager.GetUserManager();
 
-            var controller = new RequestsController(this.dbContext, TestsAutoMapper.GetMapper(), mockUserManager.Object);
+            var controller = new RequestsController(this.dbContext, TestsAutoMapper.GetMapper(), mockUserManager.Object, requestservice);
 
             controller.ControllerContext = new ControllerContext
             {
@@ -88,7 +91,7 @@ namespace BasicDesk.Tests.RequestsControllerTests
                 }
             };
 
-            var result = controller.Index("", "", "", null) as ViewResult;
+            var result = controller.Index("", "", "", null, 1) as ViewResult;
 
             var model = result.Model as RequestSortingViewModel;
 
@@ -135,7 +138,7 @@ namespace BasicDesk.Tests.RequestsControllerTests
             mockUserManager.Setup(um => um.GetUserId(It.IsAny<ClaimsPrincipal>()))
                 .Returns("123");
 
-            var controller = new RequestsController(this.dbContext, TestsAutoMapper.GetMapper(), mockUserManager.Object);
+            var controller = new RequestsController(this.dbContext, TestsAutoMapper.GetMapper(), mockUserManager.Object, requestservice);
 
             controller.ControllerContext = new ControllerContext
             {
@@ -148,7 +151,7 @@ namespace BasicDesk.Tests.RequestsControllerTests
                 }
             };
 
-            var result = controller.Index("", "", "MyOpen", null) as ViewResult;
+            var result = controller.Index("", "", "MyOpen", null, 1) as ViewResult;
 
             var model = result.Model as RequestSortingViewModel;
 
@@ -199,7 +202,7 @@ namespace BasicDesk.Tests.RequestsControllerTests
             mockUserManager.Setup(um => um.GetUserId(It.IsAny<ClaimsPrincipal>()))
                 .Returns("123");
 
-            var controller = new RequestsController(this.dbContext, TestsAutoMapper.GetMapper(), mockUserManager.Object);
+            var controller = new RequestsController(this.dbContext, TestsAutoMapper.GetMapper(), mockUserManager.Object, requestservice);
 
             controller.ControllerContext = new ControllerContext
             {
@@ -212,7 +215,7 @@ namespace BasicDesk.Tests.RequestsControllerTests
                 }
             };
 
-            var result = controller.Index("", "", "MyClosed", null) as ViewResult;
+            var result = controller.Index("", "", "MyClosed", null, null) as ViewResult;
 
             var model = result.Model as RequestSortingViewModel;
 

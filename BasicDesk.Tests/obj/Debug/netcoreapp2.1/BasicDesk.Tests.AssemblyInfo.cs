@@ -19,6 +19,8 @@ using System.Reflection;
     "T-Core\\BasicDesk.Data", "BasicDesk.Data.csproj", "0")]
 [assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("BasicDesk.Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NE" +
     "T-Core\\BasicDesk.Models", "BasicDesk.Models.csproj", "0")]
+[assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("BasicDesk.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NE" +
+    "T-Core\\BasicDesk.Services", "BasicDesk.Services.csproj", "0")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("BasicDesk.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]

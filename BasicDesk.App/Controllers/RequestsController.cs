@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using BasicDesk.App.Areas.Management.Models.ViewModels;
 using BasicDesk.App.Common;
 using BasicDesk.App.Helpers.Messages;
 using BasicDesk.App.Models.BindingModels;
@@ -8,6 +7,7 @@ using BasicDesk.Common.Constants;
 using BasicDesk.Data;
 using BasicDesk.Models;
 using BasicDesk.Models.Requests;
+using BasicDesk.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -28,13 +28,16 @@ namespace BasicDesk.App.Controllers
         private readonly BasicDeskDbContext dbContext;
         private readonly IMapper mapper;
         private readonly UserManager<User> userManager;
+        private RequestService requestService;
+        private string userId;
+        private bool isTechnician;
 
-        public RequestsController(BasicDeskDbContext dbContext, IMapper mapper, UserManager<User> userManager)
+        public RequestsController(BasicDeskDbContext dbContext, IMapper mapper, UserManager<User> userManager, RequestService requestService)
         {
             this.dbContext = dbContext;
             this.mapper = mapper;
             this.userManager = userManager;
-
+            this.requestService = requestService;
             this.RequestSorter = new RequestSortingViewModel();
         }
 
@@ -43,7 +46,10 @@ namespace BasicDesk.App.Controllers
         [HttpGet]
         public IActionResult Index(string sortOrder, string searchString, string currentFilter, int? page, int? requestsPerPage)
         {
-            ICollection<Request> requests;
+            userId = userManager.GetUserId(User);
+            isTechnician = User.IsInRole(WebConstants.AdminRole) || User.IsInRole(WebConstants.HelpdeskRole);
+
+            IEnumerable<Request> requests;
 
             var pageNumber = page ?? 1;
             int requestsCount = requestsPerPage ?? 10;
@@ -55,18 +61,18 @@ namespace BasicDesk.App.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                requests = GetSearchResults(searchString);
+                requests = this.requestService.GetBySearch(userId, isTechnician, searchString);
             }
             else if (!String.IsNullOrEmpty(currentFilter))
             {
-                requests = GetFilteredrequests(currentFilter);
+                requests = this.requestService.GetByFilter(userId, isTechnician, currentFilter);
             }
             else
             {
-                requests = GetAllRequests();
+                requests = this.requestService.GetAll(userId, isTechnician);
             }
 
-            requests = this.SortRequests(requests, sortOrder);
+            requests = this.SortRequests(requests, sortOrder).ToArray();
 
 
             var requestViewModels = this.mapper.Map<ICollection<RequestListingViewModel>>(requests).ToPagedList(pageNumber, requestsCount);
@@ -107,10 +113,16 @@ namespace BasicDesk.App.Controllers
             request.StatusId = openStatusId;
 
             this.dbContext.Requests.Add(request);
-
+            string failedAttachments = string.Empty;
             if (model.Attachments != null)
             {
-                await CreateAttachmentAsync(model, request);
+                failedAttachments = await CreateAttachmentAsync(model, request);
+            }
+
+            string message = "Request created successfully";
+            if(failedAttachments != string.Empty)
+            {
+                message += failedAttachments;
             }
 
             this.dbContext.SaveChanges();
@@ -118,7 +130,7 @@ namespace BasicDesk.App.Controllers
             this.TempData.Put("__Message", new MessageModel()
             {
                 Type = MessageType.Success,
-                Message = "Request created successfully"
+                Message = message
             });
 
             return this.RedirectToAction("Details", new { id = request.Id.ToString()});
@@ -207,8 +219,9 @@ namespace BasicDesk.App.Controllers
             }
         }
 
-        private async Task CreateAttachmentAsync(RequestCreationBindingModel model, Request request)
+        private async Task<string> CreateAttachmentAsync(RequestCreationBindingModel model, Request request)
         {
+            string failedAttachments = string.Empty;
             foreach (var attachment in model.Attachments)
             {
                 var extension = attachment.FileName.Split('.').Last();
@@ -216,12 +229,9 @@ namespace BasicDesk.App.Controllers
 
                 if (!isAllowedFileFormat)
                 {
-                    this.TempData.Put("__Message", new MessageModel()
-                    {
-                        Type = MessageType.Danger,
-                        Message = "Forbidden file type!"
-                    });
-                    return;
+                    failedAttachments += Environment.NewLine;
+                    failedAttachments += $"{attachment.FileName} failed to upload because the file format is forbidden.";               
+                    continue;
                 }
                 string path = Path.Combine(Directory.GetCurrentDirectory(), "Files", "Requests", attachment.FileName);
                 var fileStream = new FileStream(path, FileMode.Create);
@@ -237,6 +247,7 @@ namespace BasicDesk.App.Controllers
                 });
 
             }
+            return failedAttachments;
         }
 
         private string GetContentType(string path)
@@ -246,7 +257,7 @@ namespace BasicDesk.App.Controllers
             return types[ext];
         }
 
-        private ICollection<Request> SortRequests(ICollection<Request> requests, string sortOrder)
+        private IEnumerable<Request> SortRequests(IEnumerable<Request> requests, string sortOrder)
         {
             switch (sortOrder)
             {
@@ -281,84 +292,6 @@ namespace BasicDesk.App.Controllers
                 default:
                     return requests.OrderByDescending(s => s.Id).ToArray();
             }
-        }
-
-        private Request[] GetSearchResults(string searchString)
-        {
-            Request[] requests;
-
-            if (User.IsInRole(WebConstants.AdminRole) || User.IsInRole(WebConstants.HelpdeskRole))
-            {
-                    requests = this.dbContext.Requests
-                   .Where(a => a.Subject.Contains(searchString))
-                   .Include(r => r.Requester)
-                   .Include(r => r.Status)
-                   .Include(r => r.AssignedTo)
-                   .ToArray(); 
-            }
-            else
-            {
-                var userId = userManager.GetUserId(User);
-                    requests = this.dbContext.Requests
-                   .Where(r => r.RequesterId == userId)
-                   .Where(a => a.Subject.Contains(searchString))
-                   .Include(r => r.Requester)
-                   .Include(r => r.AssignedTo)
-                   .Include(r => r.Status)
-                   .ToArray();
-            }
-
-            return requests;
-        }
-
-        private ICollection<Request> GetFilteredrequests(string currentFilter)
-        {
-            switch (currentFilter)
-            {
-                case "MyClosed":
-                    var currentUserId = this.userManager.GetUserId(User);
-                    return this.dbContext.Requests
-                        .Where(r => r.RequesterId == currentUserId)
-                        .Include(r => r.Status)
-                        .Where(r => r.Status.Name == "Closed" || r.Status.Name == "Rejected")
-                        .Include(r => r.AssignedTo)
-                        .Include(r => r.Requester).ToArray();
-                case "MyOpen":
-                    currentUserId = this.userManager.GetUserId(User);
-                    return this.dbContext.Requests                     
-                        .Include(r => r.Status)
-                        .Where(r => r.RequesterId == currentUserId).Where(r => r.Status.Name != "Closed" && r.Status.Name != "Rejected")
-                        .Include(r => r.AssignedTo)
-                        .Include(r => r.Requester).ToArray();
-                default:
-                    return GetAllRequests();
-            }
-        }
-
-        private Request[] GetAllRequests()
-        {
-            Request[] requests;
-
-            if(User.IsInRole(WebConstants.AdminRole) || User.IsInRole(WebConstants.HelpdeskRole))
-            {
-                requests = this.dbContext.Requests
-               .Include(r => r.Requester)
-               .Include(r => r.Status)
-               .Include(r => r.AssignedTo)
-               .ToArray();
-            }
-            else
-            {
-                var userId = userManager.GetUserId(User);
-                requests = this.dbContext.Requests
-               .Where(r => r.RequesterId == userId)
-               .Include(r => r.Requester)
-               .Include(r => r.AssignedTo)
-               .Include(r => r.Status)
-               .ToArray();
-            }
-
-            return requests;
         }
     }
 }

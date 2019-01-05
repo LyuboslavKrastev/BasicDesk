@@ -1045,6 +1045,7 @@
           "BasicDesk.Common": "1.0.0",
           "BasicDesk.Data": "1.0.0",
           "BasicDesk.Models": "1.0.0",
+          "BasicDesk.Services": "1.0.0",
           "Microsoft.NETCore.App": "2.1.0",
           "Sendgrid": "9.9.0",
           "X.PagedList.Mvc.Core": "7.6.0"
@@ -1087,6 +1088,17 @@
         },
         "compile": {
           "BasicDesk.Models.dll": {}
+        }
+      },
+      "BasicDesk.Services/1.0.0": {
+        "dependencies": {
+          "BasicDesk.Data": "1.0.0"
+        },
+        "runtime": {
+          "BasicDesk.Services.dll": {}
+        },
+        "compile": {
+          "BasicDesk.Services.dll": {}
         }
       },
       "Microsoft.AspNet.WebApi.Client/5.2.6": {
@@ -4220,6 +4232,11 @@
       "sha512": ""
     },
     "BasicDesk.Models/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BasicDesk.Services/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

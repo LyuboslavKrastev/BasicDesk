@@ -4994,6 +4994,7 @@
           "BasicDesk.Common": "1.0.0",
           "BasicDesk.Data": "1.0.0",
           "BasicDesk.Models": "1.0.0",
+          "BasicDesk.Services": "1.0.0",
           "Microsoft.NETCore.App": "2.1.0",
           "Sendgrid": "9.9.0",
           "X.PagedList.Mvc.Core": "7.6.0"
@@ -5042,6 +5043,19 @@
         },
         "runtime": {
           "bin/placeholder/BasicDesk.Models.dll": {}
+        }
+      },
+      "BasicDesk.Services/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.1",
+        "dependencies": {
+          "BasicDesk.Data": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/BasicDesk.Services.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BasicDesk.Services.dll": {}
         }
       }
     }
@@ -13345,6 +13359,11 @@
       "type": "project",
       "path": "../BasicDesk.Models/BasicDesk.Models.csproj",
       "msbuildProject": "../BasicDesk.Models/BasicDesk.Models.csproj"
+    },
+    "BasicDesk.Services/1.0.0": {
+      "type": "project",
+      "path": "../BasicDesk.Services/BasicDesk.Services.csproj",
+      "msbuildProject": "../BasicDesk.Services/BasicDesk.Services.csproj"
     }
   },
   "projectFileDependencyGroups": {

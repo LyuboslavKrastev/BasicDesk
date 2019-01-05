@@ -1,9 +1,18 @@
 ﻿@model SolutionListingViewModel
 
-<div class="card text-center bg-info col-md-3">
-    <div class="card-body">
-        <h5 class="card-title">@Model.Title</h5>
-        <p class="card-text">Author: @Model.Author</p>
-        <a asp-area="" asp-controller="Solutions" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-lg btn-primary">View</a>
+<div class="panel-group col-sm-2">
+    <div class="panel">
+        <div class="panel-heading clearfix">
+            <div class="pull-left"><strong>@Model.Title</strong></div>
+        </div>
+            <div class="panel-body">
+                <a asp-area="" asp-controller="Solutions" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-lg btn-primary">View</a>
+
+            </div>
+            <div class="panel-footer clearfix">
+                <div>
+                    <p>Author: @Model.Author</p>
+                </div>
+            </div>
     </div>
 </div>

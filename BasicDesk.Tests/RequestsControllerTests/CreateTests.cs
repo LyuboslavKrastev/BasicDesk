@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 using System.Security.Claims;
+using BasicDesk.Models.Requests;
+using BasicDesk.Services;
 
 namespace BasicDesk.Tests.RequestsControllerTests
 {
@@ -16,6 +18,7 @@ namespace BasicDesk.Tests.RequestsControllerTests
     public class CreateTests
     {
         private BasicDeskDbContext dbContext;
+        private RequestService requestService;
 
         [TestInitialize]
         public void InitializeTests()
@@ -36,7 +39,7 @@ namespace BasicDesk.Tests.RequestsControllerTests
 
             var mockUserManager = TestsUserManager.GetUserManager();
 
-            var controller = new RequestsController(this.dbContext, TestsAutoMapper.GetMapper(), mockUserManager.Object);
+            var controller = new RequestsController(this.dbContext, TestsAutoMapper.GetMapper(), mockUserManager.Object, requestService);
 
             controller.ControllerContext = new ControllerContext
             {

@@ -18,6 +18,8 @@ using BasicDesk.Models;
 using BasicDesk.App.Common;
 using AutoMapper;
 using BasicDesk.App.Hubs;
+using BasicDesk.Services;
+using BasicDesk.Services.Repository;
 
 namespace BasicDesk.App
 {
@@ -68,7 +70,8 @@ namespace BasicDesk.App
 
             services.AddSingleton<IEmailSender, VerificationEmailSender>();
             services.Configure<EmailSenderOptions>(this.Configuration.GetSection("EmailSettings"));
-
+            services.AddScoped(typeof(DbRepository<>), typeof(DbRepository<>));
+            services.AddScoped<RequestService, RequestService>();
             services.AddAutoMapper();
             services.AddSignalR();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
