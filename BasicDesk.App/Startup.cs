@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BasicDesk.Data;
@@ -72,6 +67,8 @@ namespace BasicDesk.App
             services.Configure<EmailSenderOptions>(this.Configuration.GetSection("EmailSettings"));
             services.AddScoped(typeof(DbRepository<>), typeof(DbRepository<>));
             services.AddScoped<RequestService, RequestService>();
+            services.AddScoped<RequestSorter, RequestSorter>();
+
             services.AddAutoMapper();
             services.AddSignalR();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

@@ -90,7 +90,7 @@ using BasicDesk.App.Common;
             WriteLiteral("    ");
             EndContext();
             BeginContext(137, 67, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("message", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3c17c8cd833c45beb029f2c0f3c9dcac", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("message", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2dedffa47ab74acf81b3a22ca6ecb632", async() => {
             }
             );
             __BasicDesk_App_Helpers_Messages_MessageTagHelper = CreateTagHelper<global::BasicDesk.App.Helpers.Messages.MessageTagHelper>();

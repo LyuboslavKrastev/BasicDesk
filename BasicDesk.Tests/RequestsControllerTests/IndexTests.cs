@@ -97,7 +97,7 @@ namespace BasicDesk.Tests.RequestsControllerTests
 
             //the default sorting order is Id => desc
             var expectedCollection = requests.Select(r => r.Id).OrderByDescending(r => r).ToArray();
-            var resultCollection = model.RequestViews.Select(rv => rv.Id).ToArray();
+            var resultCollection = model.RequestListingViewModels.Select(rv => rv.Id).ToArray();
 
             Assert.IsNotNull(result);
             CollectionAssert.AreEqual(expectedCollection, resultCollection);
@@ -160,7 +160,7 @@ namespace BasicDesk.Tests.RequestsControllerTests
             var expectedCollection = requests
                 .Where(r => r.Requester == users[0] && r.Status == openStatus)
                 .Select(r => r.Id).OrderByDescending(r => r).ToArray();
-            var resultCollection = model.RequestViews.Select(rv => rv.Id).ToArray();
+            var resultCollection = model.RequestListingViewModels.Select(rv => rv.Id).ToArray();
 
             Assert.IsNotNull(result);
             Assert.AreEqual(expectedCount, resultCollection.Count());
@@ -224,7 +224,7 @@ namespace BasicDesk.Tests.RequestsControllerTests
             var expectedCollection = requests
                 .Where(r => r.Requester == users[0] && r.Status == closedStatus)
                 .Select(r => r.Id).OrderByDescending(r => r).ToArray();
-            var resultCollection = model.RequestViews.Select(rv => rv.Id).ToArray();
+            var resultCollection = model.RequestListingViewModels.Select(rv => rv.Id).ToArray();
 
             Assert.IsNotNull(result);
             Assert.AreEqual(expectedCount, resultCollection.Count());

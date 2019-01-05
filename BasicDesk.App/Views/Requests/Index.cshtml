@@ -24,37 +24,37 @@
         <tr>
             <th>
                 <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.IdSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
-                    @Html.DisplayNameFor(model => model.RequestViews[0].Id)
+                    @Html.DisplayNameFor(model => model.RequestListingViewModels[0].Id)
                 </a>
             </th>
             <th>
                 <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.NameSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
-                    @Html.DisplayNameFor(model => model.RequestViews[0].Requester)
+                    @Html.DisplayNameFor(model => model.RequestListingViewModels[0].Requester)
                 </a>
             </th>
             <th>
                 <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.SubjectSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
-                    @Html.DisplayNameFor(model => model.RequestViews[0].Subject)
+                    @Html.DisplayNameFor(model => model.RequestListingViewModels[0].Subject)
                 </a>
             </th>
             <th>
                 <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.AssignedToSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
-                    @Html.DisplayNameFor(model => model.RequestViews[0].AssignedTo)
+                    @Html.DisplayNameFor(model => model.RequestListingViewModels[0].AssignedTo)
                 </a>
             </th>
             <th>
                 <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.StartDateSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
-                    @Html.DisplayNameFor(model => model.RequestViews[0].StartTime)
+                    @Html.DisplayNameFor(model => model.RequestListingViewModels[0].StartTime)
                 </a>
             </th>
             <th>
                 <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.StatusSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
-                    @Html.DisplayNameFor(model => model.RequestViews[0].Status)
+                    @Html.DisplayNameFor(model => model.RequestListingViewModels[0].Status)
                 </a>
             </th>
             <th>
                 <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.EndDateSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
-                    @Html.DisplayNameFor(model => model.RequestViews[0].Endtime)
+                    @Html.DisplayNameFor(model => model.RequestListingViewModels[0].Endtime)
                 </a>
             </th>
             <th>
@@ -63,7 +63,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.RequestViews)
+        @foreach (var item in Model.RequestListingViewModels)
         {
             <tr>
                 <td>
@@ -101,4 +101,4 @@
     var currentFilter = Model.CurrentFilter;
 }
 
-@Html.PagedListPager(Model.RequestViews, page => Url.Action("Index", "Requests", new {sortOrder, searchString, currentFilter, page }))
+@Html.PagedListPager(Model.RequestListingViewModels, page => Url.Action("Index", "Requests", new {sortOrder, searchString, currentFilter, page }))

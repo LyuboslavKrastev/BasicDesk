@@ -19,6 +19,14 @@ namespace BasicDesk.Services
             this.repository = repository;
         }
 
+        public Task AddAsync(Request request)
+        {
+            return this.repository.AddAsync(request);
+        }
+        public Task SaveChangesAsync()
+        {
+            return this.repository.SaveChangesAsync();
+        }
         public Task<Request> GetById(int id)
         {
             return this.repository.ById(id);

@@ -29,35 +29,36 @@ namespace BasicDesk.App.Controllers
         private readonly IMapper mapper;
         private readonly UserManager<User> userManager;
         private RequestService requestService;
+        private readonly RequestSorter requestSorter;
         private string userId;
         private bool isTechnician;
+        private const int DEFAULT_PAGE_NUMBER = 1;
+        private const int DEFAULT_REQUESTS_PER_PAGE = 10;
 
-        public RequestsController(BasicDeskDbContext dbContext, IMapper mapper, UserManager<User> userManager, RequestService requestService)
+
+        public RequestsController(BasicDeskDbContext dbContext, IMapper mapper, UserManager<User> userManager, 
+            RequestService requestService, RequestSorter requestSorter)
         {
             this.dbContext = dbContext;
             this.mapper = mapper;
             this.userManager = userManager;
             this.requestService = requestService;
-            this.RequestSorter = new RequestSortingViewModel();
+            this.requestSorter = requestSorter;
         }
 
-        public RequestSortingViewModel RequestSorter { get; set; }
+        public RequestSortingViewModel viewModel { get; set; }
 
         [HttpGet]
         public IActionResult Index(string sortOrder, string searchString, string currentFilter, int? page, int? requestsPerPage)
         {
+            this.viewModel = this.requestSorter.ConfigureSorting(sortOrder, currentFilter, searchString);
+            var pageNumber = page ?? DEFAULT_PAGE_NUMBER;
+            var requestsCount = requestsPerPage ?? DEFAULT_REQUESTS_PER_PAGE;
+
             userId = userManager.GetUserId(User);
             isTechnician = User.IsInRole(WebConstants.AdminRole) || User.IsInRole(WebConstants.HelpdeskRole);
 
-            IEnumerable<Request> requests;
-
-            var pageNumber = page ?? 1;
-            int requestsCount = requestsPerPage ?? 10;
-
-            RequestSorter.CurrentSort = sortOrder;
-            RequestSorter.CurrentFilter = currentFilter;
-            RequestSorter.CurrentSearch = searchString;
-            this.RequestSorter.ConfigureSorting(sortOrder);
+            IQueryable<Request> requests;      
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -72,14 +73,14 @@ namespace BasicDesk.App.Controllers
                 requests = this.requestService.GetAll(userId, isTechnician);
             }
 
-            requests = this.SortRequests(requests, sortOrder).ToArray();
+            requests = this.requestSorter.SortRequests(requests, sortOrder);
 
 
             var requestViewModels = this.mapper.Map<ICollection<RequestListingViewModel>>(requests).ToPagedList(pageNumber, requestsCount);
 
-            this.RequestSorter.RequestViews = requestViewModels;
+            this.viewModel.RequestListingViewModels = requestViewModels;
 
-            return this.View(this.RequestSorter);
+            return this.View(this.viewModel);
         }
 
         public IActionResult Create()
@@ -112,7 +113,8 @@ namespace BasicDesk.App.Controllers
             request.RequesterId = this.userManager.GetUserId(User);
             request.StatusId = openStatusId;
 
-            this.dbContext.Requests.Add(request);
+            await this.requestService.AddAsync(request);
+
             string failedAttachments = string.Empty;
             if (model.Attachments != null)
             {
@@ -125,7 +127,7 @@ namespace BasicDesk.App.Controllers
                 message += failedAttachments;
             }
 
-            this.dbContext.SaveChanges();
+            await this.requestService.SaveChangesAsync();
 
             this.TempData.Put("__Message", new MessageModel()
             {
@@ -135,7 +137,6 @@ namespace BasicDesk.App.Controllers
 
             return this.RedirectToAction("Details", new { id = request.Id.ToString()});
         }
-
 
 
         public async Task<IActionResult> Details(string id)
@@ -233,7 +234,10 @@ namespace BasicDesk.App.Controllers
                     failedAttachments += $"{attachment.FileName} failed to upload because the file format is forbidden.";               
                     continue;
                 }
-                string path = Path.Combine(Directory.GetCurrentDirectory(), "Files", "Requests", attachment.FileName);
+                string currentDirectory = Directory.GetCurrentDirectory();
+                string destination = currentDirectory + "/Files" + "/Requests/" + model.Subject;
+                Directory.CreateDirectory(destination);
+                string path = Path.Combine(destination, attachment.FileName);
                 var fileStream = new FileStream(path, FileMode.Create);
                 using (fileStream)
                 {
@@ -255,43 +259,6 @@ namespace BasicDesk.App.Controllers
             var types = FileFormatValidator.GetMimeTypes();
             var ext = Path.GetExtension(path).ToLowerInvariant();
             return types[ext];
-        }
-
-        private IEnumerable<Request> SortRequests(IEnumerable<Request> requests, string sortOrder)
-        {
-            switch (sortOrder)
-            {
-                case "Name":
-                    return requests.OrderBy(s => s.Requester.FullName).ToArray();
-                case "name_desc":
-                    return requests.OrderByDescending(s => s.Requester.FullName).ToArray();
-                case "StartDate":
-                    return requests.OrderBy(s => s.StartTime).ToArray();
-                case "startDate_desc":
-                    return requests.OrderByDescending(s => s.StartTime).ToArray();
-                case "EndDate":
-                    return requests.OrderBy(s => s.EndTime).ToArray();
-                case "endDate_desc":
-                    return requests.OrderByDescending(s => s.EndTime).ToArray();
-                case "Id":
-                    return requests.OrderBy(s => s.Id).ToArray();
-                case "id_desc":
-                    return requests.OrderByDescending(s => s.Id).ToArray();
-                case "Status":
-                    return requests.OrderBy(s => s.Status.Name).ToArray();
-                case "status_desc":
-                    return requests.OrderByDescending(s => s.Status.Name).ToArray();
-                case "Subject":
-                    return requests.OrderBy(s => s.Subject).ToArray();
-                case "subject_desc":
-                    return requests.OrderByDescending(s => s.Subject).ToArray();
-                case "AssignedTo":
-                    return  requests.OrderBy(s => (s.AssignedTo == null)? "" : s.AssignedTo.FullName ).ToArray();
-                case "assignedTo_desc":
-                    return requests.OrderByDescending(s => (s.AssignedTo == null) ? "" : s.AssignedTo.FullName).ToArray();
-                default:
-                    return requests.OrderByDescending(s => s.Id).ToArray();
-            }
-        }
+        }     
     }
 }

@@ -92,7 +92,7 @@ using BasicDesk.App.Helpers;
             WriteLiteral("</h2>\r\n<hr />\r\n");
             EndContext();
             BeginContext(128, 221, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1337fba3ce0847199430f9155f38b24c", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1b8a5bdec894461bb210521c5d632327", async() => {
                 BeginContext(185, 6, true);
                 WriteLiteral("\r\n    ");
                 EndContext();
