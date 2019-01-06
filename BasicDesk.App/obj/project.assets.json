@@ -4741,6 +4741,7 @@
         "framework": ".NETCoreApp,Version=v2.1",
         "dependencies": {
           "AutoMapper": "8.0.0",
+          "BasicDesk.App.Models": "1.0.0",
           "BasicDesk.Data": "1.0.0"
         },
         "compile": {

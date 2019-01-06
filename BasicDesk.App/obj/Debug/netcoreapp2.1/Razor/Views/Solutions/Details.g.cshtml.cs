@@ -156,7 +156,7 @@ using BasicDesk.Data.Models;
             WriteLiteral("                <div class=\"panel-footer clearfix\">\r\n                    <div class=\"text-center\">\r\n                        ");
             EndContext();
             BeginContext(928, 55, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("label", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4a48679383bb403cb72337f22e9a24da", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("label", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "6d497a64d815450aadbd777494ba53fb", async() => {
                 BeginContext(963, 12, true);
                 WriteLiteral("Attachment: ");
                 EndContext();
@@ -182,7 +182,7 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_LabelTagHelper.For = ModelExpressionProvid
             WriteLiteral("\r\n                        ");
             EndContext();
             BeginContext(1009, 297, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "541363130f92466293c642989418f6f1", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8e0119659c7244d086b2a1e2c59fa97f", async() => {
                 BeginContext(1220, 30, true);
                 WriteLiteral("\r\n                            ");
                 EndContext();

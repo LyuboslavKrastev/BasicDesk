@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BasicDesk.App.Models\BasicDesk.App.Models.csproj" />
     <ProjectReference Include="..\BasicDesk.Data\BasicDesk.Data.csproj" />
   </ItemGroup>
 

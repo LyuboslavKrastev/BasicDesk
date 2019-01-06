@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BasicDesk.App.Models.Common.ViewModels;
 using BasicDesk.Common.Constants;
 using BasicDesk.Data;
 using BasicDesk.Data.Models.Requests;
@@ -14,10 +15,12 @@ namespace BasicDesk.Services
     public class RequestService
     {
         private readonly DbRepository<Request> repository;
+        private readonly IMapper mapper;
 
         public RequestService(DbRepository<Request> repository, IMapper mapper)
         {
             this.repository = repository;
+            this.mapper = mapper;
         }
 
         public Task AddAsync(Request request)
@@ -86,26 +89,25 @@ namespace BasicDesk.Services
             }
         }
 
-        //private async Task<RequestDetailsViewModel> GetRequestDetailsAsync(int id)
-        //{
-        //    var request = await this.repository.All().Where(r => r.Id == id)
-        //    .Include(r => r.AssignedTo)
-        //    .Include(r => r.Requester)
-        //    .Include(r => r.Category)
-        //    .Include(r => r.Status)
-        //    .Include(r => r.Attachments)
-        //    .FirstOrDefaultAsync();
+        public async Task<RequestDetailsViewModel> GetRequestDetailsAsync(int id)
+        {
+            var request = await this.repository.All().Where(r => r.Id == id)
+            .Include(r => r.AssignedTo)
+            .Include(r => r.Requester)
+            .Include(r => r.Category)
+            .Include(r => r.Status)
+            .Include(r => r.Attachments)
+            .FirstOrDefaultAsync();
 
-        //    var requestDetails = mapper.Map<RequestDetailsViewModel>(request);
+            var requestDetails = mapper.Map<RequestDetailsViewModel>(request);
 
-        //    if (request.AssignedTo != null)
-        //    {
-        //        string roles = string.Join(", ", await this.userManager.GetRolesAsync(request.AssignedTo));
-        //        requestDetails.AssignedToEmail = request.AssignedTo.Email;
-        //        requestDetails.AssignedToName = $"{request.AssignedTo.FullName} [{roles}]";
-        //    }
+            if (request.AssignedTo != null)
+            {
+                requestDetails.AssignedToEmail = request.AssignedTo.Email;
+                requestDetails.AssignedToName = request.AssignedTo.FullName;
+            }
 
-        //    return requestDetails;
-        //}
+            return requestDetails;
+        }
     }
 }

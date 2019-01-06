@@ -25,6 +25,7 @@
       "BasicDesk.App/1.0.0": {
         "dependencies": {
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "5.0.1",
+          "BasicDesk.App.Models": "1.0.0",
           "BasicDesk.Common": "1.0.0",
           "BasicDesk.Data": "1.0.0",
           "BasicDesk.Data.Models": "1.0.0",
@@ -805,6 +806,18 @@
         },
         "compile": {
           "lib/netstandard2.0/X.PagedList.Mvc.Core.dll": {}
+        }
+      },
+      "BasicDesk.App.Models/1.0.0": {
+        "dependencies": {
+          "BasicDesk.Data.Models": "1.0.0",
+          "X.PagedList.Mvc.Core": "7.6.0"
+        },
+        "runtime": {
+          "BasicDesk.App.Models.dll": {}
+        },
+        "compile": {
+          "BasicDesk.App.Models.dll": {}
         }
       },
       "BasicDesk.Common/1.0.0": {
@@ -3939,6 +3952,11 @@
       "sha512": "sha512-LGCVtN/bz3phZOuj8yMPmzUL6Ktznj3UBo9MS3Io/H/+AwHS4kZnF0Y3inAu6A1NAv4m2aP2U9dA1eiw6ljM3w==",
       "path": "x.pagedlist.mvc.core/7.6.0",
       "hashPath": "x.pagedlist.mvc.core.7.6.0.nupkg.sha512"
+    },
+    "BasicDesk.App.Models/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "BasicDesk.Common/1.0.0": {
       "type": "project",

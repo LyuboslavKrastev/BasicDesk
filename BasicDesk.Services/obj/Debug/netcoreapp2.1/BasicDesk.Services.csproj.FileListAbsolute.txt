@@ -14,3 +14,5 @@ C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.N
 C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Services\obj\Debug\netcoreapp2.1\BasicDesk.Services.pdb
 C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Services\bin\Debug\netcoreapp2.1\BasicDesk.Data.Models.dll
 C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Services\bin\Debug\netcoreapp2.1\BasicDesk.Data.Models.pdb
+C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Services\bin\Debug\netcoreapp2.1\BasicDesk.App.Models.dll
+C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Services\bin\Debug\netcoreapp2.1\BasicDesk.App.Models.pdb

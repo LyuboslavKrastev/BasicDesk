@@ -28,13 +28,13 @@
                 </a>
             </th>
             <th>
-                <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.NameSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
-                    @Html.DisplayNameFor(model => model.RequestListingViewModels[0].Requester)
+                <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.SubjectSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
+                    @Html.DisplayNameFor(model => model.RequestListingViewModels[0].Subject)
                 </a>
             </th>
             <th>
-                <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.SubjectSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
-                    @Html.DisplayNameFor(model => model.RequestListingViewModels[0].Subject)
+                <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.NameSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
+                    @Html.DisplayNameFor(model => model.RequestListingViewModels[0].Requester)
                 </a>
             </th>
             <th>
@@ -48,49 +48,50 @@
                 </a>
             </th>
             <th>
-                <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.StatusSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
-                    @Html.DisplayNameFor(model => model.RequestListingViewModels[0].Status)
-                </a>
-            </th>
-            <th>
                 <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.EndDateSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
                     @Html.DisplayNameFor(model => model.RequestListingViewModels[0].Endtime)
                 </a>
             </th>
             <th>
-                Actions
+                <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.StatusSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
+                    @Html.DisplayNameFor(model => model.RequestListingViewModels[0].Status)
+                </a>
             </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model.RequestListingViewModels)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Requester)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Subject)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AssignedTo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StartTime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Endtime)
-                </td>
-                <td>
-                    <a asp-area="" asp-controller="Requests" asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                <a asp-area="" asp-controller="Requests" asp-action="Details" asp-route-id="@item.Id">@item.Subject</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Requester)
+            </td>
+            <td>
+                @if (item.AssignedTo != null)
+                {
+                    <a class="text-success"><strong>@item.AssignedTo</strong></a>
+                }
+                else
+                {
+                    <label class="text-danger">Unassigned</label>
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Endtime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+        </tr>
         }
     </tbody>
 </table>

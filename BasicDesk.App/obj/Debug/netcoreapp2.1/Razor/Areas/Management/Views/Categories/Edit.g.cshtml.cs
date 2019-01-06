@@ -88,7 +88,7 @@ using BasicDesk.App.Helpers;
             WriteLiteral("\r\n<h2 class=\"text-center\">Edit Category</h2>\r\n<hr />\r\n");
             EndContext();
             BeginContext(120, 267, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e2b1ddb2f8b24a0db57d62b13ff2c377", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9af0ba6405544c28ac419eb4cff4cb90", async() => {
                 BeginContext(140, 6, true);
                 WriteLiteral("\r\n    ");
                 EndContext();
@@ -103,7 +103,7 @@ Write(Html.InputFormGroupFor(m => m.Name));
                 WriteLiteral("\r\n\r\n    <button type=\"submit\" class=\"btn btn-default btn btn-success\">Save</button>\r\n    ");
                 EndContext();
                 BeginContext(271, 107, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1986c6cd40304276a3325cac0e7da2be", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8ed68fc518b04a12a71b76c3e556c4a9", async() => {
                     BeginContext(368, 6, true);
                     WriteLiteral("Cancel");
                     EndContext();
@@ -153,7 +153,7 @@ Write(Html.InputFormGroupFor(m => m.Name));
                 WriteLiteral("\r\n    ");
                 EndContext();
                 BeginContext(415, 44, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("partial", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "c2181c24d5c3447bbbbe15fc2eec87e6", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("partial", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "0c4fcbd4e3534f7badcc81a5657303dd", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_TagHelpers_PartialTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.PartialTagHelper>();

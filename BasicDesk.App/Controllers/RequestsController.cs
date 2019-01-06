@@ -142,7 +142,7 @@ namespace BasicDesk.App.Controllers
         public async Task<IActionResult> Details(string id)
         {
 
-            var resuestDetailsViewModel =  await GetRequestDetailsAsync(int.Parse(id));
+            var resuestDetailsViewModel =  await this.requestService.GetRequestDetailsAsync(int.Parse(id));
 
             if (User.IsInRole("Administrator") || User.IsInRole("HelpdeskAgent"))
             {
@@ -169,28 +169,6 @@ namespace BasicDesk.App.Controllers
                 Message = $"Successfully saved resolution for request {reqId}"
             });
             return this.Redirect($"/Management/Requests/Manage?id={reqId}");
-        }
-
-        private async Task<RequestDetailsViewModel> GetRequestDetailsAsync (int id)
-        {
-            var request = await this.dbContext.Requests
-            .Include(r => r.AssignedTo)
-            .Include(r => r.Requester)
-            .Include(r =>r.Category)
-            .Include(r => r.Status)
-            .Include(r => r.Attachments)
-            .FirstOrDefaultAsync(r => r.Id == id);
-
-            var requestDetails = mapper.Map<RequestDetailsViewModel>(request);
-
-            if (request.AssignedTo != null)
-            {
-                string roles = string.Join(", ", await this.userManager.GetRolesAsync(request.AssignedTo));
-                requestDetails.AssignedToEmail = request.AssignedTo.Email;
-                requestDetails.AssignedToName = $"{request.AssignedTo.FullName} [{roles}]";
-            }
-
-            return requestDetails;
         }
 
         public async Task<IActionResult> Download(string fileName, string filePath, string requestId)

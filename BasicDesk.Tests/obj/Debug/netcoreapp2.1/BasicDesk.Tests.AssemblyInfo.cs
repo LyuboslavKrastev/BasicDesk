@@ -13,7 +13,7 @@ using System.Reflection;
 
 [assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("BasicDesk.App, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NE" +
     "T-Core\\BasicDesk.App", "BasicDesk.App.csproj", "0")]
-[assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("BasicDesk.App.Models", "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NE" +
+[assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("BasicDesk.App.Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NE" +
     "T-Core\\BasicDesk.App.Models", "BasicDesk.App.Models.csproj", "0")]
 [assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("BasicDesk.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NE" +
     "T-Core\\BasicDesk.Common", "BasicDesk.Common.csproj", "0")]
