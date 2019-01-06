@@ -4,13 +4,13 @@ using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using BasicDesk.Models;
+using BasicDesk.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using BasicDesk.App.Models.BindingModels;
+using BasicDesk.App.Models.Common.BindingModels;
 
 namespace BasicDesk.App.Areas.Identity.Pages.Account
 {

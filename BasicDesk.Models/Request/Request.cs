@@ -1,9 +1,10 @@
 ﻿using BasicDesk.Common.Constants.Validation;
+using BasicDesk.Data.Models.Solution;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace BasicDesk.Models.Requests
+namespace BasicDesk.Data.Models.Requests
 {
     public class Request
     {

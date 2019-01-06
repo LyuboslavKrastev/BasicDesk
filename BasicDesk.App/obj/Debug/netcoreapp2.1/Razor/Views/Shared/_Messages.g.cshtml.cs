@@ -24,7 +24,7 @@ using BasicDesk.App.Models;
 #line default
 #line hidden
 #line 3 "C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.App\Views\_ViewImports.cshtml"
-using BasicDesk.Models;
+using BasicDesk.Data.Models.Solution;
 
 #line default
 #line hidden
@@ -34,7 +34,7 @@ using BasicDesk.App.Models.ViewModels;
 #line default
 #line hidden
 #line 5 "C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.App\Views\_ViewImports.cshtml"
-using BasicDesk.App.Models.BindingModels;
+using BasicDesk.App.Models.Common.BindingModels;
 
 #line default
 #line hidden
@@ -48,13 +48,23 @@ using BasicDesk.App.Helpers;
 
 #line default
 #line hidden
+#line 8 "C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.App\Views\_ViewImports.cshtml"
+using BasicDesk.App.Models.Common.ViewModels;
+
+#line default
+#line hidden
+#line 9 "C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.App\Views\_ViewImports.cshtml"
+using BasicDesk.Data.Models;
+
+#line default
+#line hidden
 #line 1 "C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.App\Views\Shared\_Messages.cshtml"
 using BasicDesk.App.Common;
 
 #line default
 #line hidden
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"8b4e3f49420d25d3d01b006bd1607dfad554b57e", @"/Views/Shared/_Messages.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"60972e8d07214b2ad026c19851d667b6215156c7", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"8812ba9c7027d9decb68c711cdc0e9354e4f49ed", @"/Views/_ViewImports.cshtml")]
     public class Views_Shared__Messages : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #line hidden
@@ -90,7 +100,7 @@ using BasicDesk.App.Common;
             WriteLiteral("    ");
             EndContext();
             BeginContext(137, 67, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("message", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2dedffa47ab74acf81b3a22ca6ecb632", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("message", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0faa6c105b9342bf829c1ada067f19cb", async() => {
             }
             );
             __BasicDesk_App_Helpers_Messages_MessageTagHelper = CreateTagHelper<global::BasicDesk.App.Helpers.Messages.MessageTagHelper>();

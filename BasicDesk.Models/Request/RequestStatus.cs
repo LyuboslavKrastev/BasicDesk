@@ -1,7 +1,7 @@
 ﻿using BasicDesk.Common.Constants.Validation;
 using System.ComponentModel.DataAnnotations;
 
-namespace BasicDesk.Models.Requests
+namespace BasicDesk.Data.Models.Requests
 {
     public class RequestStatus
     {

@@ -14,17 +14,17 @@ namespace BasicDesk.App.Areas.Admin.Views.Shared.DisplayTemplates
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.AspNetCore.Mvc.ViewFeatures;
 #line 1 "C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.App\Areas\Management\_ViewImports.cshtml"
-using BasicDesk.App.Areas.Management.Models.ViewModels;
+using BasicDesk.App.Models.Management;
 
 #line default
 #line hidden
 #line 2 "C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.App\Areas\Management\_ViewImports.cshtml"
-using BasicDesk.App.Areas.Management.Models.BindingModels;
+using BasicDesk.App.Models.Management.ViewModels;
 
 #line default
 #line hidden
 #line 3 "C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.App\Areas\Management\_ViewImports.cshtml"
-using BasicDesk.App.Areas.Management.Models;
+using BasicDesk.App.Models.Management.BindingModels;
 
 #line default
 #line hidden
@@ -44,7 +44,7 @@ using BasicDesk.App.Helpers;
 #line default
 #line hidden
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"c2920023a48e5de3e92f423bf7a853edbb625f68", @"/Areas/Management/Views/Shared/DisplayTemplates/UserDetailsViewModel.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"6f1e14d1e07de9aa6e3cb63f92f7f88e68f8233f", @"/Areas/Management/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"d0ab2816feafb5158b95795fb5906da3e8d8d635", @"/Areas/Management/_ViewImports.cshtml")]
     public class Areas_Management_Views_Shared_DisplayTemplates_UserDetailsViewModel : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<UserDetailsViewModel>
     {
         #pragma warning disable 1998

@@ -1,5 +1,5 @@
-﻿using BasicDesk.App.Models.ViewModels;
-using BasicDesk.Models.Requests;
+﻿using BasicDesk.App.Models.Common.ViewModels;
+using BasicDesk.Data.Models.Requests;
 using System.Linq;
 
 namespace BasicDesk.App.Common

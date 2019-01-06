@@ -1,14 +1,15 @@
 ﻿using AutoMapper;
-using BasicDesk.App.Areas.Management.Models.BindingModels;
 using BasicDesk.App.Common;
 using BasicDesk.App.Helpers.Messages;
 using BasicDesk.Data;
-using BasicDesk.Models;
+using BasicDesk.Data.Models.Solution;
+using BasicDesk.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using BasicDesk.App.Models.Management.BindingModels;
 
 namespace BasicDesk.App.Areas.Management.Pages.Solutions
 {

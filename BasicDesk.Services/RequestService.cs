@@ -1,6 +1,7 @@
-﻿using BasicDesk.Common.Constants;
+﻿using AutoMapper;
+using BasicDesk.Common.Constants;
 using BasicDesk.Data;
-using BasicDesk.Models.Requests;
+using BasicDesk.Data.Models.Requests;
 using BasicDesk.Services.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +15,7 @@ namespace BasicDesk.Services
     {
         private readonly DbRepository<Request> repository;
 
-        public RequestService(DbRepository<Request> repository)
+        public RequestService(DbRepository<Request> repository, IMapper mapper)
         {
             this.repository = repository;
         }
@@ -26,10 +27,6 @@ namespace BasicDesk.Services
         public Task SaveChangesAsync()
         {
             return this.repository.SaveChangesAsync();
-        }
-        public Task<Request> GetById(int id)
-        {
-            return this.repository.ById(id);
         }
 
         public IQueryable<Request> GetAll(string userId, bool isTechnician)
@@ -88,5 +85,27 @@ namespace BasicDesk.Services
                     return this.GetAll(userId, isTechnician);
             }
         }
+
+        //private async Task<RequestDetailsViewModel> GetRequestDetailsAsync(int id)
+        //{
+        //    var request = await this.repository.All().Where(r => r.Id == id)
+        //    .Include(r => r.AssignedTo)
+        //    .Include(r => r.Requester)
+        //    .Include(r => r.Category)
+        //    .Include(r => r.Status)
+        //    .Include(r => r.Attachments)
+        //    .FirstOrDefaultAsync();
+
+        //    var requestDetails = mapper.Map<RequestDetailsViewModel>(request);
+
+        //    if (request.AssignedTo != null)
+        //    {
+        //        string roles = string.Join(", ", await this.userManager.GetRolesAsync(request.AssignedTo));
+        //        requestDetails.AssignedToEmail = request.AssignedTo.Email;
+        //        requestDetails.AssignedToName = $"{request.AssignedTo.FullName} [{roles}]";
+        //    }
+
+        //    return requestDetails;
+        //}
     }
 }

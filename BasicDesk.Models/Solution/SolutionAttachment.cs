@@ -1,7 +1,7 @@
 ﻿using BasicDesk.Common.Constants.Validation;
 using System.ComponentModel.DataAnnotations;
 
-namespace BasicDesk.Models
+namespace BasicDesk.Data.Models.Solution
 {
     public class SolutionAttachment
     {

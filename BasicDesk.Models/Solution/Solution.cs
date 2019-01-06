@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace BasicDesk.Models
+namespace BasicDesk.Data.Models.Solution
 {
     public class Solution
     {

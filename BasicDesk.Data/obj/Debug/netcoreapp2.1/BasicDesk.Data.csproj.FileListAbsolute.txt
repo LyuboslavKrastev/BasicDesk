@@ -8,8 +8,6 @@ C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.N
 C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Data\bin\Debug\netcoreapp2.1\BasicDesk.Data.dll
 C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Data\bin\Debug\netcoreapp2.1\BasicDesk.Data.pdb
 C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Data\bin\Debug\netcoreapp2.1\BasicDesk.Common.dll
-C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Data\bin\Debug\netcoreapp2.1\BasicDesk.Models.dll
-C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Data\bin\Debug\netcoreapp2.1\BasicDesk.Models.pdb
 C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Data\bin\Debug\netcoreapp2.1\BasicDesk.Common.pdb
 C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Data\obj\Debug\netcoreapp2.1\BasicDesk.Data.csprojAssemblyReference.cache
 C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Data\obj\Debug\netcoreapp2.1\BasicDesk.Data.csproj.CoreCompileInputs.cache
@@ -18,3 +16,5 @@ C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.N
 C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Data\obj\Debug\netcoreapp2.1\BasicDesk.Data.csproj.CopyComplete
 C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Data\obj\Debug\netcoreapp2.1\BasicDesk.Data.dll
 C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Data\obj\Debug\netcoreapp2.1\BasicDesk.Data.pdb
+C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Data\bin\Debug\netcoreapp2.1\BasicDesk.Data.Models.dll
+C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Data\bin\Debug\netcoreapp2.1\BasicDesk.Data.Models.pdb

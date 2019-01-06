@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BasicDesk.Models\BasicDesk.Models.csproj" />
+    <ProjectReference Include="..\BasicDesk.Models\BasicDesk.Data.Models.csproj" />
   </ItemGroup>
 
 </Project>

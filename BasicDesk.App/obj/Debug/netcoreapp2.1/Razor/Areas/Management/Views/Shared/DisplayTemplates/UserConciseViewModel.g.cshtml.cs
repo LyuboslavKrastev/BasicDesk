@@ -14,17 +14,17 @@ namespace BasicDesk.App.Areas.Admin.Views.Shared.DisplayTemplates
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.AspNetCore.Mvc.ViewFeatures;
 #line 1 "C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.App\Areas\Management\_ViewImports.cshtml"
-using BasicDesk.App.Areas.Management.Models.ViewModels;
+using BasicDesk.App.Models.Management;
 
 #line default
 #line hidden
 #line 2 "C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.App\Areas\Management\_ViewImports.cshtml"
-using BasicDesk.App.Areas.Management.Models.BindingModels;
+using BasicDesk.App.Models.Management.ViewModels;
 
 #line default
 #line hidden
 #line 3 "C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.App\Areas\Management\_ViewImports.cshtml"
-using BasicDesk.App.Areas.Management.Models;
+using BasicDesk.App.Models.Management.BindingModels;
 
 #line default
 #line hidden
@@ -44,7 +44,7 @@ using BasicDesk.App.Helpers;
 #line default
 #line hidden
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"205deb19a33cfa20520234d2bcae7a88f6ad162e", @"/Areas/Management/Views/Shared/DisplayTemplates/UserConciseViewModel.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"6f1e14d1e07de9aa6e3cb63f92f7f88e68f8233f", @"/Areas/Management/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"d0ab2816feafb5158b95795fb5906da3e8d8d635", @"/Areas/Management/_ViewImports.cshtml")]
     public class Areas_Management_Views_Shared_DisplayTemplates_UserConciseViewModel : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<UserConciseViewModel>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-area", "Management", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -134,7 +134,7 @@ using BasicDesk.App.Helpers;
             WriteLiteral("</td>\r\n    <td>\r\n        ");
             EndContext();
             BeginContext(254, 123, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "84547cbefd0645b78d0a21faaaf5c844", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ddafa7e71711478f891cf53806a0c334", async() => {
                 BeginContext(366, 7, true);
                 WriteLiteral("Details");
                 EndContext();
@@ -181,7 +181,7 @@ using BasicDesk.App.Helpers;
             WriteLiteral("            ");
             EndContext();
             BeginContext(458, 205, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "947598903a3c47948dc8d8f43bb678a9", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "94b77377b4df4ef1824fab5ac5a00bb3", async() => {
                 BeginContext(602, 57, true);
                 WriteLiteral("\r\n                Promote to HelpDesk Agent\r\n            ");
                 EndContext();
@@ -231,7 +231,7 @@ using BasicDesk.App.Helpers;
             WriteLiteral("            ");
             EndContext();
             BeginContext(713, 189, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "949e57282c31431fb5681d89518cbdbe", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "75b6ae1f5c6848e1b8e03319e1845785", async() => {
                 BeginContext(852, 46, true);
                 WriteLiteral("\r\n                Demote to User\r\n            ");
                 EndContext();
@@ -288,7 +288,7 @@ using BasicDesk.App.Helpers;
             WriteLiteral("            ");
             EndContext();
             BeginContext(969, 168, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e545115a583f4ca1a8ff1e66c8099f8c", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4c61d039820540c6a055c31e4318eede", async() => {
                 BeginContext(1098, 35, true);
                 WriteLiteral("\r\n                Ban\r\n            ");
                 EndContext();
@@ -338,7 +338,7 @@ using BasicDesk.App.Helpers;
             WriteLiteral("            ");
             EndContext();
             BeginContext(1187, 170, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "baa7961ff0ec4b6bae0ecfb9fac6b64e", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8bba04944d94430d910c14e7c1d374ad", async() => {
                 BeginContext(1316, 37, true);
                 WriteLiteral("\r\n                Unban\r\n            ");
                 EndContext();

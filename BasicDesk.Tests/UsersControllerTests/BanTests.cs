@@ -1,6 +1,6 @@
 ﻿using BasicDesk.App.Areas.Management.Controllers;
 using BasicDesk.App.Areas.Management.Models.ViewModels;
-using BasicDesk.Models;
+using BasicDesk.Data.Models.Solution;
 using BasicDesk.Tests.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

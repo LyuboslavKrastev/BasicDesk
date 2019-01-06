@@ -24,7 +24,7 @@ using BasicDesk.App.Models;
 #line default
 #line hidden
 #line 3 "C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.App\Views\_ViewImports.cshtml"
-using BasicDesk.Models;
+using BasicDesk.Data.Models.Solution;
 
 #line default
 #line hidden
@@ -34,7 +34,7 @@ using BasicDesk.App.Models.ViewModels;
 #line default
 #line hidden
 #line 5 "C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.App\Views\_ViewImports.cshtml"
-using BasicDesk.App.Models.BindingModels;
+using BasicDesk.App.Models.Common.BindingModels;
 
 #line default
 #line hidden
@@ -48,8 +48,18 @@ using BasicDesk.App.Helpers;
 
 #line default
 #line hidden
+#line 8 "C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.App\Views\_ViewImports.cshtml"
+using BasicDesk.App.Models.Common.ViewModels;
+
+#line default
+#line hidden
+#line 9 "C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.App\Views\_ViewImports.cshtml"
+using BasicDesk.Data.Models;
+
+#line default
+#line hidden
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"07becc0c237a3998c75f5728be353be0b0203938", @"/Views/Shared/DisplayTemplates/SolutionListingViewModel.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"60972e8d07214b2ad026c19851d667b6215156c7", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"8812ba9c7027d9decb68c711cdc0e9354e4f49ed", @"/Views/_ViewImports.cshtml")]
     public class Views_Shared_DisplayTemplates_SolutionListingViewModel : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<SolutionListingViewModel>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-area", "", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -92,7 +102,7 @@ using BasicDesk.App.Helpers;
             WriteLiteral("</strong></div>\r\n        </div>\r\n            <div class=\"panel-body\">\r\n                ");
             EndContext();
             BeginContext(284, 127, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "18b1211d7bc2406da3c36a1d9161af01", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1e7ed4793b8a4c8e9b76c10a55a7d1b1", async() => {
                 BeginContext(403, 4, true);
                 WriteLiteral("View");
                 EndContext();

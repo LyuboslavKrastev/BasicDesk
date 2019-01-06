@@ -1,15 +1,15 @@
 ﻿using BasicDesk.Common.Constants;
 using BasicDesk.App.Controllers;
-using BasicDesk.App.Models.BindingModels;
+using BasicDesk.App.Models.Common.BindingModels;
 using BasicDesk.Data;
-using BasicDesk.Models;
+using BasicDesk.Data.Models.Solution;
 using BasicDesk.Tests.Utilities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 using System.Security.Claims;
-using BasicDesk.Models.Requests;
+using BasicDesk.Data.Models.Requests;
 using BasicDesk.Services;
 
 namespace BasicDesk.Tests.RequestsControllerTests

@@ -3,7 +3,7 @@ using BasicDesk.Common.Constants;
 using BasicDesk.App.Controllers;
 using BasicDesk.App.Models.ViewModels;
 using BasicDesk.Data;
-using BasicDesk.Models;
+using BasicDesk.Data.Models;
 using BasicDesk.Tests.Utilities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,8 +14,9 @@ using System.Linq;
 using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using BasicDesk.Models.Requests;
+using BasicDesk.Data.Models.Requests;
 using BasicDesk.Services;
+using BasicDesk.App.Models.Common.ViewModels;
 
 namespace BasicDesk.Tests.RequestsControllerTests
 {

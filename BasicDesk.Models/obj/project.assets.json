@@ -703,9 +703,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Models\\BasicDesk.Models.csproj",
-      "projectName": "BasicDesk.Models",
-      "projectPath": "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Models\\BasicDesk.Models.csproj",
+      "projectUniqueName": "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Models\\BasicDesk.Data.Models.csproj",
+      "projectName": "BasicDesk.Data.Models",
+      "projectPath": "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Models\\BasicDesk.Data.Models.csproj",
       "packagesPath": "C:\\Users\\Zorko\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Models\\obj\\",
       "projectStyle": "PackageReference",

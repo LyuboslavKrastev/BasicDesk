@@ -27,10 +27,6 @@ namespace BasicDesk.Services.Repository
             return this.dbSet;
         }
 
-        public Task<TEntity> ById(int id)
-        {
-            return this.dbSet.FindAsync(id);
-        }
 
         public void Delete(TEntity entity)
         {

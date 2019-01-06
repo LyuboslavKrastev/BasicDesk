@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using BasicDesk.App.Areas.Management.Models.ViewModels;
 using BasicDesk.App.Areas.Management.Pages;
+using BasicDesk.App.Models.Management.ViewModels;
 using BasicDesk.Data;
 
 namespace BasicDesk.App.Pages

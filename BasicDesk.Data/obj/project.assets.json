@@ -1357,17 +1357,17 @@
           "bin/placeholder/BasicDesk.Common.dll": {}
         }
       },
-      "BasicDesk.Models/1.0.0": {
+      "BasicDesk.Data.Models/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.1",
         "dependencies": {
           "BasicDesk.Common": "1.0.0"
         },
         "compile": {
-          "bin/placeholder/BasicDesk.Models.dll": {}
+          "bin/placeholder/BasicDesk.Data.Models.dll": {}
         },
         "runtime": {
-          "bin/placeholder/BasicDesk.Models.dll": {}
+          "bin/placeholder/BasicDesk.Data.Models.dll": {}
         }
       }
     }
@@ -4439,15 +4439,15 @@
       "path": "../BasicDesk.Common/BasicDesk.Common.csproj",
       "msbuildProject": "../BasicDesk.Common/BasicDesk.Common.csproj"
     },
-    "BasicDesk.Models/1.0.0": {
+    "BasicDesk.Data.Models/1.0.0": {
       "type": "project",
-      "path": "../BasicDesk.Models/BasicDesk.Models.csproj",
-      "msbuildProject": "../BasicDesk.Models/BasicDesk.Models.csproj"
+      "path": "../BasicDesk.Models/BasicDesk.Data.Models.csproj",
+      "msbuildProject": "../BasicDesk.Models/BasicDesk.Data.Models.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
-      "BasicDesk.Models >= 1.0.0",
+      "BasicDesk.Data.Models >= 1.0.0",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 2.1.2",
       "Microsoft.EntityFrameworkCore.SqlServer >= 2.1.0",
       "Microsoft.EntityFrameworkCore.Tools >= 2.1.0",
@@ -4484,8 +4484,8 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Models\\BasicDesk.Models.csproj": {
-              "projectPath": "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Models\\BasicDesk.Models.csproj"
+            "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Models\\BasicDesk.Data.Models.csproj": {
+              "projectPath": "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Models\\BasicDesk.Data.Models.csproj"
             }
           }
         }

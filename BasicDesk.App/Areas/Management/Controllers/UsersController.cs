@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using BasicDesk.App.Areas.Management.Models.ViewModels;
+using BasicDesk.App.Models.Management.ViewModels;
 using BasicDesk.App.Common;
 using BasicDesk.App.Helpers.Messages;
 using BasicDesk.Common.Constants;
 using BasicDesk.Data;
-using BasicDesk.Models;
+using BasicDesk.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;

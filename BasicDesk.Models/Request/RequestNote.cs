@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace BasicDesk.Models.Requests
+namespace BasicDesk.Data.Models.Requests
 {
     public class RequestNote
     {

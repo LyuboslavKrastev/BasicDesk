@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using BasicDesk.App.Areas.Identity.Services;
-using BasicDesk.Models;
+using BasicDesk.Data.Models;
 using BasicDesk.App.Common;
 using AutoMapper;
 using BasicDesk.App.Hubs;

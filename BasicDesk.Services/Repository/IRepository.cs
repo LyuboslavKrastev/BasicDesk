@@ -8,8 +8,6 @@ namespace BasicDesk.Services.Repository
     {
         IQueryable<TEntity> All();
 
-        Task<TEntity> ById(int id);
-
         Task AddAsync(TEntity entity);
 
         void Delete(TEntity entity);

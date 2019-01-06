@@ -1,11 +1,11 @@
 ﻿using BasicDesk.Data;
-using BasicDesk.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using BasicDesk.Common.Constants;
 using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
-using BasicDesk.Models.Requests;
+using BasicDesk.Data.Models.Requests;
+using BasicDesk.Data.Models;
 
 namespace BasicDesk.App.Common
 {

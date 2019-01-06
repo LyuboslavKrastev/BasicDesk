@@ -1,9 +1,6 @@
-﻿using BasicDesk.App.Areas.Management.Models.ViewModels;
+﻿using BasicDesk.App.Models.Management.ViewModels;
 using BasicDesk.Data;
-using BasicDesk.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;

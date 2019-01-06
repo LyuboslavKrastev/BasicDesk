@@ -1,15 +1,13 @@
 ﻿using AutoMapper;
-using BasicDesk.App.Areas.Management.Models;
-using BasicDesk.App.Areas.Management.Models.BindingModels;
-using BasicDesk.App.Areas.Management.Models.ViewModels;
 using BasicDesk.App.Common;
 using BasicDesk.App.Helpers.Messages;
 using BasicDesk.Data;
-using BasicDesk.Models;
-using BasicDesk.Models.Requests;
+using BasicDesk.Data.Models.Requests;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using BasicDesk.App.Models.Management;
+using BasicDesk.App.Models.Management.ViewModels;
 
 namespace BasicDesk.App.Areas.Management.Controllers
 {

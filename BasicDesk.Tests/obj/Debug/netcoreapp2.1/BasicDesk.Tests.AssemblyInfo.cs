@@ -13,12 +13,14 @@ using System.Reflection;
 
 [assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("BasicDesk.App, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NE" +
     "T-Core\\BasicDesk.App", "BasicDesk.App.csproj", "0")]
+[assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("BasicDesk.App.Models", "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NE" +
+    "T-Core\\BasicDesk.App.Models", "BasicDesk.App.Models.csproj", "0")]
 [assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("BasicDesk.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NE" +
     "T-Core\\BasicDesk.Common", "BasicDesk.Common.csproj", "0")]
 [assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("BasicDesk.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NE" +
     "T-Core\\BasicDesk.Data", "BasicDesk.Data.csproj", "0")]
-[assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("BasicDesk.Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NE" +
-    "T-Core\\BasicDesk.Models", "BasicDesk.Models.csproj", "0")]
+[assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("BasicDesk.Data.Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NE" +
+    "T-Core\\BasicDesk.Models", "BasicDesk.Data.Models.csproj", "0")]
 [assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("BasicDesk.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NE" +
     "T-Core\\BasicDesk.Services", "BasicDesk.Services.csproj", "0")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("BasicDesk.Tests")]

@@ -1,6 +1,6 @@
-﻿using BasicDesk.Models;
-using BasicDesk.Models.Requests;
-
+﻿using BasicDesk.Data.Models.Solution;
+using BasicDesk.Data.Models.Requests;
+using BasicDesk.Data.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

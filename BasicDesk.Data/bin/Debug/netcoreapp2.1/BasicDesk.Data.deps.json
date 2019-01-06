@@ -8,7 +8,7 @@
     ".NETCoreApp,Version=v2.1": {
       "BasicDesk.Data/1.0.0": {
         "dependencies": {
-          "BasicDesk.Models": "1.0.0",
+          "BasicDesk.Data.Models": "1.0.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "2.1.2",
           "Microsoft.EntityFrameworkCore.SqlServer": "2.1.0",
           "Microsoft.EntityFrameworkCore.Tools": "2.1.0"
@@ -885,12 +885,12 @@
           "BasicDesk.Common.dll": {}
         }
       },
-      "BasicDesk.Models/1.0.0": {
+      "BasicDesk.Data.Models/1.0.0": {
         "dependencies": {
           "BasicDesk.Common": "1.0.0"
         },
         "runtime": {
-          "BasicDesk.Models.dll": {}
+          "BasicDesk.Data.Models.dll": {}
         }
       }
     }
@@ -1508,7 +1508,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "BasicDesk.Models/1.0.0": {
+    "BasicDesk.Data.Models/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

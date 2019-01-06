@@ -1,4 +1,4 @@
-﻿using BasicDesk.Models;
+﻿using BasicDesk.Data.Models.Solution;
 using Microsoft.AspNetCore.Identity;
 using Moq;
 

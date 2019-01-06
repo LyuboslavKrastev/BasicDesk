@@ -1,9 +1,9 @@
-﻿using BasicDesk.Models.Requests;
+﻿using BasicDesk.Data.Models.Requests;
 using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace BasicDesk.Models
+namespace BasicDesk.Data.Models
 {
     public class User : IdentityUser
     {

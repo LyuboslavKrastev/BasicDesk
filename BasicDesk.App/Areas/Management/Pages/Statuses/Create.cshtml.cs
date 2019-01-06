@@ -1,11 +1,9 @@
-﻿using BasicDesk.App.Areas.Management.Pages;
-using BasicDesk.App.Common;
+﻿using BasicDesk.App.Common;
 using BasicDesk.App.Helpers.Messages;
 using BasicDesk.Common.Constants;
 using BasicDesk.Common.Constants.Validation;
 using BasicDesk.Data;
-using BasicDesk.Models;
-using BasicDesk.Models.Requests;
+using BasicDesk.Data.Models.Requests;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;

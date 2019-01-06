@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
-using BasicDesk.App.Areas.Management.Models.ViewModels;
-using BasicDesk.App.Areas.Management.Models.BindingModels;
-using BasicDesk.App.Models.BindingModels;
+using BasicDesk.App.Models.Common.BindingModels;
 using BasicDesk.App.Models.ViewModels;
-using BasicDesk.Models;
+using BasicDesk.Data.Models.Solution;
 using System.Linq;
-using BasicDesk.Models.Requests;
+using BasicDesk.Data.Models.Requests;
+using BasicDesk.Data.Models;
+using BasicDesk.App.Models.Common.ViewModels;
+using BasicDesk.App.Models.Management.ViewModels;
+using BasicDesk.App.Models.Management.BindingModels;
 
 namespace BasicDesk.App.AutoMapping
 {

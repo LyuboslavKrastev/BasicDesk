@@ -21,7 +21,7 @@ namespace BasicDesk.App.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("BasicDesk.Models.Request", b =>
+            modelBuilder.Entity("BasicDesk.Data.Models.Request", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -54,7 +54,7 @@ namespace BasicDesk.App.Data.Migrations
                     b.ToTable("Requests");
                 });
 
-            modelBuilder.Entity("BasicDesk.Models.RequestCategory", b =>
+            modelBuilder.Entity("BasicDesk.Data.Models.RequestCategory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -67,7 +67,7 @@ namespace BasicDesk.App.Data.Migrations
                     b.ToTable("RequestCategories");
                 });
 
-            modelBuilder.Entity("BasicDesk.Models.RequestMessage", b =>
+            modelBuilder.Entity("BasicDesk.Data.Models.RequestMessage", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -86,7 +86,7 @@ namespace BasicDesk.App.Data.Migrations
                     b.ToTable("RequestMessages");
                 });
 
-            modelBuilder.Entity("BasicDesk.Models.RequestStatus", b =>
+            modelBuilder.Entity("BasicDesk.Data.Models.RequestStatus", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -99,7 +99,7 @@ namespace BasicDesk.App.Data.Migrations
                     b.ToTable("RequestStatuses");
                 });
 
-            modelBuilder.Entity("BasicDesk.Models.User", b =>
+            modelBuilder.Entity("BasicDesk.Data.Models.User", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -266,26 +266,26 @@ namespace BasicDesk.App.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("BasicDesk.Models.Request", b =>
+            modelBuilder.Entity("BasicDesk.Data.Models.Request", b =>
                 {
-                    b.HasOne("BasicDesk.Models.RequestCategory", "Category")
+                    b.HasOne("BasicDesk.Data.Models.RequestCategory", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("BasicDesk.Models.User", "Requester")
+                    b.HasOne("BasicDesk.Data.Models.User", "Requester")
                         .WithMany("Requests")
                         .HasForeignKey("RequesterId1");
 
-                    b.HasOne("BasicDesk.Models.RequestStatus", "Status")
+                    b.HasOne("BasicDesk.Data.Models.RequestStatus", "Status")
                         .WithMany()
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("BasicDesk.Models.RequestMessage", b =>
+            modelBuilder.Entity("BasicDesk.Data.Models.RequestMessage", b =>
                 {
-                    b.HasOne("BasicDesk.Models.Request", "Request")
+                    b.HasOne("BasicDesk.Data.Models.Request", "Request")
                         .WithMany("Messages")
                         .HasForeignKey("RequestId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -301,7 +301,7 @@ namespace BasicDesk.App.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("BasicDesk.Models.User")
+                    b.HasOne("BasicDesk.Data.Models.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -309,7 +309,7 @@ namespace BasicDesk.App.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("BasicDesk.Models.User")
+                    b.HasOne("BasicDesk.Data.Models.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -322,7 +322,7 @@ namespace BasicDesk.App.Data.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("BasicDesk.Models.User")
+                    b.HasOne("BasicDesk.Data.Models.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -330,7 +330,7 @@ namespace BasicDesk.App.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("BasicDesk.Models.User")
+                    b.HasOne("BasicDesk.Data.Models.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);

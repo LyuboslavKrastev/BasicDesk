@@ -1,11 +1,11 @@
-﻿using BasicDesk.App.Areas.Management.Models.BindingModels;
-using BasicDesk.App.Areas.Management.Models.ViewModels;
-using BasicDesk.App.Common;
+﻿using BasicDesk.App.Common;
 using BasicDesk.App.Helpers.Messages;
+using BasicDesk.App.Models.Management.BindingModels;
+using BasicDesk.App.Models.Management.ViewModels;
 using BasicDesk.Common.Constants;
 using BasicDesk.Data;
-using BasicDesk.Models;
-using BasicDesk.Models.Requests;
+using BasicDesk.Data.Models;
+using BasicDesk.Data.Models.Requests;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
