@@ -15,6 +15,8 @@ using AutoMapper;
 using BasicDesk.App.Hubs;
 using BasicDesk.Services;
 using BasicDesk.Services.Repository;
+using BasicDesk.App.AutoMapping;
+using BasicDesk.Services.AutoMapping;
 
 namespace BasicDesk.App
 {
@@ -67,9 +69,11 @@ namespace BasicDesk.App
             services.Configure<EmailSenderOptions>(this.Configuration.GetSection("EmailSettings"));
             services.AddScoped(typeof(DbRepository<>), typeof(DbRepository<>));
             services.AddScoped<RequestService, RequestService>();
+            services.AddScoped<SolutionService, SolutionService>();
+
             services.AddScoped<RequestSorter, RequestSorter>();
 
-            services.AddAutoMapper();
+            AutoMapperConfig.RegisterMappings();
             services.AddSignalR();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

@@ -11,12 +11,20 @@ body {
     padding-left: 15px;
     padding-right: 15px;
 }
-
+.modal-body p { word-wrap: break-word; }
 /* Carousel */
 .carousel-caption p {
     font-size: 20px;
     line-height: 1.4;
 }
+
+.modal.modal-wide .modal-dialog {
+    width: 90%;
+  }
+
+  .modal-wide .modal-body {
+    overflow-y: auto;
+  }
 
 /* Make .svg files in the carousel display properly in older browsers */
 .carousel-inner .item img[src$=".svg"] {
@@ -41,8 +49,16 @@ body {
     color: black;
 }
 
+.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+    background-color: #C6E2FF;
+}
+
 textarea {
     width: 100% !important;
+}
+
+th{
+    background-color: #ffea7f;
 }
 
 hr {
@@ -66,19 +82,6 @@ hr {
 .panel-footer {
     background-color: cornflowerblue;
     color: white;
-}
-
-.table {
-    background-color: #C6E2FF;
-    color: black;
-}
-
-table, td, th {
-    border: 2px solid black;
-}
-
-.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
-    background-color: white;
 }
 
 .navbar-inverse {
@@ -105,6 +108,8 @@ table, td, th {
     background: #42C0FB;
     color: white;
 }
+
+a { cursor:pointer; }
 
     .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover,
     .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:focus {

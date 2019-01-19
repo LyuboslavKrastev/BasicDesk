@@ -5,6 +5,7 @@ using BasicDesk.App.Models.Common.ViewModels;
 using BasicDesk.App.Models.ViewModels;
 using BasicDesk.Data;
 using BasicDesk.Data.Models.Solution;
+using BasicDesk.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,42 +18,32 @@ namespace BasicDesk.App.Controllers
     [Authorize]
     public class SolutionsController : Controller
     {
-        private readonly IMapper mapper;
         private readonly BasicDeskDbContext dbContext;
+        private readonly SolutionService service;
 
-        public SolutionsController(BasicDeskDbContext dbContext, IMapper mapper)
+        public SolutionsController(BasicDeskDbContext dbContext, SolutionService service)
         {
-            this.mapper = mapper;
+            this.service = service;
             this.dbContext = dbContext;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {      
-            var solutionListingModels = await GetAllSolutionsAsync();
+            var solutionListingModels = service.GetAll();
 
             return View(solutionListingModels);
         }
 
-        public async Task<IActionResult> Details(int id)
+        public IActionResult Details(int id)
         {
-            var solution = await GetSolutionDetails(id);
+            var solution = this.service.GetSolutionDetails(id);
 
             if (solution == null)
             {
-                return BadRequest();
+                return NotFound();
             }
 
-            var model = mapper.Map<SolutionDetailsViewModel>(solution);
-
-            return this.View(model);
-        }
-
-        private async Task<Solution> GetSolutionDetails(int id)
-        {
-            return await this.dbContext.Solutions
-                .Include(s => s.Author)
-                .Include(s => s.Attachments)
-                .FirstOrDefaultAsync(s => s.Id == id);
+            return this.View(solution);
         }
 
         public async Task<IActionResult> Download(string fileName, string filePath, string solutionId)
@@ -88,13 +79,5 @@ namespace BasicDesk.App.Controllers
             var ext = Path.GetExtension(path).ToLowerInvariant();
             return types[ext];
         }
-
-        private async Task<ICollection<SolutionListingViewModel>> GetAllSolutionsAsync()
-        {
-            var solutions = await this.dbContext.Solutions.Include(s => s.Author).ToArrayAsync();
-
-            return this.mapper.Map<ICollection<SolutionListingViewModel>>(solutions);
-        }
-        
     }
 }

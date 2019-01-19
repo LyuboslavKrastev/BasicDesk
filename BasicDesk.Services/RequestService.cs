@@ -15,12 +15,14 @@ namespace BasicDesk.Services
     public class RequestService
     {
         private readonly DbRepository<Request> repository;
-        private readonly IMapper mapper;
+        private readonly DbRepository<RequestCategory> categoryRepository;
+        private readonly DbRepository<RequestStatus> statusRepository;
 
-        public RequestService(DbRepository<Request> repository, IMapper mapper)
+        public RequestService(DbRepository<Request> repository, DbRepository<RequestCategory> categoryRepository, DbRepository<RequestStatus> statusRepository)
         {
             this.repository = repository;
-            this.mapper = mapper;
+            this.categoryRepository = categoryRepository;
+            this.statusRepository = statusRepository;
         }
 
         public Task AddAsync(Request request)
@@ -69,24 +71,26 @@ namespace BasicDesk.Services
 
         public IQueryable<Request> GetByFilter(string userId, bool isTechnician, string currentFilter)
         {
-            switch (currentFilter)
+            bool isInt = int.TryParse(currentFilter, out int statusId);
+
+            if (isInt)
             {
-                case "MyClosed":
-                    return this.repository.All()
-                        .Where(r => r.RequesterId == userId)
-                        .Include(r => r.Status)
-                        .Where(r => r.Status.Name == "Closed" || r.Status.Name == "Rejected")
-                        .Include(r => r.AssignedTo)
-                        .Include(r => r.Requester).AsNoTracking();
-                case "MyOpen":
-                    return this.repository.All()
-                        .Include(r => r.Status)
-                        .Where(r => r.RequesterId == userId).Where(r => r.Status.Name != "Closed" && r.Status.Name != "Rejected")
-                        .Include(r => r.AssignedTo)
-                        .Include(r => r.Requester).AsNoTracking();
-                default:
-                    return this.GetAll(userId, isTechnician);
+                return this.repository.All()
+                            .Where(r => r.RequesterId == userId)
+                            .Include(r => r.Status)
+                            .Where(r => r.Status.Id == statusId)
+                            .Include(r => r.AssignedTo)
+                            .Include(r => r.Requester).AsNoTracking();
             }
+            else
+            {
+                return this.repository.All()
+                            .Where(r => r.RequesterId == userId)
+                            .Include(r => r.Status)
+                            .Include(r => r.AssignedTo)
+                            .Include(r => r.Requester).AsNoTracking();
+            }
+
         }
 
         public async Task<RequestDetailsViewModel> GetRequestDetailsAsync(int id)
@@ -99,7 +103,7 @@ namespace BasicDesk.Services
             .Include(r => r.Attachments)
             .FirstOrDefaultAsync();
 
-            var requestDetails = mapper.Map<RequestDetailsViewModel>(request);
+            var requestDetails = Mapper.Map<RequestDetailsViewModel>(request);
 
             if (request.AssignedTo != null)
             {
@@ -108,6 +112,27 @@ namespace BasicDesk.Services
             }
 
             return requestDetails;
+        }
+
+        public Task SaveResolutionAsync(int id, string resolution)
+        {
+            var req = this.repository.All()
+                .Where(r => r.Id == id)
+                .FirstOrDefault();
+
+            req.Resolution = resolution;
+
+            return this.SaveChangesAsync();
+        }
+
+        public IQueryable<RequestCategory> GetAllCategories()
+        {
+            return this.categoryRepository.All().AsNoTracking();
+        }
+
+        public IQueryable<RequestStatus> GetAllStatuses()
+        {
+                return this.statusRepository.All().AsNoTracking();
         }
     }
 }

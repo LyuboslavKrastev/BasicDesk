@@ -856,6 +856,7 @@
       "BasicDesk.Services/1.0.0": {
         "dependencies": {
           "AutoMapper": "8.0.0",
+          "BasicDesk.App.Models": "1.0.0",
           "BasicDesk.Data": "1.0.0"
         },
         "runtime": {

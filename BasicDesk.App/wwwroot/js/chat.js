@@ -7,6 +7,10 @@ connection
             e.preventDefault();
             let username = $("#username").val();
             let question = $("#question").val();
+            if(!question){
+                debugger;
+                alert("empty");
+            }
             connection.invoke("PostQuestion", username, question);
         });
 

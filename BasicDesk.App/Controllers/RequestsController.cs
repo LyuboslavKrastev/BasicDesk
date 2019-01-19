@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using BasicDesk.App.Common;
 using BasicDesk.App.Helpers.Messages;
 using BasicDesk.App.Models.Common.BindingModels;
@@ -26,21 +27,19 @@ namespace BasicDesk.App.Controllers
     public class RequestsController : Controller
     {
         private readonly BasicDeskDbContext dbContext;
-        private readonly IMapper mapper;
         private readonly UserManager<User> userManager;
         private RequestService requestService;
         private readonly RequestSorter requestSorter;
         private string userId;
         private bool isTechnician;
         private const int DEFAULT_PAGE_NUMBER = 1;
-        private const int DEFAULT_REQUESTS_PER_PAGE = 10;
+        private const int DEFAULT_REQUESTS_PER_PAGE = 5;
 
 
-        public RequestsController(BasicDeskDbContext dbContext, IMapper mapper, UserManager<User> userManager, 
+        public RequestsController(BasicDeskDbContext dbContext, UserManager<User> userManager, 
             RequestService requestService, RequestSorter requestSorter)
         {
             this.dbContext = dbContext;
-            this.mapper = mapper;
             this.userManager = userManager;
             this.requestService = requestService;
             this.requestSorter = requestSorter;
@@ -51,12 +50,19 @@ namespace BasicDesk.App.Controllers
         [HttpGet]
         public IActionResult Index(string sortOrder, string searchString, string currentFilter, int? page, int? requestsPerPage)
         {
-            this.viewModel = this.requestSorter.ConfigureSorting(sortOrder, currentFilter, searchString);
-            var pageNumber = page ?? DEFAULT_PAGE_NUMBER;
-            var requestsCount = requestsPerPage ?? DEFAULT_REQUESTS_PER_PAGE;
 
-            userId = userManager.GetUserId(User);
-            isTechnician = User.IsInRole(WebConstants.AdminRole) || User.IsInRole(WebConstants.HelpdeskRole);
+            this.viewModel = this.requestSorter.ConfigureSorting(sortOrder, currentFilter, searchString);
+
+            if(this.viewModel.RequestsPerPage != requestsPerPage)
+            {
+                this.viewModel.RequestsPerPage = requestsPerPage;
+            }
+
+            var pageNumber = page ?? DEFAULT_PAGE_NUMBER;
+            var requestsCount = this.viewModel.RequestsPerPage ?? DEFAULT_REQUESTS_PER_PAGE;
+
+            this.userId = userManager.GetUserId(User);
+            this.isTechnician = User.IsInRole(WebConstants.AdminRole) || User.IsInRole(WebConstants.HelpdeskRole);
 
             IQueryable<Request> requests;      
 
@@ -64,7 +70,7 @@ namespace BasicDesk.App.Controllers
             {
                 requests = this.requestService.GetBySearch(userId, isTechnician, searchString);
             }
-            else if (!String.IsNullOrEmpty(currentFilter))
+            else if (!String.IsNullOrEmpty(currentFilter) || currentFilter == "All")
             {
                 requests = this.requestService.GetByFilter(userId, isTechnician, currentFilter);
             }
@@ -76,9 +82,20 @@ namespace BasicDesk.App.Controllers
             requests = this.requestSorter.SortRequests(requests, sortOrder);
 
 
-            var requestViewModels = this.mapper.Map<ICollection<RequestListingViewModel>>(requests).ToPagedList(pageNumber, requestsCount);
+            var requestViewModels = Mapper.Map<ICollection<RequestListingViewModel>>(requests).ToPagedList(pageNumber, requestsCount);
 
             this.viewModel.RequestListingViewModels = requestViewModels;
+
+            var statuses = this.requestService.GetAllStatuses().Select(s => new SelectListItem
+            {
+                Text = s.Name,
+                Value = s.Id.ToString()
+            }).ToArray();
+
+            this.viewModel.Statuses = statuses;
+
+
+
 
             return this.View(this.viewModel);
         }
@@ -86,7 +103,7 @@ namespace BasicDesk.App.Controllers
         public IActionResult Create()
         {
             var requestBindingModel = new RequestCreationBindingModel();
-            var requestCategories = dbContext.RequestCategories.ToArray();
+            var requestCategories = this.requestService.GetAllCategories().ToArray();
 
             foreach (var requestCategory in requestCategories)
             {
@@ -108,7 +125,7 @@ namespace BasicDesk.App.Controllers
                 return BadRequest();
             }
 
-            var request = this.mapper.Map<Request>(model);
+            var request = Mapper.Map<Request>(model);
             var openStatusId = this.dbContext.RequestStatuses.FirstOrDefault(s => s.Name == "Open").Id;
             request.RequesterId = this.userManager.GetUserId(User);
             request.StatusId = openStatusId;
@@ -116,6 +133,7 @@ namespace BasicDesk.App.Controllers
             await this.requestService.AddAsync(request);
 
             string failedAttachments = string.Empty;
+
             if (model.Attachments != null)
             {
                 failedAttachments = await CreateAttachmentAsync(model, request);
@@ -155,13 +173,10 @@ namespace BasicDesk.App.Controllers
         }
 
         [HttpPost]
-        public IActionResult SaveResolution(int reqId, string resol)
+        public async Task<IActionResult> SaveResolution(int reqId, string resol)
         {
-            var req = this.dbContext.Requests.FirstOrDefault(r => r.Id == reqId);
-
-            req.Resolution = resol;
-
-            dbContext.SaveChanges();
+            //CHANGED TEST THIS
+            await this.requestService.SaveResolutionAsync(reqId, resol);
 
             this.TempData.Put("__Message", new MessageModel()
             {

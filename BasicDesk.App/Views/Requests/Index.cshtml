@@ -7,99 +7,503 @@
 }
 
 <h3 class="text-center text-info">Requests</h3>
-<div>
-    <div class="btn-group btn-group-toggle">
-        <a asp-area="" asp-controller="Requests" class="btn btn-success" asp-action="Index" asp-route-currentFilter="MyOpen">My Open Requests</a>
-        <a asp-area="" asp-controller="Requests" class="btn btn-success" asp-action="Index" asp-route-currentFilter="MyClosed">My Closed Requests</a>
-        <a asp-controller="Requests" asp-action="Index" class="btn btn-success">View All Requests</a>
+<div class="container-fluid body-content">
+    <div>
+        <!-- <div class="btn-group btn-group-toggle">
+            <a asp-area="" asp-controller="Requests" class="btn btn-success" asp-action="Index" asp-route-currentFilter="MyOpen">My Open Requests</a>
+            <a asp-area="" asp-controller="Requests" class="btn btn-success" asp-action="Index" asp-route-currentFilter="MyClosed">My Closed Requests</a>
+            <a asp-controller="Requests" asp-action="Index" class="btn btn-success">View All Requests</a>
+        </div> -->
+        <!-- <div class="btn-group btn-group-toggle"></div>
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#approvalModal">
+            Submit for Approval
+        </button>
+
+        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#noteModal">
+                Add Note
+        </button>
+        </div> -->
+        <!-- Note Modal -->
+        <div class="modal fade" id="noteModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title text-center">Add Note</h3>
+                    </div>
+                    <div class="modal-body">
+                        Request ID - Model.Id
+                        <textarea class="form-control" rows="4" style="min-width: 100%; resize:none;"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-success">Save Note</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Approval Modal -->
+        <div class="modal fade" id="approvalModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title text-center">Submit for Approval</h3>
+                    </div>
+                    <div class="modal-body">
+                        <p>Request ID - Model.Id</p>
+                        <label>To</label>
+                        <select class="form-control">
+                            <option>Pesho</option>
+                            <option>Gosho</option>
+                            <option>RandomPich</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                        <br>
+                        <label>Subject</label>
+                        <input class="form-control" name="subject" id="subject">
+                        <br>
+                        <label>Description</label>
+                        <textarea class="form-control" rows="4" style="min-width: 100%; resize:none;"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-success">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
-    <form asp-controller="Requests" asp-action="Index" method="get" class="pull-right input-group">
-        <input class="text-right " type="text" placeholder="Search" name="SearchString" value="@Model.CurrentSearch" />
-        <button class="btn btn-default">Search</button>
-    </form>
-</div>
+    <div style="display:inline">
+        <label for="timer">
+            <h3>
+                Seconds until page reloads: <span class="text-danger" id="timer">
+                </span>
+            </h3>
+        </label>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>
-                <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.IdSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
-                    @Html.DisplayNameFor(model => model.RequestListingViewModels[0].Id)
-                </a>
-            </th>
-            <th>
-                <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.SubjectSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
-                    @Html.DisplayNameFor(model => model.RequestListingViewModels[0].Subject)
-                </a>
-            </th>
-            <th>
-                <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.NameSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
-                    @Html.DisplayNameFor(model => model.RequestListingViewModels[0].Requester)
-                </a>
-            </th>
-            <th>
-                <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.AssignedToSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
-                    @Html.DisplayNameFor(model => model.RequestListingViewModels[0].AssignedTo)
-                </a>
-            </th>
-            <th>
-                <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.StartDateSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
-                    @Html.DisplayNameFor(model => model.RequestListingViewModels[0].StartTime)
-                </a>
-            </th>
-            <th>
-                <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.EndDateSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
-                    @Html.DisplayNameFor(model => model.RequestListingViewModels[0].Endtime)
-                </a>
-            </th>
-            <th>
-                <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.StatusSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
-                    @Html.DisplayNameFor(model => model.RequestListingViewModels[0].Status)
-                </a>
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.RequestListingViewModels)
-        {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                <a asp-area="" asp-controller="Requests" asp-action="Details" asp-route-id="@item.Id">@item.Subject</a>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Requester)
-            </td>
-            <td>
-                @if (item.AssignedTo != null)
-                {
-                    <a class="text-success"><strong>@item.AssignedTo</strong></a>
+    </div>
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    <div>
+                        <!-- Filter
+                        <div class="btn-group btn-group-toggle">
+                            <a asp-area="" asp-controller="Requests" class="btn btn-success" asp-action="Index" asp-route-currentFilter="MyOpen">My Open Requests</a>
+                            <a asp-area="" asp-controller="Requests" class="btn btn-success" asp-action="Index" asp-route-currentFilter="MyClosed">My Closed Requests</a>
+                            <a asp-controller="Requests" asp-action="Index" class="btn btn-success">View All Requests</a> -->
+                        <form asp-area="" asp-controller="Requests" asp-action="Index" method="get" class="form-inline" style="display:inline;">
+                            <label for="staticEmail">Showing</label>
+                            <select name='currentFilter' onchange='this.form.submit()' class="form-control">
+                                <option value="">All Requests</option>
+                                @{
+                                    foreach (var status in Model.Statuses)
+                                    {
+                                        if (Model.CurrentFilter == status.Value)
+                                        {
+                                            <option selected="selected" value="@status.Value">@status.Text</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@status.Value">@status.Text</option>
+                                        }
+
+                                    }
+                                }
+                            </select>
+                        </form>
+                    </div>
+                    <!-- <div class="dropdown pull-right">
+                            <div>
+                              <a class="dropdown-toggle btn btn-info" data-toggle="dropdown" href="#" style="color:white">
+                                  Actions
+                              <span class="caret"></span>
+                              </a>
+                              <ul class="dropdown-menu class btn">
+                                  <li><a data-toggle="modal" data-target="#approvalModal">Submit for Approval</a></li>
+                                  <li><a data-toggle="modal" data-target="#noteModal">Add Note</a></li>
+                              </ul>
+                            </div>
+                    </div> -->
+                </th>
+                <th class="col-md-1"><a asp-area="" asp-controller="Requests" asp-action="Create" class="btn btn-success"style="width: 100%;">New Request <i class=glyphicon-plus></i></a></th>
+                <th class="col-md-1"><a class="btn btn-info" data-toggle="modal" style="width: 100%;" data-target="#approvalModal">Submit for Approval</a></th>
+                <th class="col-md-1"><a class="btn btn-info" style="width: 100%;" data-toggle="modal" data-target="#noteModal">Add Note</a></th>
+                <th class="col-md-1"><a class="btn btn-info" style="width: 100%;" id="mergeReq">Merge</a></th>
+                <th class="col-md-1"><a class="btn btn-danger" style="width: 100%;" id="deleteReq">Delete</a></th>
+                <th class="col-md-1"></th>
+                <th class="col-md-1"></th>
+
+                <th>
+                    <form method="get"class="form-inline" >
+                        <div class="form-group">
+                            <label for="myfield">Show</label>
+                            @{
+                                if (Model.CurrentFilter != null)
+                                {
+                                    <input style="display:none" name="currentFilter" value="@Model.CurrentFilter" />
+                                }
+                                if (Model.CurrentSearch != null)
+                                {
+                                    <input style="display:none" name="searchString" value="@Model.CurrentSearch" />
+                                }
+                                if (Model.CurrentSort != null)
+                                {
+                                    <input style="display:none" name="sortOrder" value="@Model.CurrentSort" />
+                                }
+                            }
+
+                            <select name="requestsPerPage" onchange='this.form.submit()' class="form-control">
+
+                                @foreach (var option in Model.ReqPerPageList)
+                                {
+                                    if (Model.RequestsPerPage == int.Parse(option.Value))
+                                    {
+                                        <option selected="selected" value="@option.Value">@option.Text</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@option.Value">@option.Text</option>
+                                    }
+                                }
+                            </select>
+                            <label for="myfield">per page</label>
+                        </div>
+                    </form>
+                </th>
+            </tr>
+    </table>
+
+    <table class="table table-hover table-striped table-bordered">
+        <thead>
+        <th><input type="checkbox" class="checkbox-inline" id="checkAll"></th>
+        <th>
+            <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.IdSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
+                Id
+                <!-- @Html.DisplayNameFor(model => model.RequestListingViewModels[0].Id) -->
+            </a>
+        </th>
+        <th>
+            <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.SubjectSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
+                Subject
+                <!-- @Html.DisplayNameFor(model => model.RequestListingViewModels[0].Subject) -->
+            </a>
+        </th>
+        <th>
+            <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.NameSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
+                Requester Name
+                <!-- @Html.DisplayNameFor(model => model.RequestListingViewModels[0].Requester) -->
+            </a>
+        </th>
+        <th>
+            <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.AssignedToSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
+                Assigned To
+                <!-- @Html.DisplayNameFor(model => model.RequestListingViewModels[0].AssignedTo) -->
+            </a>
+        </th>
+        <th>
+            <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.StartDateSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
+                Created Date
+                <!-- @Html.DisplayNameFor(model => model.RequestListingViewModels[0].StartTime) -->
+            </a>
+        </th>
+        <th>
+            <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.EndDateSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
+                Closed On
+                <!-- @Html.DisplayNameFor(model => model.RequestListingViewModels[0].Endtime) -->
+            </a>
+        </th>
+        <th>
+            <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.StatusSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
+                <!-- @Html.DisplayNameFor(model => model.RequestListingViewModels[0].Status) -->
+                Status
+
+            </a>
+            <a id="searchIcon"><i class="glyphicon glyphicon-zoom-in pull-right"></i></a>
+        </th>
+
+
+        <tbody>
+            <tr id="searchBar" style="display: none">
+                <td></td>
+                <td form id="searchForm" asp-controller="Requests" asp-action="Index" method="get" class="input-group">
+                    <input class="text-right " type="text" placeholder="Id" name="SearchString" value="@Model.CurrentSearch" />
+                </td>
+                <td>
+                    <input form="searchForm" class="text-right " type="text" placeholder="Subject" name="SearchString" value="@Model.CurrentSearch" />
+                </td>
+                <td>
+                    <input form="searchForm" class="text-right " type="text" placeholder="Requester Name" name="SearchString" value="@Model.CurrentSearch" />
+                </td>
+                <td>
+                    <input form="searchForm" class="text-right " type="text" placeholder="Assigned To" name="SearchString" value="@Model.CurrentSearch" />
+                </td>
+                <td>
+                    <input form="searchForm" class="text-right " type="text" placeholder="Created Date" name="SearchString" value="@Model.CurrentSearch" />
+                </td>
+                <td>
+                    <input form="searchForm" class="text-right " type="text" placeholder="Closed On" name="SearchString" value="@Model.CurrentSearch" />
+
+                </td>
+                <td>
+                    <input form="searchForm" class="text-right " type="text" placeholder="Status" name="SearchString" value="@Model.CurrentSearch" />
+                    <button form="serachForm" class="btn btn-default">Go</button>
+                </td>
+            </tr>
+
+            @foreach (var item in Model.RequestListingViewModels)
+            {
+                <tr>
+                    <td><input type="checkbox" class="check"></td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        <a asp-area="" asp-controller="Requests" asp-action="Details" asp-route-id="@item.Id">@item.Subject</a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Requester)
+                    </td>
+                    <td>
+                        @if (item.AssignedTo != null)
+                        {
+                            <a class="text-success"><strong>@item.AssignedTo</strong></a>
+                        }
+                        else
+                        {
+                            <label class="text-danger">Unassigned</label>
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Endtime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous">
+    </script>
+
+    <!-- Latest compiled and minified CSS -->
+    @* <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">*@
+    
+
+    <script>
+        $("#checkAll").click(function () {
+            $(".check").prop('checked', $(this).prop('checked'));
+        });
+
+        $("#searchIcon").on('click', function () {
+            let searchBar = $("#searchBar");
+            if (searchBar.is(':hidden')) {
+                searchBar.show();
+            } else {
+                searchBar.hide();
+            }
+        });
+
+        $(document).ready(function () {
+            let maxLength = 20;
+            let subjects = $(".subject").each(function () {
+                let subject = $(this);
+                let text = subject.text();
+                if (text.length > maxLength) {
+
+                    let modifiedText = text.substring(0, maxLength - 3) + '...';
+                    subject.text(modifiedText);
                 }
-                else
-                {
-                    <label class="text-danger">Unassigned</label>
+            });
+        });
+
+        function checkCheckboxes(msg) {
+            var anyBoxesChecked = false;
+            $('input[type="checkbox"]').each(function () {
+                if ($(this).is(":checked")) {
+                    anyBoxesChecked = true;
                 }
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Endtime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-        </tr>
+            });
+
+            if (anyBoxesChecked == false) {
+                alert('Please select request[s] to delete');
+                event.stopPropagation();
+            }
         }
-    </tbody>
-</table>
 
+
+        function setRefresh(miliseconds) {
+            $("timeSelector option:selected").attr("selected");
+            location.reload();
+            setInterval("location.reload(true)", miliseconds);
+        }
+
+        var timer = 0;
+        function startTimer() {
+            setInterval("timerUp()", 1000);
+        }
+
+        function timerUp() {
+            timer++;
+            var resetat = 100000000000; //change this number to adjust the length of time in seconds
+            if (timer == resetat) {
+                window.location.reload();
+            }
+            var tleft = resetat - timer;
+            document.getElementById('timer').innerHTML = tleft;
+        }
+
+        $(document).ready(startTimer());
+        $("#deleteReq").on('click', checkCheckboxes);
+        function checkCheckboxesForMerge(event) {
+            var checkedCount = 0;
+            debugger;
+            $('input[type="checkbox"]').each(function () {
+                if ($(this).is(":checked")) {
+                    checkedCount++;
+                }
+            });
+            if (checkedCount < 2) {
+                return false;
+            }
+            return true;
+        }
+        $("#mergeReq").on('click', function (ev) {
+            let isChecked = checkCheckboxesForMerge(ev)
+
+            if (isChecked) {
+                alert('success');
+                location.reload();
+
+            } else {
+                alert('Please select requests to merge');
+            }
+        });
+    </script>
+
+    <!-- Latest compiled and minified JavaScript -->
+   @* <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>*@
+</div>
 @{
     var sortOrder = Model.CurrentSort;
     var searchString = Model.CurrentSearch;
     var currentFilter = Model.CurrentFilter;
+    var requestsPerPage = Model.RequestsPerPage;
 }
 
-@Html.PagedListPager(Model.RequestListingViewModels, page => Url.Action("Index", "Requests", new {sortOrder, searchString, currentFilter, page }))
+@Html.PagedListPager(Model.RequestListingViewModels, page => Url.Action("Index", "Requests", new { sortOrder, searchString, currentFilter, page, requestsPerPage }))
+
+@*@model RequestSortingViewModel
+    @using X.PagedList;
+    @using X.PagedList.Mvc.Core;
+
+    @{
+        ViewData["Title"] = "Index";
+    }
+
+    <h3 class="text-center text-info">Requests</h3>
+    <div>
+        <div class="btn-group btn-group-toggle">
+            <a asp-area="" asp-controller="Requests" class="btn btn-success" asp-action="Index" asp-route-currentFilter="MyOpen">My Open Requests</a>
+            <a asp-area="" asp-controller="Requests" class="btn btn-success" asp-action="Index" asp-route-currentFilter="MyClosed">My Closed Requests</a>
+            <a asp-controller="Requests" asp-action="Index" class="btn btn-success">View All Requests</a>
+        </div>
+        <form asp-controller="Requests" asp-action="Index" method="get" class="pull-right input-group">
+            <input class="text-right " type="text" placeholder="Search" name="SearchString" value="@Model.CurrentSearch" />
+            <button class="btn btn-default">Search</button>
+        </form>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.IdSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
+                        @Html.DisplayNameFor(model => model.RequestListingViewModels[0].Id)
+                    </a>
+                </th>
+                <th>
+                    <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.SubjectSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
+                        @Html.DisplayNameFor(model => model.RequestListingViewModels[0].Subject)
+                    </a>
+                </th>
+                <th>
+                    <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.NameSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
+                        @Html.DisplayNameFor(model => model.RequestListingViewModels[0].Requester)
+                    </a>
+                </th>
+                <th>
+                    <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.AssignedToSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
+                        @Html.DisplayNameFor(model => model.RequestListingViewModels[0].AssignedTo)
+                    </a>
+                </th>
+                <th>
+                    <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.StartDateSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
+                        @Html.DisplayNameFor(model => model.RequestListingViewModels[0].StartTime)
+                    </a>
+                </th>
+                <th>
+                    <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.EndDateSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
+                        @Html.DisplayNameFor(model => model.RequestListingViewModels[0].Endtime)
+                    </a>
+                </th>
+                <th>
+                    <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.StatusSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
+                        @Html.DisplayNameFor(model => model.RequestListingViewModels[0].Status)
+                    </a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.RequestListingViewModels)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    <a asp-area="" asp-controller="Requests" asp-action="Details" asp-route-id="@item.Id">@item.Subject</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Requester)
+                </td>
+                <td>
+                    @if (item.AssignedTo != null)
+                    {
+                        <a class="text-success"><strong>@item.AssignedTo</strong></a>
+                    }
+                    else
+                    {
+                        <label class="text-danger">Unassigned</label>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Endtime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+    @{
+        var sortOrder = Model.CurrentSort;
+        var searchString = Model.CurrentSearch;
+        var currentFilter = Model.CurrentFilter;
+    }
+
+    @Html.PagedListPager(Model.RequestListingViewModels, page => Url.Action("Index", "Requests", new {sortOrder, searchString, currentFilter, page }))*@

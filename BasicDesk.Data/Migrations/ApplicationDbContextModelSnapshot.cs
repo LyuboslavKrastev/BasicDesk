@@ -19,7 +19,7 @@ namespace BasicDesk.App.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("BasicDesk.Data.Models.Request", b =>
+            modelBuilder.Entity("BasicDesk.Data.Models.Requests.Request", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -60,7 +60,7 @@ namespace BasicDesk.App.Data.Migrations
                     b.ToTable("Requests");
                 });
 
-            modelBuilder.Entity("BasicDesk.Data.Models.RequestAttachment", b =>
+            modelBuilder.Entity("BasicDesk.Data.Models.Requests.RequestAttachment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -83,7 +83,7 @@ namespace BasicDesk.App.Data.Migrations
                     b.ToTable("RequestAttachments");
                 });
 
-            modelBuilder.Entity("BasicDesk.Data.Models.RequestCategory", b =>
+            modelBuilder.Entity("BasicDesk.Data.Models.Requests.RequestCategory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -98,7 +98,32 @@ namespace BasicDesk.App.Data.Migrations
                     b.ToTable("RequestCategories");
                 });
 
-            modelBuilder.Entity("BasicDesk.Data.Models.RequestStatus", b =>
+            modelBuilder.Entity("BasicDesk.Data.Models.Requests.RequestNote", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreationTime");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(200);
+
+                    b.Property<int>("RequestId");
+
+                    b.Property<string>("Summary")
+                        .IsRequired()
+                        .HasMaxLength(20);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RequestId");
+
+                    b.ToTable("RequestNotes");
+                });
+
+            modelBuilder.Entity("BasicDesk.Data.Models.Requests.RequestStatus", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -113,7 +138,7 @@ namespace BasicDesk.App.Data.Migrations
                     b.ToTable("RequestStatuses");
                 });
 
-            modelBuilder.Entity("BasicDesk.Data.Models.Solution", b =>
+            modelBuilder.Entity("BasicDesk.Data.Models.Solution.Solution", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -138,7 +163,7 @@ namespace BasicDesk.App.Data.Migrations
                     b.ToTable("Solutions");
                 });
 
-            modelBuilder.Entity("BasicDesk.Data.Models.SolutionAttachment", b =>
+            modelBuilder.Entity("BasicDesk.Data.Models.Solution.SolutionAttachment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -326,13 +351,13 @@ namespace BasicDesk.App.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("BasicDesk.Data.Models.Request", b =>
+            modelBuilder.Entity("BasicDesk.Data.Models.Requests.Request", b =>
                 {
                     b.HasOne("BasicDesk.Data.Models.User", "AssignedTo")
                         .WithMany()
                         .HasForeignKey("AssignedToId");
 
-                    b.HasOne("BasicDesk.Data.Models.RequestCategory", "Category")
+                    b.HasOne("BasicDesk.Data.Models.Requests.RequestCategory", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -341,30 +366,38 @@ namespace BasicDesk.App.Data.Migrations
                         .WithMany("Requests")
                         .HasForeignKey("RequesterId");
 
-                    b.HasOne("BasicDesk.Data.Models.RequestStatus", "Status")
+                    b.HasOne("BasicDesk.Data.Models.Requests.RequestStatus", "Status")
                         .WithMany()
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("BasicDesk.Data.Models.RequestAttachment", b =>
+            modelBuilder.Entity("BasicDesk.Data.Models.Requests.RequestAttachment", b =>
                 {
-                    b.HasOne("BasicDesk.Data.Models.Request", "Request")
+                    b.HasOne("BasicDesk.Data.Models.Requests.Request", "Request")
                         .WithMany("Attachments")
                         .HasForeignKey("RequestId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("BasicDesk.Data.Models.Solution", b =>
+            modelBuilder.Entity("BasicDesk.Data.Models.Requests.RequestNote", b =>
+                {
+                    b.HasOne("BasicDesk.Data.Models.Requests.Request", "Request")
+                        .WithMany("Notes")
+                        .HasForeignKey("RequestId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("BasicDesk.Data.Models.Solution.Solution", b =>
                 {
                     b.HasOne("BasicDesk.Data.Models.User", "Author")
                         .WithMany()
                         .HasForeignKey("AuthorId");
                 });
 
-            modelBuilder.Entity("BasicDesk.Data.Models.SolutionAttachment", b =>
+            modelBuilder.Entity("BasicDesk.Data.Models.Solution.SolutionAttachment", b =>
                 {
-                    b.HasOne("BasicDesk.Data.Models.Solution", "Solution")
+                    b.HasOne("BasicDesk.Data.Models.Solution.Solution", "Solution")
                         .WithMany("Attachments")
                         .HasForeignKey("SolutionId")
                         .OnDelete(DeleteBehavior.Cascade);
