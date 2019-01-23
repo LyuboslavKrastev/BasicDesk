@@ -3,38 +3,71 @@
 @{
     ViewData["Title"] = "Details";
 }
-
 <div class="btn-group btn-group-toggle" data-toggle="buttons">
-<button class="btn disabled btn" style="display:table; background-color: #00611C; color:white;">Request ID: @Model.Id</button>
-        <button id="btn_desc" class="btn btn-danger">Request</button>
-        <button id="btn_res" class="btn">Resolution</button>
-        <button id="btn_hist" class="btn">History</button>
+    <button class="btn disabled btn" style="display:table; background-color: #00611C; color:white;">Request ID: @Model.Id</button>
+    <button id="btn_desc" class="btn btn-danger">Request</button>
+    <button id="btn_res" class="btn">Resolution</button>
+    <button id="btn_hist" class="btn">History</button>
+</div>
+<div class="btn-group btn-group-toggle pull-right" data-toggle="buttons">
+    <button class="btn btn-info" data-toggle="modal" data-target="#approvalModal">Submit for Approval</button>
+    <button class="btn btn-info" data-toggle="modal" data-target="#noteModal">Add Note</button>
+    <button class="btn btn-info pull-right" data-toggle="modal" data-target="#mergeModal" id="mergeButton">Merge Request</button>
+</div>
+
+<!-- Note Modal -->
+<partial name="NotePartial" />
+
+<!-- Author Modal -->
+<partial name="UserDetailsPartial" for="Author" />
+
+<!-- Technician Modal -->
+@if (Model.Technician != null)
+{
+    <partial name="UserDetailsPartial" for="Technician" />
+}
+
+
+@*MERGE MODAL*@
+<div class="modal fade modal-wide" id="mergeModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content" style="overflow:inherit">
+            <div class="modal-body modal-wide" id="tableModalDiv">
+
+            </div>
+            <div class="modal-footer" style="padding-bottom:50px">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" id="mergeReq" href="https://google.com">Merge</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="panel-group" id="request">
-        <div class="panel">
+    <div class="panel">
         <div class="panel-heading clearfix">
-            <div class="pull-left"><strong>Requester:</strong> @Model.Author</div>
+            <div class="pull-left"><strong>Requester:</strong> <a data-toggle="modal" data-target="#@Model.Author.Id">@Model.Author.UserName</a></div>
             <div class="pull-right"><strong>Created On:</strong> @Model.CreatedOn</div>
         </div>
         <div class="panel-body">
             <p><strong>Subject:</strong> @Model.Subject</p>
-            <hr>
-            <strong>Description</strong><hr>
-            <p>@Model.Description</p>     
+            <strong>Description</strong>
+            <p>@Model.Description</p>
         </div>
-       
+
         <div class="panel-footer clearfix">
             <div class="pull-left"><strong>Status:</strong> @Model.Status</div>
-            <div class="pull-right"><strong>Technician: </strong> @Model.AssignedToName</div>
-            <br /><hr />
+            @if (Model.Technician != null)
+            {
+                <div class="pull-right"><strong>Technician:</strong><a data-toggle="modal" data-target="#@Model.Technician.Id"> @Model.Technician.UserName</a></div>
+            }
+            else
+            {
+                <div class="pull-right"><strong>Technician: <span class="text-danger">Unassigned</span></strong></div>
+            }
+            <br />
             <div class="pull-left"><strong>Category:</strong> @Model.Category</div>
-
-            <div class="pull-right">
-                <strong>Email: </strong><a href="mailto://@Model.AssignedToEmail">@Model.AssignedToEmail</a>
-            </div>
         </div>
-
         @if (Model.Attachments != null)
         {
             <div class="panel-footer clearfix">
@@ -53,25 +86,16 @@
         }
     </div>
 </div>
-
 <div class="panel-group" id="resolution" style="display:none">
     <div class="panel">
         <div class="panel-heading clearfix">
             <div class="pull-left"><strong>Resolution</strong></div>
         </div>
         <div class="panel-body">
-            <textarea class="form-control" rows="4" style="resize:none;">@Model.Resolution</textarea>
-        </div>
-        <div class="panel-footer clearfix">
-            <div class="col-md-offset-6">
-                <button id="btn_edit" class="btn btn-success">Save</button>
-                <button id="btn_edit" class="btn btn-warning">Edit</button>
-
-            </div>
+            @Model.Resolution
         </div>
     </div>
 </div>
-
 <div class="panel-group" id="history" style="display:none">
     <div class="panel">
         <div class="panel-heading clearfix">
@@ -80,11 +104,21 @@
         <div class="panel-body"><p>Model.History</p></div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
 <script>
-    $('#btn_desc').on('click', function(){
+    function getPage() {
+        $("#tableModalDiv").load("/requests");
+        $("#tableModalDiv").removeData('#navbarMain')
+        
+    }
+
+    $('#mergeModal').on('none', function () {
+        $(this).removeData("#tableModalDiv");
+    });
+
+    $("#mergeButton").on('click', getPage());
+
+    $('#btn_desc').on('click', function () {
         $('#history').hide();
         $('#resolution').hide();
         $('#request').show();
@@ -92,8 +126,8 @@
         $('#btn_hist').removeClass('btn-danger');
         $('#btn_desc').addClass('btn-danger');
     });
-    $('#btn_res').on('click', function(){
-        $('#history').hide();  
+    $('#btn_res').on('click', function () {
+        $('#history').hide();
         $('#request').hide();
         $('#resolution').show();
         $('#btn_desc').removeClass('btn-danger');
@@ -101,13 +135,12 @@
         $('#btn_res').addClass('btn-danger');
 
     });
-    $('#btn_hist').on('click', function(){      
+    $('#btn_hist').on('click', function () {
         $('#request').hide();
         $('#resolution').hide();
-        $('#history').show();  
+        $('#history').show();
         $('#btn_desc').removeClass('btn-danger');
         $('#btn_res').removeClass('btn-danger');
         $('#btn_hist').addClass('btn-danger');
     });
 </script>
-

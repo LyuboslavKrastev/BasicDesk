@@ -6,23 +6,23 @@
     ViewData["Title"] = "Index";
 }
 
-<h3 class="text-center text-info">Requests</h3>
+<h3 class="text-center">Requests</h3>
 <div class="container-fluid body-content">
     <div>
         <!-- <div class="btn-group btn-group-toggle">
-            <a asp-area="" asp-controller="Requests" class="btn btn-success" asp-action="Index" asp-route-currentFilter="MyOpen">My Open Requests</a>
-            <a asp-area="" asp-controller="Requests" class="btn btn-success" asp-action="Index" asp-route-currentFilter="MyClosed">My Closed Requests</a>
-            <a asp-controller="Requests" asp-action="Index" class="btn btn-success">View All Requests</a>
-        </div> -->
+        <a asp-area="" asp-controller="Requests" class="btn btn-success" asp-action="Index" asp-route-currentFilter="MyOpen">My Open Requests</a>
+        <a asp-area="" asp-controller="Requests" class="btn btn-success" asp-action="Index" asp-route-currentFilter="MyClosed">My Closed Requests</a>
+        <a asp-controller="Requests" asp-action="Index" class="btn btn-success">View All Requests</a>
+    </div> -->
         <!-- <div class="btn-group btn-group-toggle"></div>
-        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#approvalModal">
-            Submit for Approval
-        </button>
+    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#approvalModal">
+        Submit for Approval
+    </button>
 
-        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#noteModal">
-                Add Note
-        </button>
-        </div> -->
+    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#noteModal">
+            Add Note
+    </button>
+    </div> -->
         <!-- Note Modal -->
         <div class="modal fade" id="noteModal" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -41,7 +41,6 @@
                 </div>
             </div>
         </div>
-
 
         <!-- Approval Modal -->
         <div class="modal fade" id="approvalModal" tabindex="-1" role="dialog">
@@ -76,15 +75,7 @@
         </div>
 
     </div>
-    <div style="display:inline">
-        <label for="timer">
-            <h3>
-                Seconds until page reloads: <span class="text-danger" id="timer">
-                </span>
-            </h3>
-        </label>
 
-    </div>
     <table class="table table-hover table-bordered">
         <thead>
             <tr>
@@ -129,16 +120,14 @@
                             </div>
                     </div> -->
                 </th>
-                <th class="col-md-1"><a asp-area="" asp-controller="Requests" asp-action="Create" class="btn btn-success"style="width: 100%;">New Request <i class=glyphicon-plus></i></a></th>
+                <th class="col-md-1"><a asp-area="" asp-controller="Requests" asp-action="Create" class="btn btn-success" style="width: 100%;">New Request <i class=glyphicon-plus></i></a></th>
                 <th class="col-md-1"><a class="btn btn-info" data-toggle="modal" style="width: 100%;" data-target="#approvalModal">Submit for Approval</a></th>
                 <th class="col-md-1"><a class="btn btn-info" style="width: 100%;" data-toggle="modal" data-target="#noteModal">Add Note</a></th>
                 <th class="col-md-1"><a class="btn btn-info" style="width: 100%;" id="mergeReq">Merge</a></th>
                 <th class="col-md-1"><a class="btn btn-danger" style="width: 100%;" id="deleteReq">Delete</a></th>
-                <th class="col-md-1"></th>
-                <th class="col-md-1"></th>
 
                 <th>
-                    <form method="get"class="form-inline" >
+                    <form method="get" class="form-inline">
                         <div class="form-group">
                             <label for="myfield">Show</label>
                             @{
@@ -183,42 +172,42 @@
         <th>
             <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.IdSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
                 Id
-                <!-- @Html.DisplayNameFor(model => model.RequestListingViewModels[0].Id) -->
+                <!-- @Html.DisplayNameFor(model => model.Requests[0].Id) -->
             </a>
         </th>
         <th>
             <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.SubjectSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
                 Subject
-                <!-- @Html.DisplayNameFor(model => model.RequestListingViewModels[0].Subject) -->
+                <!-- @Html.DisplayNameFor(model => model.Requests[0].Subject) -->
             </a>
         </th>
         <th>
             <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.NameSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
                 Requester Name
-                <!-- @Html.DisplayNameFor(model => model.RequestListingViewModels[0].Requester) -->
+                <!-- @Html.DisplayNameFor(model => model.Requests[0].Requester) -->
             </a>
         </th>
         <th>
             <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.AssignedToSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
                 Assigned To
-                <!-- @Html.DisplayNameFor(model => model.RequestListingViewModels[0].AssignedTo) -->
+                <!-- @Html.DisplayNameFor(model => model.Requests[0].AssignedTo) -->
             </a>
         </th>
         <th>
             <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.StartDateSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
                 Created Date
-                <!-- @Html.DisplayNameFor(model => model.RequestListingViewModels[0].StartTime) -->
+                <!-- @Html.DisplayNameFor(model => model.Requests[0].StartTime) -->
             </a>
         </th>
         <th>
             <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.EndDateSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
                 Closed On
-                <!-- @Html.DisplayNameFor(model => model.RequestListingViewModels[0].Endtime) -->
+                <!-- @Html.DisplayNameFor(model => model.Requests[0].Endtime) -->
             </a>
         </th>
         <th>
             <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.StatusSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
-                <!-- @Html.DisplayNameFor(model => model.RequestListingViewModels[0].Status) -->
+                <!-- @Html.DisplayNameFor(model => model.Requests[0].Status) -->
                 Status
 
             </a>
@@ -254,7 +243,7 @@
                 </td>
             </tr>
 
-            @foreach (var item in Model.RequestListingViewModels)
+            @foreach (var item in Model.Requests)
             {
                 <tr>
                     <td><input type="checkbox" class="check"></td>
@@ -290,14 +279,21 @@
             }
         </tbody>
     </table>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-            crossorigin="anonymous">
-    </script>
+    <div style="display:inline">
+        <label for="timer">
+            <h3>
+                Seconds until page reloads: <span class="text-danger" id="timer">
+                </span>
+            </h3>
+        </label>
+
+    </div>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+
 
     <!-- Latest compiled and minified CSS -->
     @* <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">*@
-    
+
 
     <script>
         $("#checkAll").click(function () {
@@ -391,7 +387,7 @@
     </script>
 
     <!-- Latest compiled and minified JavaScript -->
-   @* <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>*@
+    @* <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>*@
 </div>
 @{
     var sortOrder = Model.CurrentSort;
@@ -400,7 +396,7 @@
     var requestsPerPage = Model.RequestsPerPage;
 }
 
-@Html.PagedListPager(Model.RequestListingViewModels, page => Url.Action("Index", "Requests", new { sortOrder, searchString, currentFilter, page, requestsPerPage }))
+@Html.PagedListPager(Model.Requests, page => Url.Action("Index", "Requests", new { sortOrder, searchString, currentFilter, page, requestsPerPage }))
 
 @*@model RequestSortingViewModel
     @using X.PagedList;
@@ -428,43 +424,43 @@
             <tr>
                 <th>
                     <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.IdSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
-                        @Html.DisplayNameFor(model => model.RequestListingViewModels[0].Id)
+                        @Html.DisplayNameFor(model => model.Requests[0].Id)
                     </a>
                 </th>
                 <th>
                     <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.SubjectSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
-                        @Html.DisplayNameFor(model => model.RequestListingViewModels[0].Subject)
+                        @Html.DisplayNameFor(model => model.Requests[0].Subject)
                     </a>
                 </th>
                 <th>
                     <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.NameSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
-                        @Html.DisplayNameFor(model => model.RequestListingViewModels[0].Requester)
+                        @Html.DisplayNameFor(model => model.Requests[0].Requester)
                     </a>
                 </th>
                 <th>
                     <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.AssignedToSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
-                        @Html.DisplayNameFor(model => model.RequestListingViewModels[0].AssignedTo)
+                        @Html.DisplayNameFor(model => model.Requests[0].AssignedTo)
                     </a>
                 </th>
                 <th>
                     <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.StartDateSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
-                        @Html.DisplayNameFor(model => model.RequestListingViewModels[0].StartTime)
+                        @Html.DisplayNameFor(model => model.Requests[0].StartTime)
                     </a>
                 </th>
                 <th>
                     <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.EndDateSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
-                        @Html.DisplayNameFor(model => model.RequestListingViewModels[0].Endtime)
+                        @Html.DisplayNameFor(model => model.Requests[0].Endtime)
                     </a>
                 </th>
                 <th>
                     <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.StatusSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
-                        @Html.DisplayNameFor(model => model.RequestListingViewModels[0].Status)
+                        @Html.DisplayNameFor(model => model.Requests[0].Status)
                     </a>
                 </th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.RequestListingViewModels)
+            @foreach (var item in Model.Requests)
             {
             <tr>
                 <td>
@@ -506,4 +502,4 @@
         var currentFilter = Model.CurrentFilter;
     }
 
-    @Html.PagedListPager(Model.RequestListingViewModels, page => Url.Action("Index", "Requests", new {sortOrder, searchString, currentFilter, page }))*@
+    @Html.PagedListPager(Model.Requests, page => Url.Action("Index", "Requests", new {sortOrder, searchString, currentFilter, page }))*@

@@ -17,17 +17,15 @@ namespace BasicDesk.App.Areas.Management.Pages.Solutions
     {
         private BasicDeskDbContext dbContext;
         private UserManager<User> userManager;
-        private readonly IMapper mapper;
 
         [BindProperty]
         public SolutionCreationBindingModel Model {get; set; }
 
-        public CreateModel(BasicDeskDbContext dbContext, UserManager<User> userManager, IMapper mapper)
+        public CreateModel(BasicDeskDbContext dbContext, UserManager<User> userManager)
         {
             this.Model = new SolutionCreationBindingModel();
             this.dbContext = dbContext;
             this.userManager = userManager;
-            this.mapper = mapper;
         }
 
         public async Task<IActionResult> OnPost()
@@ -37,7 +35,7 @@ namespace BasicDesk.App.Areas.Management.Pages.Solutions
                 return BadRequest();
             }
 
-            var solution = mapper.Map<Solution>(Model);
+            var solution = Mapper.Map<Solution>(Model);
             solution.AuthorId = this.userManager.GetUserId(User);
 
             this.dbContext.Solutions.Add(solution);

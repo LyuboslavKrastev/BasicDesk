@@ -28,10 +28,8 @@ namespace BasicDesk.App.Controllers
     {
         private readonly BasicDeskDbContext dbContext;
         private readonly UserManager<User> userManager;
-        private RequestService requestService;
+        private readonly RequestService requestService;
         private readonly RequestSorter requestSorter;
-        private string userId;
-        private bool isTechnician;
         private const int DEFAULT_PAGE_NUMBER = 1;
         private const int DEFAULT_REQUESTS_PER_PAGE = 5;
 
@@ -45,26 +43,24 @@ namespace BasicDesk.App.Controllers
             this.requestSorter = requestSorter;
         }
 
-        public RequestSortingViewModel viewModel { get; set; }
-
         [HttpGet]
         public IActionResult Index(string sortOrder, string searchString, string currentFilter, int? page, int? requestsPerPage)
         {
 
-            this.viewModel = this.requestSorter.ConfigureSorting(sortOrder, currentFilter, searchString);
+            RequestSortingViewModel model = this.requestSorter.ConfigureSorting(sortOrder, currentFilter, searchString);
 
-            if(this.viewModel.RequestsPerPage != requestsPerPage)
+            if(model.RequestsPerPage != requestsPerPage)
             {
-                this.viewModel.RequestsPerPage = requestsPerPage;
+                model.RequestsPerPage = requestsPerPage;
             }
 
             var pageNumber = page ?? DEFAULT_PAGE_NUMBER;
-            var requestsCount = this.viewModel.RequestsPerPage ?? DEFAULT_REQUESTS_PER_PAGE;
+            var requestsCount = model.RequestsPerPage ?? DEFAULT_REQUESTS_PER_PAGE;
 
-            this.userId = userManager.GetUserId(User);
-            this.isTechnician = User.IsInRole(WebConstants.AdminRole) || User.IsInRole(WebConstants.HelpdeskRole);
+            string userId = userManager.GetUserId(User);
+            bool isTechnician = User.IsInRole(WebConstants.AdminRole) || User.IsInRole(WebConstants.HelpdeskRole);
 
-            IQueryable<Request> requests;      
+            IQueryable<RequestListingViewModel> requests;      
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -81,23 +77,16 @@ namespace BasicDesk.App.Controllers
 
             requests = this.requestSorter.SortRequests(requests, sortOrder);
 
+            model.Requests = requests.ToPagedList(pageNumber, requestsCount);
 
-            var requestViewModels = Mapper.Map<ICollection<RequestListingViewModel>>(requests).ToPagedList(pageNumber, requestsCount);
-
-            this.viewModel.RequestListingViewModels = requestViewModels;
-
-            var statuses = this.requestService.GetAllStatuses().Select(s => new SelectListItem
+            model.Statuses = this.requestService.GetAllStatuses().Select(s => new SelectListItem
             {
                 Text = s.Name,
                 Value = s.Id.ToString()
             }).ToArray();
 
-            this.viewModel.Statuses = statuses;
 
-
-
-
-            return this.View(this.viewModel);
+            return this.View(model);
         }
 
         public IActionResult Create()
@@ -157,18 +146,27 @@ namespace BasicDesk.App.Controllers
         }
 
 
-        public async Task<IActionResult> Details(string id)
+        public IActionResult Details(string id)
         {
-
-            var resuestDetailsViewModel =  await this.requestService.GetRequestDetailsAsync(int.Parse(id));
-
             if (User.IsInRole("Administrator") || User.IsInRole("HelpdeskAgent"))
             {
                 return this.Redirect($"/Management/Requests/Manage?id={id}");
             }
             else
             {
-                return this.View(resuestDetailsViewModel);
+                int requestId = int.Parse(id);
+                string userId = this.userManager.GetUserId(User);
+
+                RequestDetailsViewModel model = this.requestService.GetRequestDetails(requestId, userId)
+                    .FirstOrDefault();
+                
+                //If the request that the user is trying to access, is not his own, the model shall be null
+                if(model == null)
+                {
+                    return this.Forbid();
+                }
+
+                return this.View(model);
             }
         }
 

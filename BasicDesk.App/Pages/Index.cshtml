@@ -3,7 +3,10 @@
 @{
     ViewData["Title"] = "Index";
 }
-
+@{
+    var XLabels = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Model.Select(x => x.DimensionOne).ToList());
+    var YValues = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Model.Select(x => x.Quantity).ToList());
+}
 @if (!User.Identity.IsAuthenticated)
 {
     <div class="jumbotron text-center">
@@ -16,41 +19,115 @@
 }
 else
 {
-    <div class="jumbotron mt-3">
-        <div class="container-fluid text-center">
-            <h2>Greetings, @User.Identity.Name!</h2>
-            <hr />
-        </div>
-        <div class="col-sm-12">
+    <div class="text-center">
+        <h3>Greetings, @User.Identity.Name!</h3>
+    </div>
+    @*<div class="col-sm-12">
             <div class="text-center">
                 <a asp-area="" asp-controller="Requests" asp-action="Create" class="btn btn-lg btn-primary">
                     Create Request <i class="glyphicon-plus"></i>
                 </a>
             </div>
+        </div>*@
+    <div class="box-body clearfix row">
+        <div class="col-md-6">
+            <h4 class="text-center">Your Requests</h4>
+            <div class="chart-container">
+                <canvas id="chart" style="height:400px"></canvas>
+            </div>
         </div>
-        <hr class="hr-2 bg-dark" />
-        <div class="row">
-            <div class="card col-sm-4 text-center">
-                <h3 class="card-header">My Open Requests</h3>
-                <div class="card-body">
-                    <a asp-controller="Requests" asp-action="Index" asp-route-currentFilter="MyOpen" class="btn btn-primary">View</a>
-                </div>
-
-            </div>
-
-            <div class="card col-sm-4 text-center">
-                <h3 class="card-header">My Closed Requests</h3>
-                <div class="card-body">
-                    <a asp-controller="Requests" asp-action="Index" asp-route-currentFilter="MyClosed" class="btn btn-primary">View</a>
-                </div>
-            </div>
-            <div class="card col-sm-4 text-center">
-                <h3 class="card-header text-ce">All Requests</h3>
-                <div class="card-body">
-                    <a asp-controller="Requests" asp-action="Index" class="btn btn-primary">View</a>
-                </div>
-            </div>
+        <div class="col-md-6">
+            <h4 class="text-center">Actions</h4>
+            <a asp-controller="Requests" asp-action="Index" class="btn myBtn btn-block">View All Requests</a>
+            <a asp-area="" asp-controller="Requests" asp-action="Create" class="btn myBtn btn-block">
+                Create Request <i class="glyphicon-plus"></i>
+            </a>
         </div>
     </div>
-}
+        <script src="~/js/Chart.bundle.min.js"></script>
+        <script src="~/js/chartjs-plugin-labels.js"></script>
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script type="text/javascript">
 
+            $(function () {
+        var chartName = "chart";
+            var ctx = document.getElementById(chartName).getContext('2d');
+            var data = {
+                labels: @Html.Raw(XLabels),
+                datasets: [{
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 0, 0)',
+                            'rgba(0, 255, 0)',
+                            'rgba(0, 0, 255)',
+                            'rgba(192, 192, 192)',
+                            'rgba(255, 255, 0)',
+                            'rgba(255, 0, 255)',
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(255, 0, 0)',
+                            'rgba(0, 255, 0)',
+                            'rgba(0, 0, 255)',
+                            'rgba(192, 192, 192)',
+                            'rgba(255, 255, 0)',
+                            'rgba(255, 0, 255)'
+                        ],
+                        borderWidth: 1,
+                        data: @Html.Raw(YValues)
+                    }]
+                };
+
+                var options = {
+                    plugins: {
+                        labels: {
+                            render: 'value'
+
+                        }
+                    },
+                    maintainAspectRatio: false,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                min: 0,
+                                beginAtZero: true,
+                                display: false  // removes scale
+                            },
+                            gridLines: {
+                                display: false,
+                                color: "rgba(255,99,164,0.2)",
+                                drawBorder: false //removes axis
+                            }
+                        }],
+                        xAxes: [{
+                            ticks: {
+                                min: 0,
+                                beginAtZero: true,
+                                display: false // removes scale
+                            },
+                            gridLines: {
+                                display: false,
+                                drawBorder: false //removes axis
+                            }
+                        }]
+                    }
+                };
+           var myChart = new  Chart(ctx, {
+                    options: options,
+                    data: data,
+                    type: "@TempData["Type"]"
+                    // may be pie bar doughnut and others
+                });
+            });
+    </script>
+}

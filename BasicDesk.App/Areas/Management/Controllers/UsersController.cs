@@ -17,14 +17,11 @@ namespace BasicDesk.App.Areas.Management.Controllers
     public class UsersController : BaseAdminController
     {
         private readonly BasicDeskDbContext dbContext;
-        private readonly IMapper mapper;
         private readonly UserManager<User> userManager;
 
-        public UsersController(BasicDeskDbContext dbContext, IMapper mapper,
-            UserManager<User> userManager)
+        public UsersController(BasicDeskDbContext dbContext, UserManager<User> userManager)
         {
             this.dbContext = dbContext;
-            this.mapper = mapper;
             this.userManager = userManager;
         }
 
@@ -39,7 +36,7 @@ namespace BasicDesk.App.Areas.Management.Controllers
             foreach (var dbUser in dbUsers)
             {
                 var roles = await this.userManager.GetRolesAsync(dbUser);
-                var user = this.mapper.Map<UserConciseViewModel>(dbUser);
+                var user = Mapper.Map<UserConciseViewModel>(dbUser);
                 user.IsAdmin = roles.Any(r => r == WebConstants.AdminRole);
                 user.IsHelpdeskAgent = roles.Any(r => r == WebConstants.HelpdeskRole);
                 user.IsBanned = dbUser.LockoutEnd != null;
@@ -61,7 +58,7 @@ namespace BasicDesk.App.Areas.Management.Controllers
         {
             var user = await userManager.FindByIdAsync(id);
             
-            return this.View(mapper.Map<UserDetailsViewModel>(user));
+            return this.View(Mapper.Map<UserDetailsViewModel>(user));
         }
 
         [HttpPost]
@@ -86,7 +83,7 @@ namespace BasicDesk.App.Areas.Management.Controllers
         {
             var user = await userManager.FindByIdAsync(id);
 
-            return this.View(mapper.Map<UserDetailsViewModel>(user));
+            return this.View(Mapper.Map<UserDetailsViewModel>(user));
         }
 
         public async Task<IActionResult> Unban(UserDetailsViewModel user)

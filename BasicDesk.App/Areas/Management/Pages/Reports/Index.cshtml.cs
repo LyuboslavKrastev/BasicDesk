@@ -26,6 +26,7 @@ namespace BasicDesk.App.Areas.Management.Pages.Reports
 
         public IActionResult OnGet()
         {
+
             var users = this.dbContext.Users.Select(u => new UserRequestsViewModel
             {
                 Name = u.FullName,

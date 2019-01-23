@@ -1,0 +1,20 @@
+﻿@using BasicDesk.App.Models.Management.ViewModels
+@model UserDetailsViewModel
+<div id="@Model.Id" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title text-center">@Model.UserName</h3>
+            </div>
+            <div class="modal-body text-center">
+                <p><strong>Email: </strong> <a href="mailto://@Model.Email">@Model.Email</a></p>
+                <p><strong>Full Name: </strong>@Model.FullName</p>
+                @if (!string.IsNullOrWhiteSpace(Model.Phone))
+                {
+                    <p><strong>Phone: </strong>@Model.Phone</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

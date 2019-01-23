@@ -61,6 +61,6 @@ namespace BasicDesk.App.Models.Common.ViewModels
             }
         };
 
-        public IPagedList<RequestListingViewModel> RequestListingViewModels { get; set; }
+        public IPagedList<RequestListingViewModel> Requests { get; set; }
     } 
 }

@@ -11,11 +11,9 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using BasicDesk.App.Areas.Identity.Services;
 using BasicDesk.Data.Models;
 using BasicDesk.App.Common;
-using AutoMapper;
 using BasicDesk.App.Hubs;
 using BasicDesk.Services;
 using BasicDesk.Services.Repository;
-using BasicDesk.App.AutoMapping;
 using BasicDesk.Services.AutoMapping;
 
 namespace BasicDesk.App

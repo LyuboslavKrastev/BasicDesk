@@ -84,10 +84,10 @@ namespace BasicDesk.App.Common
 
                     foreach (var status in statuses)
                     {
-                        dbContext.RequestStatuses.Add(new RequestStatus { Name = status });
+                        await dbContext.RequestStatuses.AddAsync(new RequestStatus { Name = status });
                     }
 
-                    dbContext.SaveChanges();
+                    await dbContext.SaveChangesAsync();
                 }
             }
         }

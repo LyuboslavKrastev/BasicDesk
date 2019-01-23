@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using BasicDesk.App.Models.Common.ViewModels;
 using BasicDesk.Common.Constants;
 using BasicDesk.Data;
@@ -34,93 +35,51 @@ namespace BasicDesk.Services
             return this.repository.SaveChangesAsync();
         }
 
-        public IQueryable<Request> GetAll(string userId, bool isTechnician)
+        public IQueryable<RequestListingViewModel> GetAll(string userId, bool isTechnician)
         {
-            if (isTechnician)
-            {
-                return this.repository.All()
-                   .Include(r => r.Requester)
-                   .Include(r => r.Status)
-                   .Include(r => r.AssignedTo).AsNoTracking();
-            }
-            return this.repository.All()
-               .Where(r => r.RequesterId == userId)
-               .Include(r => r.Requester)
-               .Include(r => r.AssignedTo)
-               .Include(r => r.Status).AsNoTracking();
+            IQueryable<Request> requests = GetRequestsForRole(userId, isTechnician);
+
+            return requests.ProjectTo<RequestListingViewModel>().AsNoTracking();
+        }
+             
+        public IQueryable<RequestListingViewModel> GetBySearch(string userId, bool isTechnician, string searchString)
+        {
+            IQueryable<Request> requests = this.GetRequestsForRole(userId, isTechnician);
+
+            return requests.Where(a => a.Subject.Contains(searchString))
+               .ProjectTo<RequestListingViewModel>().AsNoTracking();
         }
 
-        public IQueryable<Request> GetBySearch(string userId, bool isTechnician, string searchString)
-        {
-            if (isTechnician)
-            {
-                return this.repository.All()
-               .Where(a => a.Subject.Contains(searchString))
-               .Include(r => r.Requester)
-               .Include(r => r.Status)
-               .Include(r => r.AssignedTo).AsNoTracking();
-            }
-
-            return this.repository.All()
-               .Where(r => r.RequesterId == userId)
-               .Where(a => a.Subject.Contains(searchString))
-               .Include(r => r.Requester)
-               .Include(r => r.AssignedTo)
-               .Include(r => r.Status).AsNoTracking();
-        }
-
-        public IQueryable<Request> GetByFilter(string userId, bool isTechnician, string currentFilter)
+        public IQueryable<RequestListingViewModel> GetByFilter(string userId, bool isTechnician, string currentFilter)
         {
             bool isInt = int.TryParse(currentFilter, out int statusId);
+            IQueryable<Request> requests = GetRequestsForRole(userId, isTechnician);
 
             if (isInt)
             {
-                return this.repository.All()
-                            .Where(r => r.RequesterId == userId)
-                            .Include(r => r.Status)
-                            .Where(r => r.Status.Id == statusId)
-                            .Include(r => r.AssignedTo)
-                            .Include(r => r.Requester).AsNoTracking();
+                return requests.Where(r => r.Status.Id == statusId)
+                    .ProjectTo<RequestListingViewModel>().AsNoTracking();
             }
-            else
-            {
-                return this.repository.All()
-                            .Where(r => r.RequesterId == userId)
-                            .Include(r => r.Status)
-                            .Include(r => r.AssignedTo)
-                            .Include(r => r.Requester).AsNoTracking();
-            }
-
+            return GetAll(userId, isTechnician);
         }
 
-        public async Task<RequestDetailsViewModel> GetRequestDetailsAsync(int id)
+
+        public IQueryable<RequestDetailsViewModel> GetRequestDetails(int id, string userId)
         {
-            var request = await this.repository.All().Where(r => r.Id == id)
-            .Include(r => r.AssignedTo)
-            .Include(r => r.Requester)
-            .Include(r => r.Category)
-            .Include(r => r.Status)
-            .Include(r => r.Attachments)
-            .FirstOrDefaultAsync();
+            IQueryable<RequestDetailsViewModel> request = this.repository.All()
+                .Where(r => r.Id == id)
+                .Where(r => r.RequesterId == userId)
+                .ProjectTo<RequestDetailsViewModel>();
 
-            var requestDetails = Mapper.Map<RequestDetailsViewModel>(request);
-
-            if (request.AssignedTo != null)
-            {
-                requestDetails.AssignedToEmail = request.AssignedTo.Email;
-                requestDetails.AssignedToName = request.AssignedTo.FullName;
-            }
-
-            return requestDetails;
+            return request.AsNoTracking();
         }
 
         public Task SaveResolutionAsync(int id, string resolution)
         {
-            var req = this.repository.All()
+            this.repository.All()
                 .Where(r => r.Id == id)
-                .FirstOrDefault();
-
-            req.Resolution = resolution;
+                .FirstOrDefault()
+                .Resolution = resolution;
 
             return this.SaveChangesAsync();
         }
@@ -132,7 +91,16 @@ namespace BasicDesk.Services
 
         public IQueryable<RequestStatus> GetAllStatuses()
         {
-                return this.statusRepository.All().AsNoTracking();
+            return this.statusRepository.All().AsNoTracking();
+        }
+
+        private IQueryable<Request> GetRequestsForRole(string userId, bool isTechnician)
+        {
+            if (!isTechnician)
+            {
+                return this.repository.All().Where(r => r.RequesterId == userId);
+            }
+            return this.repository.All();
         }
     }
 }

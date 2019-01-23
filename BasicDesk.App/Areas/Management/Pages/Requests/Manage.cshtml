@@ -3,9 +3,8 @@
 @{
     ViewData["Title"] = "Details";
 }
-
 <div class="btn-group btn-group-toggle" data-toggle="buttons">
-    <button class="btn disabled btn" style="display:table; background-color: darkgoldenrod; color:white;">Request ID: @Model.ViewModel.Id</button>
+    <button class="btn disabled btn-info">Request ID: @Model.ViewModel.Id</button>
     <button id="btn_desc" class="btn btn-danger">Request</button>
     <button id="btn_res" class="btn">Resolution</button>
     <button id="btn_hist" class="btn">History</button>
@@ -24,23 +23,18 @@
                 <p>@Model.ViewModel.Description</p>
             </div>
             <div class="panel-footer clearfix">
-                @if (Model.ViewModel.Attachments != null)
-                {
-                    <br /><hr />
-                          <div class="text-center">
-                              @foreach (var attachment in Model.ViewModel.Attachments)
-                              {
-                                  <label asp-for="@attachment">Attachment: </label>
-                                  <a asp-area="" asp-controller="Requests" asp-action="Download"
-                                     asp-route-filename="@attachment.FileName" asp-route-filePath="@attachment.PathToFile" asp-route-requestId="@Model.ViewModel.Id">
-                                      @attachment.FileName
-                                  </a>
-                                  <br />
-                              }
 
-                          </div>
-
-                }
+                    <div class="text-center">
+                        @foreach (var attachment in Model.ViewModel.Attachments)
+                        {
+                            <label asp-for="@attachment">Attachment: </label>
+                            <a asp-area="" asp-controller="Requests" asp-action="Download"
+                               asp-route-filename="@attachment.FileName" asp-route-filePath="@attachment.PathToFile" asp-route-requestId="@Model.ViewModel.Id">
+                                @attachment.FileName
+                            </a>
+                            <br />
+                        }
+                    </div>
                 <label class="control-label pull-left col-sm-1" asp-for="bindingModel.CategoryId"></label>
                 <div class="col-sm-3 pull-left">
                     <select class="form-control" asp-for="bindingModel.CategoryId" asp-items="Model.ViewModel.Categories" Selected="true" Value="3"></select>
@@ -62,40 +56,35 @@
             </div>
         </div>
     </div>
-    </form>
-
-    <div class="panel-group" id="resolution" style="display:none">
-        <div class="panel">
-            <div class="panel-heading clearfix">
-                <div class="pull-left"><strong>Resolution</strong></div>
-            </div>
-            <form asp-area="" asp-controller="Requests" asp-action="SaveResolution" method="post">
-                <div class="panel-body">
-                    <input style="display:none" name="reqId" value="@Model.ViewModel.Id" />
-                    <textarea disabled class="form-control" rows="3" style="resize:none;" id="resol" name="resol">@Model.ViewModel.Resolution</textarea>
-
-                </div>
-                <div class="panel-footer clearfix">
-                    <div class="col-md-offset-6">
-                        <button class="btn btn-success" type="submit">Save</button>
-                    </div>
-                </div>
-            </form>
-            <button id="btn_edit" class="btn btn-warning">Edit</button>
+</form>
+<div class="panel-group" id="resolution" style="display:none">
+    <div class="panel">
+        <div class="panel-heading clearfix">
+            <div class="pull-left"><strong>Resolution</strong></div>
         </div>
-    </div>
-    <div class="panel-group" id="history" style="display:none">
-        <div class="panel">
-            <div class="panel-heading clearfix">
-                <div class="pull-left"><strong>History</strong></div>
+        <form asp-area="" asp-controller="Requests" asp-action="SaveResolution" method="post">
+            <div class="panel-body">
+                <input style="display:none" name="reqId" value="@Model.ViewModel.Id" />
+                <textarea disabled class="form-control" rows="4" style="resize:none;" id="resol" name="resol">@Model.ViewModel.Resolution</textarea>
             </div>
-            <div class="panel-body"><p>Model.History</p></div>
-        </div>
+            <div class="panel-footer clearfix">
+                <div class="col-md-offset-6">
+                    <button class="btn btn-success" type="submit">Save</button>
+                </div>
+            </div>
+        </form>
+        <button id="btn_edit" class="btn btn-warning">Edit</button>
     </div>
-
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
+</div>
+<div class="panel-group" id="history" style="display:none">
+    <div class="panel">
+        <div class="panel-heading clearfix">
+            <div class="pull-left"><strong>History</strong></div>
+        </div>
+        <div class="panel-body"><p>Model.History</p></div>
+    </div>
+</div>
+<script src="~/lib/jquery/dist/jquery.js"></script>
 <script>
     $('#btn_desc').on('click', function () {
         $('#history').hide();
@@ -129,4 +118,3 @@
         $('#resol').attr('disabled');
     });
 </script>
-

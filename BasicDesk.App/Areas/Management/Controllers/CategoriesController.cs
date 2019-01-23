@@ -14,12 +14,10 @@ namespace BasicDesk.App.Areas.Management.Controllers
     public class CategoriesController : BaseAdminController
     {
         private readonly BasicDeskDbContext dbContext;
-        private readonly IMapper mapper;
 
-        public CategoriesController(BasicDeskDbContext dbContext, IMapper mapper)
+        public CategoriesController(BasicDeskDbContext dbContext)
         {
             this.dbContext = dbContext;
-            this.mapper = mapper;
         }
 
         public IActionResult Index()
@@ -28,7 +26,7 @@ namespace BasicDesk.App.Areas.Management.Controllers
 
             var model = new CategoryIndexModel
             {
-                CategoryViewModels = mapper.Map<ICollection<CategoryViewModel>>(categories)
+                CategoryViewModels = Mapper.Map<ICollection<CategoryViewModel>>(categories)
             };
 
             return View(model);
@@ -37,7 +35,7 @@ namespace BasicDesk.App.Areas.Management.Controllers
         [HttpPost]
         public IActionResult Create(CategoryIndexModel model)
         {
-            var category = this.mapper.Map<RequestCategory>(model.CategoryCreationBindingModel);
+            var category = Mapper.Map<RequestCategory>(model.CategoryCreationBindingModel);
             if (dbContext.RequestCategories.Any(c => c.Name == category.Name))
             {
                 this.TempData.Put("__Message", new MessageModel()
@@ -63,7 +61,7 @@ namespace BasicDesk.App.Areas.Management.Controllers
 
         public IActionResult Edit(int id)
         {
-            var model = this.mapper.Map<CategoryViewModel>(this.dbContext.RequestCategories.Find(id));
+            var model = Mapper.Map<CategoryViewModel>(this.dbContext.RequestCategories.Find(id));
 
             return this.View(model);
         }

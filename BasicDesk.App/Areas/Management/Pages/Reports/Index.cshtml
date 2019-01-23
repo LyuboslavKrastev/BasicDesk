@@ -3,37 +3,21 @@
 @{
     ViewData["Title"] = "Reports";
 }
-
 @{
     var XLabels = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Model.Select(x => x.DimensionOne).ToList());
     var YValues = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Model.Select(x => x.Quantity).ToList());
-    ViewData["Title"] = "Bar Chart";
 }
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Bar</title>
-</head>
-<body>
-    <div class="box-body">
-
+    <div class="box-body col-md-5">
         <div class="chart-container">
-            <canvas id="chart" style="width:100%; height:500px"></canvas>
+            <canvas id="chart"></canvas>
         </div>
     </div>
-</body>
-</html>
-
 <script src="~/js/Chart.bundle.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-
+<script src="~/lib/jquery/dist/jquery.js"></script>
 <script type="text/javascript">
 
             $(function () {
-        var chartName = "chart";
+            var chartName = "chart";
             var ctx = document.getElementById(chartName).getContext('2d');
             var data = {
                     labels: @Html.Raw(XLabels),

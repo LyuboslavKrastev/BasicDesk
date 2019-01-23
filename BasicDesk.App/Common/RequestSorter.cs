@@ -8,53 +8,55 @@ namespace BasicDesk.App.Common
     {
         public RequestSortingViewModel ConfigureSorting(string sortOrder, string currentFilter, string searchString)
         {
-            var viewModel = new RequestSortingViewModel();
-                viewModel.CurrentSort = sortOrder;
-                viewModel.CurrentFilter = currentFilter;
-                viewModel.CurrentSearch = searchString;
-                
-                viewModel.NameSort = sortOrder == "Name" ? "name_desc" : "Name";
-                viewModel.StartDateSort = sortOrder == "StartDate" ? "startDate_desc" : "StartDate";
-                viewModel.EndDateSort = sortOrder == "EndDate" ? "endDate_desc" : "EndDate";
-                viewModel.IdSort = sortOrder == "Id" ? "id_desc" : "Id";
-                viewModel.StatusSort = sortOrder == "Status" ? "status_desc" : "Status";
-                viewModel.SubjectSort = sortOrder == "Subject" ? "subject_desc" : "Subject";
-                viewModel.AssignedToSort = sortOrder == "AssignedTo" ? "assignedTo_desc" : "AssignedTo";
+            var viewModel = new RequestSortingViewModel
+            {
+                CurrentSort = sortOrder,
+                CurrentFilter = currentFilter,
+                CurrentSearch = searchString,
+
+                NameSort = sortOrder == "Name" ? "name_desc" : "Name",
+                StartDateSort = sortOrder == "StartDate" ? "startDate_desc" : "StartDate",
+                EndDateSort = sortOrder == "EndDate" ? "endDate_desc" : "EndDate",
+                IdSort = sortOrder == "Id" ? "id_desc" : "Id",
+                StatusSort = sortOrder == "Status" ? "status_desc" : "Status",
+                SubjectSort = sortOrder == "Subject" ? "subject_desc" : "Subject",
+                AssignedToSort = sortOrder == "AssignedTo" ? "assignedTo_desc" : "AssignedTo"
+            };
             return viewModel;
         }
 
-        public IQueryable<Request> SortRequests(IQueryable<Request> requests, string sortOrder)
+        public IQueryable<RequestListingViewModel> SortRequests(IQueryable<RequestListingViewModel> requests, string sortOrder)
         {
             switch (sortOrder)
             {
                 case "Name":
-                    return requests.OrderBy(s => s.Requester.FullName);
+                    return requests.OrderBy(s => s.Requester);
                 case "name_desc":
-                    return requests.OrderByDescending(s => s.Requester.FullName);
+                    return requests.OrderByDescending(s => s.Requester);
                 case "StartDate":
                     return requests.OrderBy(s => s.StartTime);
                 case "startDate_desc":
                     return requests.OrderByDescending(s => s.StartTime);
                 case "EndDate":
-                    return requests.OrderBy(s => s.EndTime);
+                    return requests.OrderBy(s => s.Endtime);
                 case "endDate_desc":
-                    return requests.OrderByDescending(s => s.EndTime);
+                    return requests.OrderByDescending(s => s.Endtime);
                 case "Id":
                     return requests.OrderBy(s => s.Id);
                 case "id_desc":
                     return requests.OrderByDescending(s => s.Id);
                 case "Status":
-                    return requests.OrderBy(s => s.Status.Name);
+                    return requests.OrderBy(s => s.Status);
                 case "status_desc":
-                    return requests.OrderByDescending(s => s.Status.Name);
+                    return requests.OrderByDescending(s => s.Status);
                 case "Subject":
                     return requests.OrderBy(s => s.Subject);
                 case "subject_desc":
                     return requests.OrderByDescending(s => s.Subject);
                 case "AssignedTo":
-                    return requests.OrderBy(s => (s.AssignedTo == null) ? "" : s.AssignedTo.FullName);
+                    return requests.OrderBy(s => s.AssignedTo ?? "");
                 case "assignedTo_desc":
-                    return requests.OrderByDescending(s => (s.AssignedTo == null) ? "" : s.AssignedTo.FullName);
+                    return requests.OrderByDescending(s => s.AssignedTo ?? "");
                 default:
                     return requests.OrderByDescending(s => s.Id);
             }

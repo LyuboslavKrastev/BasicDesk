@@ -27,10 +27,11 @@ namespace BasicDesk.Services.AutoMapping
             Mapper.Initialize(configuration =>
             {
                 configuration.CreateMap<User, UserConciseViewModel>();
-                configuration.CreateMap<User, UserDetailsViewModel>();
+                configuration.CreateMap<User, UserDetailsViewModel>()
+                .ForMember(u => u.Phone, opt => opt.MapFrom(u => u.PhoneNumber));
                 configuration.CreateMap<RequestCreationBindingModel, Request>()
 					.ForMember(r => r.CategoryId, opt => opt.MapFrom(r => r.CategoryId))
-					.ForMember(r => r.Attachments, opt => opt.Ignore());
+					.ForMember(r => r.Attachments, opt => opt.Ignore()) ;
 
                 configuration.CreateMap<Request, RequestListingViewModel>()
 					.ForMember(r => r.Requester, opt => opt.MapFrom(req => req.Requester.FullName))
@@ -44,9 +45,10 @@ namespace BasicDesk.Services.AutoMapping
                 configuration.CreateMap<Request, RequestDetailsViewModel>()
 					.ForMember(r => r.CreatedOn, opt => opt.MapFrom(req => req.StartTime.ToString()))
 					.ForMember(r => r.Status, opt => opt.MapFrom(req => req.Status.Name))
-					.ForMember(r => r.Author, opt => opt.MapFrom(req => req.Requester.FullName))
+					.ForMember(r => r.Author, opt => opt.MapFrom(req => req.Requester))
 					.ForMember(r => r.Category, opt => opt.MapFrom(req => req.Category.Name))
-					.ForMember(r => r.Attachments, opt => opt.MapFrom(req => req.Attachments));
+					.ForMember(r => r.Attachments, opt => opt.MapFrom(req => req.Attachments))
+                    .ForMember(r => r.Technician, opt => opt.MapFrom(req => req.AssignedTo));
 
                 configuration.CreateMap<CategoryCreationBindingModel, RequestCategory>();
                 configuration.CreateMap<RequestCategory, CategoryViewModel>();
