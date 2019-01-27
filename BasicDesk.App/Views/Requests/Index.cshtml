@@ -246,7 +246,7 @@
             @foreach (var item in Model.Requests)
             {
                 <tr>
-                    <td><input type="checkbox" class="check"></td>
+                    <td><input value="@item.Id" type="checkbox" class="check"></td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Id)
                     </td>
@@ -322,7 +322,7 @@
             });
         });
 
-        function checkCheckboxes(msg) {
+        function checkCheckboxes(event) {
             var anyBoxesChecked = false;
             $('input[type="checkbox"]').each(function () {
                 if ($(this).is(":checked")) {
@@ -332,16 +332,39 @@
 
             if (anyBoxesChecked == false) {
                 alert('Please select request[s] to delete');
+                event.preventDefault();
                 event.stopPropagation();
             }
         }
-
 
         function setRefresh(miliseconds) {
             $("timeSelector option:selected").attr("selected");
             location.reload();
             setInterval("location.reload(true)", miliseconds);
         }
+
+        function getCheckedIds(event) {
+            event.preventDefault();
+            var checkedIds = $("input:checkbox:checked").map(function () {
+                return $(this).val();
+            }).get();
+
+            return checkedIds;         
+        };
+
+        //get request ids for deletion
+        $("#deleteReq").click(function (event) {
+            checkCheckboxes();
+            let ids = [];
+            let data = getCheckedIds(event);
+            for (let id of data) {
+                ids.push(id)
+            };
+            let url = "/requests/delete";
+            $.post(url, { '': ids }, function (data) {
+                window.location.assign(data.redirectUrl)
+            });
+        });
 
         var timer = 0;
         function startTimer() {
@@ -359,7 +382,7 @@
         }
 
         $(document).ready(startTimer());
-        $("#deleteReq").on('click', checkCheckboxes);
+
         function checkCheckboxesForMerge(event) {
             var checkedCount = 0;
             debugger;
@@ -373,6 +396,7 @@
             }
             return true;
         }
+
         $("#mergeReq").on('click', function (ev) {
             let isChecked = checkCheckboxesForMerge(ev)
 

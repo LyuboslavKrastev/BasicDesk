@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BasicDesk.Services.Repository
@@ -10,7 +11,7 @@ namespace BasicDesk.Services.Repository
 
         Task AddAsync(TEntity entity);
 
-        void Delete(TEntity entity);
+        void Delete(IEnumerable<TEntity> entity);
 
         Task<int> SaveChangesAsync();
     }

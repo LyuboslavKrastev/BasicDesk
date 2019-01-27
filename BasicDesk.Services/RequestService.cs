@@ -8,6 +8,7 @@ using BasicDesk.Services.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -81,6 +82,25 @@ namespace BasicDesk.Services
                 .FirstOrDefault()
                 .Resolution = resolution;
 
+            return this.SaveChangesAsync();
+        }
+
+        public Task Delete(IEnumerable<int> requestIds)
+        {
+            var requests = this.repository.All()
+                .Where(r => requestIds.Contains(r.Id));
+
+            this.repository.Delete(requests);
+
+            return this.SaveChangesAsync();
+        }
+
+        public Task AddNote(IEnumerable<int> requestIds)
+        {
+            var requests = this.repository.All()
+                .Where(r => requestIds.Contains(r.Id));
+
+            //TODO
             return this.SaveChangesAsync();
         }
 

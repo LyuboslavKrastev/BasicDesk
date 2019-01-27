@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using BasicDesk.App.Common;
 using BasicDesk.App.Helpers.Messages;
 using BasicDesk.App.Models.Common.BindingModels;
@@ -145,6 +144,36 @@ namespace BasicDesk.App.Controllers
             return this.RedirectToAction("Details", new { id = request.Id.ToString()});
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Delete(IEnumerable<string> ids)
+        {
+            string referer = Request.Headers["Referer"].ToString();
+            if (!ids.Any())
+            {
+                this.TempData.Put("__Message", new MessageModel()
+                {
+                    Type = MessageType.Danger,
+                    Message = $"Please select request[s] for deletion"
+                });
+            }
+            else
+            {
+                IEnumerable<int> requestIds = ids.Select(int.Parse);
+                await this.requestService.Delete(requestIds);
+
+                this.TempData.Put("__Message", new MessageModel()
+                {
+                    Type = MessageType.Success,
+                    Message = $"Successfully deleted request[s] {string.Join(", ", ids)}"
+                });
+            }
+
+            return Json(new
+            {
+                redirectUrl = referer
+            });
+        }
+
 
         public IActionResult Details(string id)
         {
@@ -181,6 +210,7 @@ namespace BasicDesk.App.Controllers
                 Type = MessageType.Success,
                 Message = $"Successfully saved resolution for request {reqId}"
             });
+
             return this.Redirect($"/Management/Requests/Manage?id={reqId}");
         }
 

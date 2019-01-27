@@ -1,6 +1,7 @@
 ﻿using BasicDesk.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -27,10 +28,9 @@ namespace BasicDesk.Services.Repository
             return this.dbSet;
         }
 
-
-        public void Delete(TEntity entity)
+        public void Delete(IEnumerable<TEntity> entities)
         {
-            this.dbSet.Remove(entity);
+            this.dbSet.RemoveRange(entities);
         }
 
         public void Dispose()
