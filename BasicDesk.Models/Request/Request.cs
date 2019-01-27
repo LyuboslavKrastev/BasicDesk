@@ -42,6 +42,8 @@ namespace BasicDesk.Data.Models.Requests
 		//new additions
 		public ICollection<RequestNote> Notes { get; set; } = new List<RequestNote>(); // note userid content
 		public string Resolution {get; set;}
-		//public string History {get; set;}
+        //public string History {get; set;}
+
+        public IEnumerable<RequestApproval> Approvals { get; set; } = new List<RequestApproval>();
     }
 }

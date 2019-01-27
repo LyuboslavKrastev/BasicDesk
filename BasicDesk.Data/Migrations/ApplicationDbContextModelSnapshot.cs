@@ -19,6 +19,27 @@ namespace BasicDesk.App.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("BasicDesk.Data.Models.Requests.ApprovalStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(20);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ApprovalStatuses");
+
+                    b.HasData(
+                        new { Id = 1, Name = "Pending" },
+                        new { Id = 2, Name = "Approved" },
+                        new { Id = 3, Name = "Denied" }
+                    );
+                });
+
             modelBuilder.Entity("BasicDesk.Data.Models.Requests.Request", b =>
                 {
                     b.Property<int>("Id")
@@ -58,6 +79,40 @@ namespace BasicDesk.App.Data.Migrations
                     b.HasIndex("StatusId");
 
                     b.ToTable("Requests");
+                });
+
+            modelBuilder.Entity("BasicDesk.Data.Models.Requests.RequestApproval", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ApproverComment");
+
+                    b.Property<string>("ApproverId");
+
+                    b.Property<string>("Description");
+
+                    b.Property<int>("RequestId");
+
+                    b.Property<string>("RequesterId");
+
+                    b.Property<int>("StatusId");
+
+                    b.Property<string>("Subject")
+                        .HasMaxLength(20);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApproverId");
+
+                    b.HasIndex("RequestId");
+
+                    b.HasIndex("RequesterId");
+
+                    b.HasIndex("StatusId");
+
+                    b.ToTable("RequestApprovals");
                 });
 
             modelBuilder.Entity("BasicDesk.Data.Models.Requests.RequestAttachment", b =>
@@ -136,6 +191,14 @@ namespace BasicDesk.App.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("RequestStatuses");
+
+                    b.HasData(
+                        new { Id = 1, Name = "Open" },
+                        new { Id = 2, Name = "Closed" },
+                        new { Id = 3, Name = "Rejected" },
+                        new { Id = 4, Name = "On Hold" },
+                        new { Id = 5, Name = "For Approval" }
+                    );
                 });
 
             modelBuilder.Entity("BasicDesk.Data.Models.Solution.Solution", b =>
@@ -367,6 +430,27 @@ namespace BasicDesk.App.Data.Migrations
                         .HasForeignKey("RequesterId");
 
                     b.HasOne("BasicDesk.Data.Models.Requests.RequestStatus", "Status")
+                        .WithMany()
+                        .HasForeignKey("StatusId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("BasicDesk.Data.Models.Requests.RequestApproval", b =>
+                {
+                    b.HasOne("BasicDesk.Data.Models.User", "Approver")
+                        .WithMany()
+                        .HasForeignKey("ApproverId");
+
+                    b.HasOne("BasicDesk.Data.Models.Requests.Request", "Request")
+                        .WithMany("Approvals")
+                        .HasForeignKey("RequestId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("BasicDesk.Data.Models.User", "Requester")
+                        .WithMany()
+                        .HasForeignKey("RequesterId");
+
+                    b.HasOne("BasicDesk.Data.Models.Requests.ApprovalStatus", "Status")
                         .WithMany()
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade);

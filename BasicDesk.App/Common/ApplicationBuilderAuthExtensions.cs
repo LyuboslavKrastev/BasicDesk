@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using BasicDesk.Common.Constants;
 using Microsoft.Extensions.DependencyInjection;
-using System.Linq;
-using BasicDesk.Data.Models.Requests;
 using BasicDesk.Data.Models;
 
 namespace BasicDesk.App.Common
@@ -67,27 +65,6 @@ namespace BasicDesk.App.Common
 
                     await userManager.CreateAsync(hdUser, DefaultHelpdeskPassword);
                     await userManager.AddToRoleAsync(hdUser, roles[1].Name);
-                }
-
-                if (!dbContext.RequestStatuses.Any())
-                {
-                    string[] statuses = new string[]
-                    {
-                        "For Approval",
-                        "Hardware Replacement",
-                        "In Process",
-                        "On Hold",
-                        "Open",
-                        "Rejected",
-                        "Closed"
-                    };
-
-                    foreach (var status in statuses)
-                    {
-                        await dbContext.RequestStatuses.AddAsync(new RequestStatus { Name = status });
-                    }
-
-                    await dbContext.SaveChangesAsync();
                 }
             }
         }

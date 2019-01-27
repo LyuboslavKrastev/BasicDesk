@@ -102,7 +102,7 @@ using BasicDesk.Data.Models;
             WriteLiteral("</strong></div>\n        </div>\n            <div class=\"panel-body\">\n                ");
             EndContext();
             BeginContext(276, 127, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "6b4257aca5ac4768b81e8d4e35cead4f", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "42db29b09f264159a1add69679805bab", async() => {
                 BeginContext(395, 4, true);
                 WriteLiteral("View");
                 EndContext();
