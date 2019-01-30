@@ -1,11 +1,10 @@
-﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
+﻿using AutoMapper.QueryableExtensions;
 using BasicDesk.App.Models.Common.ViewModels;
-using BasicDesk.Common.Constants;
-using BasicDesk.Data;
+using BasicDesk.App.Models.Management.BindingModels;
+using BasicDesk.App.Models.Management.ViewModels;
+using BasicDesk.Data.Models;
 using BasicDesk.Data.Models.Requests;
 using BasicDesk.Services.Repository;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -19,12 +18,15 @@ namespace BasicDesk.Services
         private readonly DbRepository<Request> repository;
         private readonly DbRepository<RequestCategory> categoryRepository;
         private readonly DbRepository<RequestStatus> statusRepository;
+        private readonly DbRepository<User> userRepository;
 
-        public RequestService(DbRepository<Request> repository, DbRepository<RequestCategory> categoryRepository, DbRepository<RequestStatus> statusRepository)
+        public RequestService(DbRepository<Request> repository, DbRepository<RequestCategory> categoryRepository, 
+            DbRepository<RequestStatus> statusRepository, DbRepository<User> userRepository)
         {
             this.repository = repository;
             this.categoryRepository = categoryRepository;
             this.statusRepository = statusRepository;
+            this.userRepository = userRepository;
         }
 
         public Task AddAsync(Request request)
@@ -75,14 +77,56 @@ namespace BasicDesk.Services
             return request.AsNoTracking();
         }
 
-        public Task SaveResolutionAsync(int id, string resolution)
+        public IQueryable<RequestManagingModel> GetRequestManagingDetails(int id)
+        {
+            IQueryable<RequestManagingModel> request = this.repository.All()
+                .Where(r => r.Id == id)
+                .ProjectTo<RequestManagingModel>();
+
+            return request.AsNoTracking();
+        }
+
+        public async Task UpdateRequestAsync(int id, RequestEditingBindingModel model)
+        {
+            Request request = await this.repository.All().FirstOrDefaultAsync(r => r.Id == id);
+
+            if(model.StatusId != null && model.StatusId != request.StatusId)
+            {
+                RequestStatus status = await  this.GetAllStatuses().FirstOrDefaultAsync(s => s.Id == model.StatusId);
+                if(status != null)
+                {
+                    request.StatusId = status.Id;
+                }           
+            }
+
+            if (model.CategoryId != null && model.CategoryId != request.CategoryId)
+            {
+                RequestCategory category = await this.GetAllCategories().FirstOrDefaultAsync(s => s.Id == model.CategoryId);
+                if (category != null)
+                {
+                    request.CategoryId = category.Id;
+                }
+            }
+
+            if (model.AssignToId != null && model.AssignToId != request.AssignedToId)
+            {
+                User technician = await this.userRepository.All().FirstOrDefaultAsync(s => s.Id == model.AssignToId);
+                if (technician != null)
+                {
+                    request.AssignedToId = technician.Id;
+                }
+            }
+            await this.SaveChangesAsync();
+        }
+
+        public async Task SaveResolutionAsync(int id, string resolution)
         {
             this.repository.All()
                 .Where(r => r.Id == id)
                 .FirstOrDefault()
                 .Resolution = resolution;
 
-            return this.SaveChangesAsync();
+            await this.SaveChangesAsync();
         }
 
         public Task Delete(IEnumerable<int> requestIds)
@@ -93,6 +137,27 @@ namespace BasicDesk.Services
             this.repository.Delete(requests);
 
             return this.SaveChangesAsync();
+        }
+
+        public async Task AddNote(int requestId, string userId, string userName, bool isTechnician, string noteDescription)
+        {
+            Request request = await this.repository.All().FirstOrDefaultAsync(r => r.Id == requestId);
+
+            if (isTechnician || userId == request.RequesterId)
+            {
+
+                RequestNote note = new RequestNote
+                {
+                    RequestId = requestId,
+                    Description = noteDescription,
+                    CreationTime = DateTime.UtcNow,
+                    Author = userName                   
+                };
+
+                request.Notes.Add(note);
+
+                await this.SaveChangesAsync();
+            }    
         }
 
         public Task AddNote(IEnumerable<int> requestIds)

@@ -12,10 +12,16 @@
 <div class="btn-group btn-group-toggle pull-right" data-toggle="buttons">
     <button class="btn btn-info" data-toggle="modal" data-target="#approvalModal">Submit for Approval</button>
     <button class="btn btn-info" data-toggle="modal" data-target="#noteModal">Add Note</button>
+    @if (Model.Notes.Any())
+    {
+        <button class="btn btn-info" data-toggle="modal" data-target="#noteListModal">View Notes</button>
+    }
+
     <button class="btn btn-info pull-right" data-toggle="modal" data-target="#mergeModal" id="mergeButton">Merge Request</button>
 </div>
 
 <!-- Note Modal -->
+
 <partial name="NotePartial" />
 
 <!-- Author Modal -->
@@ -27,21 +33,14 @@
     <partial name="UserDetailsPartial" for="Technician" />
 }
 
+@*notes listing modal*@
+@if (Model.Notes.Any())
+{
+    <partial name="NoteListPartial" />
+}
 
 @*MERGE MODAL*@
-<div class="modal fade modal-wide" id="mergeModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content" style="overflow:inherit">
-            <div class="modal-body modal-wide" id="tableModalDiv">
-
-            </div>
-            <div class="modal-footer" style="padding-bottom:50px">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success" id="mergeReq" href="https://google.com">Merge</button>
-            </div>
-        </div>
-    </div>
-</div>
+<partial name="MergePartial" />
 
 <div class="panel-group" id="request">
     <div class="panel">

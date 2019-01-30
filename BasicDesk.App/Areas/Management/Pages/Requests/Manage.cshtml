@@ -9,11 +9,38 @@
     <button id="btn_res" class="btn">Resolution</button>
     <button id="btn_hist" class="btn">History</button>
 </div>
+<div class="btn-group btn-group-toggle pull-right" data-toggle="buttons">
+    <button class="btn btn-info" data-toggle="modal" data-target="#approvalModal">Submit for Approval</button>
+    <button class="btn btn-info" data-toggle="modal" data-target="#noteModal">Add Note</button>
+    @if (Model.ViewModel.Notes.Any())
+    {
+        <button class="btn btn-info" data-toggle="modal" data-target="#noteListModal">View Notes</button>
+    }
+
+    <button class="btn btn-info pull-right" data-toggle="modal" data-target="#mergeModal" id="mergeButton">Merge Request</button>
+</div>
+
+<!-- Note Modal -->
+<partial name="ManagementNotePartial" for="ViewModel" />
+
+<!-- Author Modal -->
+<partial name="UserDetailsPartial" for="ViewModel.Author" />
+
+
+@*Notes listing Modal*@
+@if (Model.ViewModel.Notes.Any())
+{
+    <partial name="ManagementNoteListPartial" for="ViewModel" />
+}
+
+@*Merge Modal*@
+<partial name="ManagementMergePartial" for="ViewModel" />
+
 <form method="post">
     <div class="panel-group" id="request">
         <div class="panel">
             <div class="panel-heading clearfix">
-                <div class="pull-left"><strong>Requester:</strong> @Model.ViewModel.Author</div>
+                <div class="pull-left"><strong>Requester:</strong> @Model.ViewModel.Author.UserName</div>
                 <div class="pull-right"><strong>Created On:</strong> @Model.ViewModel.CreatedOn</div>
             </div>
             <div class="panel-body">
@@ -24,33 +51,76 @@
             </div>
             <div class="panel-footer clearfix">
 
-                    <div class="text-center">
-                        @foreach (var attachment in Model.ViewModel.Attachments)
-                        {
-                            <label asp-for="@attachment">Attachment: </label>
-                            <a asp-area="" asp-controller="Requests" asp-action="Download"
-                               asp-route-filename="@attachment.FileName" asp-route-filePath="@attachment.PathToFile" asp-route-requestId="@Model.ViewModel.Id">
-                                @attachment.FileName
-                            </a>
-                            <br />
-                        }
-                    </div>
+                <div class="text-center">
+                    @foreach (var attachment in Model.ViewModel.Attachments)
+                    {
+                        <label asp-for="@attachment">Attachment: </label>
+                        <a asp-area="" asp-controller="Requests" asp-action="Download"
+                           asp-route-filename="@attachment.FileName" asp-route-filePath="@attachment.PathToFile" asp-route-requestId="@Model.ViewModel.Id">
+                            @attachment.FileName
+                        </a>
+                        <br />
+                    }
+                </div>
                 <label class="control-label pull-left col-sm-1" asp-for="bindingModel.CategoryId"></label>
                 <div class="col-sm-3 pull-left">
-                    <select class="form-control" asp-for="bindingModel.CategoryId" asp-items="Model.ViewModel.Categories" Selected="true" Value="3"></select>
+                    <select class="form-control" asp-for="bindingModel.CategoryId">
+                        @{
+                            foreach (var category in Model.ViewModel.Categories)
+                            {
+                                if (category.Text == Model.ViewModel.Category)
+                                {
+                                    <option selected="selected" value="@category.Value">@category.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@category.Value">@category.Text</option>
+                                }
+                            }
+                        }
+                    </select>
                 </div>
                 <div class="col-sm-3 pull-right">
-                    <select class="form-control" asp-for="bindingModel.AssignToId" asp-items="Model.ViewModel.Employees"></select>
+                    <select class="form-control" asp-for="bindingModel.AssignToId">
+                        @{
+                            foreach (var technician in Model.ViewModel.Technicians)
+                            {
+                                if (Model.ViewModel.Technician != null && technician.Value == Model.ViewModel.Technician.Id)
+                                {
+                                    <option selected="selected" value="@technician.Value">@technician.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@technician.Value">@technician.Text</option>
+                                }
+                            }
+                        }
+                    </select>
                 </div>
                 <label class="control-label pull-right col-sm-1" asp-for="bindingModel.AssignToId"></label>
                 <br /><br />
                 <label class="control-label pull-left col-sm-1" asp-for="bindingModel.StatusId"></label>
                 <div class="col-sm-3">
-                    <select class="form-control" asp-for="bindingModel.StatusId" asp-items="Model.ViewModel.Statuses"></select>
+                    <select class="form-control"  asp-for="bindingModel.StatusId">
+                        @{
+                            foreach (var status in Model.ViewModel.Statuses)
+                            {
+                                if (Model.ViewModel.Status != null && status.Text == Model.ViewModel.Status)
+                                {
+                                    <option selected="selected" value="@status.Value">@status.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@status.Value">@status.Text</option>
+                                }
+                            }
+                        }
+                    </select>
                 </div>
                 <br />
                 <div class="col-md-offset-6">
                     <input type="submit" value="Set" class="btn btn-success" />
+                    <input type="submit" value="Edit" class="btn btn-info" />
                     <a asp-area="" asp-controller="Requests" asp-action="Index" class="btn btn-danger">Cancel</a>
                 </div>
             </div>

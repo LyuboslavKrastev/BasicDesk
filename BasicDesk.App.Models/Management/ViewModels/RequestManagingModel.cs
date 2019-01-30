@@ -14,18 +14,23 @@ namespace BasicDesk.App.Models.Management.ViewModels
 
         public string CreatedOn { get; set; }
 
-        public string AuthorId { get; set; }
+        public UserDetailsViewModel Author { get; set; }
 
-        public string Author { get; set; }
+        public UserDetailsViewModel Technician { get; set; }
 
         public string Resolution { get; set; }
 
         public IEnumerable<RequestAttachment> Attachments { get; set; }
+        public IEnumerable<RequestNote> Notes { get; set; }
 
-        public ICollection<SelectListItem> Categories { get; set; } = new List<SelectListItem>();
+        public string Category { get; set; }
 
-        public ICollection<SelectListItem> Employees { get; set; } = new List<SelectListItem>();
+        public string Status { get; set; }
 
-        public ICollection<SelectListItem> Statuses { get; set; } = new List<SelectListItem>();
+        public IEnumerable<SelectListItem> Categories { get; set; }
+
+        public IEnumerable<SelectListItem> Technicians { get; set; }
+
+        public IEnumerable<SelectListItem> Statuses { get; set; }
     }
 }

@@ -25,5 +25,8 @@ namespace BasicDesk.App.Models.Common.ViewModels
         public UserDetailsViewModel Technician { get; set; }
 
         public IEnumerable<RequestAttachment> Attachments { get; set; }
+
+        public IEnumerable<RequestNote> Notes { get; set; }
+
     }
 }

@@ -159,6 +159,9 @@ namespace BasicDesk.App.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Author")
+                        .IsRequired();
+
                     b.Property<DateTime>("CreationTime");
 
                     b.Property<string>("Description")
@@ -166,10 +169,6 @@ namespace BasicDesk.App.Data.Migrations
                         .HasMaxLength(200);
 
                     b.Property<int>("RequestId");
-
-                    b.Property<string>("Summary")
-                        .IsRequired()
-                        .HasMaxLength(20);
 
                     b.HasKey("Id");
 

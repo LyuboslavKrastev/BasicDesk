@@ -1,0 +1,25 @@
+﻿@using BasicDesk.App.Models.Management.ViewModels
+@model RequestManagingModel
+
+<div class="modal fade" id="noteModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title text-center">Add Note</h3>
+            </div>
+            <form asp-area="" asp-controller="requests" asp-action="AddNote" method="post">
+                <div class="modal-body">
+                    Request ID - @Model.Id
+
+                    <input style="display:none" name="requestId" value="@Model.Id" />
+                    <textarea class="form-control" rows="4" style="min-width: 100%; resize:none;" name="noteDescription"></textarea>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success">Save Note</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

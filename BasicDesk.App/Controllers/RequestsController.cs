@@ -45,7 +45,6 @@ namespace BasicDesk.App.Controllers
         [HttpGet]
         public IActionResult Index(string sortOrder, string searchString, string currentFilter, int? page, int? requestsPerPage)
         {
-
             RequestSortingViewModel model = this.requestSorter.ConfigureSorting(sortOrder, currentFilter, searchString);
 
             if(model.RequestsPerPage != requestsPerPage)
@@ -135,11 +134,7 @@ namespace BasicDesk.App.Controllers
 
             await this.requestService.SaveChangesAsync();
 
-            this.TempData.Put("__Message", new MessageModel()
-            {
-                Type = MessageType.Success,
-                Message = message
-            });
+            this.AddMessage(MessageType.Success, message);
 
             return this.RedirectToAction("Details", new { id = request.Id.ToString()});
         }
@@ -150,22 +145,15 @@ namespace BasicDesk.App.Controllers
             string referer = Request.Headers["Referer"].ToString();
             if (!ids.Any())
             {
-                this.TempData.Put("__Message", new MessageModel()
-                {
-                    Type = MessageType.Danger,
-                    Message = $"Please select request[s] for deletion"
-                });
+                string message = "Please select request[s] for deletion";
+                this.AddMessage(MessageType.Warning, message);
             }
             else
             {
                 IEnumerable<int> requestIds = ids.Select(int.Parse);
                 await this.requestService.Delete(requestIds);
-
-                this.TempData.Put("__Message", new MessageModel()
-                {
-                    Type = MessageType.Success,
-                    Message = $"Successfully deleted request[s] {string.Join(", ", ids)}"
-                });
+                string message = $"Successfully deleted request[s] {string.Join(", ", ids)}";
+                this.AddMessage(MessageType.Success, message);
             }
 
             return Json(new
@@ -174,10 +162,24 @@ namespace BasicDesk.App.Controllers
             });
         }
 
+        [HttpPost]
+        public async Task<IActionResult> AddNote(string requestId, string noteDescription)
+        {
+            string userId = this.userManager.GetUserId(User);
+            string userName = this.User.Identity.Name;
+            bool isTechnician = User.IsInRole(WebConstants.AdminRole) || User.IsInRole(WebConstants.HelpdeskRole);
+
+            await this.requestService.AddNote(int.Parse(requestId), userId, userName, isTechnician, noteDescription);
+
+            this.AddMessage(MessageType.Success, "Successfully added note");
+
+            return this.RedirectToAction("Details", new { id = requestId });
+        }
 
         public IActionResult Details(string id)
         {
-            if (User.IsInRole("Administrator") || User.IsInRole("HelpdeskAgent"))
+            bool isTechnician = User.IsInRole(WebConstants.AdminRole) || User.IsInRole(WebConstants.HelpdeskRole);
+            if (isTechnician)
             {
                 return this.Redirect($"/Management/Requests/Manage?id={id}");
             }
@@ -202,14 +204,9 @@ namespace BasicDesk.App.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveResolution(int reqId, string resol)
         {
-            //CHANGED TEST THIS
             await this.requestService.SaveResolutionAsync(reqId, resol);
 
-            this.TempData.Put("__Message", new MessageModel()
-            {
-                Type = MessageType.Success,
-                Message = $"Successfully saved resolution for request {reqId}"
-            });
+            this.AddMessage(MessageType.Success, $"Successfully saved resolution for request {reqId}");
 
             return this.Redirect($"/Management/Requests/Manage?id={reqId}");
         }
@@ -219,7 +216,9 @@ namespace BasicDesk.App.Controllers
             try
             {
                 if (fileName == null)
+                {
                     return Content("filename not present");
+                }
 
                 var memory = new MemoryStream();
                 using (var stream = new FileStream(filePath, FileMode.Open))
@@ -231,11 +230,7 @@ namespace BasicDesk.App.Controllers
             }
             catch (IOException)
             {
-                this.TempData.Put("__Message", new MessageModel()
-                {
-                    Type = MessageType.Danger,
-                    Message = "File not available"
-            });
+                this.AddMessage(MessageType.Danger, "File not available");
 
                 return this.RedirectToAction("Details", new { id = requestId});
             }
@@ -273,6 +268,15 @@ namespace BasicDesk.App.Controllers
 
             }
             return failedAttachments;
+        }
+
+        private void AddMessage(MessageType type, string message)
+        {
+            this.TempData.Put("__Message", new MessageModel()
+            {
+                Type = type,
+                Message = message
+            });
         }
 
         private string GetContentType(string path)
