@@ -13,6 +13,9 @@ namespace BasicDesk.Data
 
         public DbSet<Request> Requests { get; set; }
 
+        public DbSet<RequestReply> RequestReplies { get; set; }
+        public DbSet<ReplyAttachment> ReplyAttachments { get; set; }
+
         public DbSet<RequestStatus> RequestStatuses { get; set; }
 
         public DbSet<RequestCategory> RequestCategories { get; set; }
@@ -40,7 +43,6 @@ namespace BasicDesk.Data
                 .HasMany(r => r.Attachments)
                 .WithOne(a => a.Request)
                 .HasForeignKey(a => a.RequestId);
-
 
             builder.Entity<Solution>()
                 .HasMany(s => s.Attachments)

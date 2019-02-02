@@ -163,6 +163,31 @@ namespace BasicDesk.App.Controllers
         }
 
         [HttpPost]
+        public async Task<IActionResult> Merge(IEnumerable<string> ids)
+        {
+            string referer = Request.Headers["Referer"].ToString();
+            if (!ids.Any())
+            {
+                string message = "Please select request[s] for deletion";
+                this.AddMessage(MessageType.Warning, message);
+            }
+            else
+            {
+                IEnumerable<int> requestIds = ids.Select(int.Parse).OrderByDescending(i => i);
+
+                await this.requestService.Merge(requestIds);
+                await this.requestService.Delete(requestIds.SkipLast(1));
+                string message = $"Successfully merged request[s] {string.Join(", ", ids)}";
+                this.AddMessage(MessageType.Success, message);
+            }
+
+            return Json(new
+            {
+                redirectUrl = referer
+            });
+        }
+
+        [HttpPost]
         public async Task<IActionResult> AddNote(string requestId, string noteDescription)
         {
             string userId = this.userManager.GetUserId(User);

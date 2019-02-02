@@ -28,11 +28,17 @@ namespace BasicDesk.Services.AutoMapping
             Mapper.Initialize(configuration =>
             {
                 configuration.CreateMap<User, UserConciseViewModel>();
+
                 configuration.CreateMap<User, UserDetailsViewModel>()
                 .ForMember(u => u.Phone, opt => opt.MapFrom(u => u.PhoneNumber));
+
+                configuration.CreateMap<RequestReply, RequestReplyViewModel>()
+                .ForMember(u => u.Author, opt => opt.MapFrom(u => u.Author.UserName))
+                .ForMember(r => r.CreationTime, opt => opt.MapFrom(rep => rep.CreationTime));
+
                 configuration.CreateMap<RequestCreationBindingModel, Request>()
 					.ForMember(r => r.CategoryId, opt => opt.MapFrom(r => r.CategoryId))
-					.ForMember(r => r.Attachments, opt => opt.Ignore()) ;
+					.ForMember(r => r.Attachments, opt => opt.Ignore());
 
                 configuration.CreateMap<RequestCategory, SelectListItem>()
                     .ForMember(s => s.Value, opt => opt.MapFrom(r => r.Id))
@@ -58,7 +64,8 @@ namespace BasicDesk.Services.AutoMapping
 					.ForMember(r => r.Category, opt => opt.MapFrom(req => req.Category.Name))
 					.ForMember(r => r.Attachments, opt => opt.MapFrom(req => req.Attachments))
                     .ForMember(r => r.Notes, opt => opt.MapFrom(req => req.Notes))
-                    .ForMember(r => r.Technician, opt => opt.MapFrom(req => req.AssignedTo));
+                    .ForMember(r => r.Technician, opt => opt.MapFrom(req => req.AssignedTo))
+                    .ForMember( r=> r.Replies, opt => opt.MapFrom(req => req.Repiles));
 
                 configuration.CreateMap<Request, RequestManagingModel>()
                 .ForMember(r => r.CreatedOn, opt => opt.MapFrom(req => req.StartTime.ToString()))
@@ -67,7 +74,8 @@ namespace BasicDesk.Services.AutoMapping
                 .ForMember(r => r.Category, opt => opt.MapFrom(req => req.Category.Name))
                 .ForMember(r => r.Status, opt => opt.MapFrom(req => req.Status.Name))
                 .ForMember(r => r.Notes, opt => opt.MapFrom(req => req.Notes))
-                .ForMember(r => r.Technician, opt => opt.MapFrom(req => req.AssignedTo));
+                .ForMember(r => r.Technician, opt => opt.MapFrom(req => req.AssignedTo))
+                .ForMember(r => r.Replies, opt => opt.MapFrom(req => req.Repiles)); ;
 
                 configuration.CreateMap<CategoryCreationBindingModel, RequestCategory>();
                 configuration.CreateMap<RequestCategory, CategoryViewModel>();

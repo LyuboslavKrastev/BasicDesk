@@ -28,5 +28,7 @@ namespace BasicDesk.App.Models.Common.ViewModels
 
         public IEnumerable<RequestNote> Notes { get; set; }
 
+        public IEnumerable<RequestReplyViewModel> Replies { get; set; }
+
     }
 }

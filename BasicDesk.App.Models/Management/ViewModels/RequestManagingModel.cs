@@ -1,4 +1,5 @@
-﻿using BasicDesk.Data.Models.Requests;
+﻿using BasicDesk.App.Models.Common.ViewModels;
+using BasicDesk.Data.Models.Requests;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 
@@ -32,5 +33,7 @@ namespace BasicDesk.App.Models.Management.ViewModels
         public IEnumerable<SelectListItem> Technicians { get; set; }
 
         public IEnumerable<SelectListItem> Statuses { get; set; }
+
+        public IEnumerable<RequestReplyViewModel> Replies { get; set; }
     }
 }

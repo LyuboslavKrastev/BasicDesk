@@ -392,21 +392,23 @@
                 }
             });
             if (checkedCount < 2) {
-                return false;
+                alert('Please select request[s] to delete');
+                event.preventDefault();
+                event.stopPropagation();
             }
-            return true;
         }
 
-        $("#mergeReq").on('click', function (ev) {
-            let isChecked = checkCheckboxesForMerge(ev)
-
-            if (isChecked) {
-                alert('success');
-                location.reload();
-
-            } else {
-                alert('Please select requests to merge');
-            }
+        $("#mergeReq").click(function (event) {
+            checkCheckboxesForMerge();
+            let ids = [];
+            let data = getCheckedIds(event);
+            for (let id of data) {
+                ids.push(id)
+            };
+            let url = "/requests/merge";
+            $.post(url, { '': ids }, function (data) {
+                window.location.assign(data.redirectUrl)
+            });
         });
     </script>
 

@@ -23,6 +23,11 @@ namespace BasicDesk.Services.Repository
             return this.dbSet.AddAsync(entity);
         }
 
+        public Task AddRangeAsync(IEnumerable<TEntity> entities)
+        {
+            return this.dbSet.AddRangeAsync(entities);
+        }
+
         public IQueryable<TEntity> All()
         {
             return this.dbSet;

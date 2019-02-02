@@ -1,4 +1,5 @@
-﻿using AutoMapper.QueryableExtensions;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using BasicDesk.App.Models.Common.ViewModels;
 using BasicDesk.App.Models.Management.BindingModels;
 using BasicDesk.App.Models.Management.ViewModels;
@@ -33,6 +34,52 @@ namespace BasicDesk.Services
         {
             return this.repository.AddAsync(request);
         }
+
+        public async Task Merge(IEnumerable<int> requestIds)
+        {
+            //Requests shall be merged to the lowest possible Id in the collection
+            ICollection<int> ids = requestIds.SkipLast(1).ToList();
+            int lastId = requestIds.Last();
+
+            Request requestToMergeTo = await this.repository.All().FirstOrDefaultAsync(r => r.Id == lastId);
+
+            if(requestToMergeTo == null)
+            {
+                return;
+            }
+
+            foreach (var id in ids)
+            {
+                Request request = await this.repository.All().Include(r => r.Attachments).FirstOrDefaultAsync(r => r.Id == id);
+
+                if (request == null)
+                {
+                    ids.Remove(id);
+                    continue;
+                }
+
+                RequestReply reply = new RequestReply
+                {
+                    RequestId = request.Id,
+                    AuthorId = request.RequesterId,
+                    Subject = request.Subject,
+                    Description = request.Description,
+                };
+
+                foreach (var attachment in request.Attachments)
+                {
+                    reply.Attachments.Add(new ReplyAttachment {
+                        PathToFile = attachment.PathToFile,
+                        FileName = attachment.FileName
+                    });
+                }
+
+                requestToMergeTo.Repiles.Add(reply);
+            }
+
+            await this.SaveChangesAsync();
+        }
+
         public Task SaveChangesAsync()
         {
             return this.repository.SaveChangesAsync();
@@ -129,14 +176,14 @@ namespace BasicDesk.Services
             await this.SaveChangesAsync();
         }
 
-        public Task Delete(IEnumerable<int> requestIds)
+        public async Task Delete(IEnumerable<int> requestIds)
         {
             var requests = this.repository.All()
                 .Where(r => requestIds.Contains(r.Id));
 
             this.repository.Delete(requests);
 
-            return this.SaveChangesAsync();
+            await this.SaveChangesAsync();
         }
 
         public async Task AddNote(int requestId, string userId, string userName, bool isTechnician, string noteDescription)

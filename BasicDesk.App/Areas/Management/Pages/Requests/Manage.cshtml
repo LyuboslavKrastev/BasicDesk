@@ -101,7 +101,7 @@
                 <br /><br />
                 <label class="control-label pull-left col-sm-1" asp-for="bindingModel.StatusId"></label>
                 <div class="col-sm-3">
-                    <select class="form-control"  asp-for="bindingModel.StatusId">
+                    <select class="form-control" asp-for="bindingModel.StatusId">
                         @{
                             foreach (var status in Model.ViewModel.Statuses)
                             {
@@ -120,7 +120,6 @@
                 <br />
                 <div class="col-md-offset-6">
                     <input type="submit" value="Set" class="btn btn-success" />
-                    <input type="submit" value="Edit" class="btn btn-info" />
                     <a asp-area="" asp-controller="Requests" asp-action="Index" class="btn btn-danger">Cancel</a>
                 </div>
             </div>
@@ -154,6 +153,44 @@
         <div class="panel-body"><p>Model.History</p></div>
     </div>
 </div>
+@if (Model.ViewModel.Replies.Any())
+{
+    <div class="panel">
+        <div class="panel-heading clearfix">
+            <div class="pull-left"><strong>Replies</strong></div>
+        </div>
+        @foreach (var reply in Model.ViewModel.Replies)
+        {
+            <div class="panel-body">
+                <div class="panel-heading clearfix" style="background-color:#42C0FB">
+                    <div class="pull-left"><strong>Author:</strong> @reply.Author</div>
+                    <div class="pull-right"><strong>Created On:</strong> @reply.CreationTime</div>
+                </div>
+                <div class="panel-body" style="background-color:skyblue">
+                    <p><strong>Subject:</strong> @reply.Subject</p>
+                    <strong>Description</strong>
+                    <p>@reply.Description</p>
+                </div>
+                <div class="panel-footer clearfix" style="background-color:#42C0FB">
+                    @if (reply.Attachments != null)
+                    {
+                        <div class="text-center">
+                            @foreach (var attachment in reply.Attachments)
+                            {
+                                <label asp-for="@attachment">Attachment: </label>
+                                <a asp-area="" asp-controller="Requests" asp-action="Download"
+                                   asp-route-filename="@attachment.FileName" asp-route-filePath="@attachment.PathToFile" asp-route-requestId="@attachment.Id">
+                                    @attachment.FileName
+                                </a>
+                                <br />
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+}
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script>
     $('#btn_desc').on('click', function () {

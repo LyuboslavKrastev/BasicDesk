@@ -40,6 +40,29 @@ namespace BasicDesk.App.Data.Migrations
                     );
                 });
 
+            modelBuilder.Entity("BasicDesk.Data.Models.Requests.ReplyAttachment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<string>("PathToFile")
+                        .IsRequired()
+                        .HasMaxLength(400);
+
+                    b.Property<int>("ReplyId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReplyId");
+
+                    b.ToTable("ReplyAttachments");
+                });
+
             modelBuilder.Entity("BasicDesk.Data.Models.Requests.Request", b =>
                 {
                     b.Property<int>("Id")
@@ -175,6 +198,35 @@ namespace BasicDesk.App.Data.Migrations
                     b.HasIndex("RequestId");
 
                     b.ToTable("RequestNotes");
+                });
+
+            modelBuilder.Entity("BasicDesk.Data.Models.Requests.RequestReply", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AuthorId");
+
+                    b.Property<DateTime>("CreationTime");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(200);
+
+                    b.Property<int>("RequestId");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasMaxLength(20);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("RequestId");
+
+                    b.ToTable("RequestReplies");
                 });
 
             modelBuilder.Entity("BasicDesk.Data.Models.Requests.RequestStatus", b =>
@@ -413,6 +465,14 @@ namespace BasicDesk.App.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("BasicDesk.Data.Models.Requests.ReplyAttachment", b =>
+                {
+                    b.HasOne("BasicDesk.Data.Models.Requests.RequestReply", "Reply")
+                        .WithMany("Attachments")
+                        .HasForeignKey("ReplyId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("BasicDesk.Data.Models.Requests.Request", b =>
                 {
                     b.HasOne("BasicDesk.Data.Models.User", "AssignedTo")
@@ -467,6 +527,18 @@ namespace BasicDesk.App.Data.Migrations
                 {
                     b.HasOne("BasicDesk.Data.Models.Requests.Request", "Request")
                         .WithMany("Notes")
+                        .HasForeignKey("RequestId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("BasicDesk.Data.Models.Requests.RequestReply", b =>
+                {
+                    b.HasOne("BasicDesk.Data.Models.User", "Author")
+                        .WithMany()
+                        .HasForeignKey("AuthorId");
+
+                    b.HasOne("BasicDesk.Data.Models.Requests.Request", "Request")
+                        .WithMany("Repiles")
                         .HasForeignKey("RequestId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
