@@ -22,24 +22,18 @@
 
 <!-- Note Modal -->
 
-<partial name="NotePartial" />
+<partial name="NotePartial" for="Id" />
 
 <!-- Author Modal -->
 <partial name="UserDetailsPartial" for="Author" />
 
 <!-- Technician Modal -->
-@if (Model.Technician != null)
-{
-    <partial name="UserDetailsPartial" for="Technician" />
-}
+<partial name="UserDetailsPartial" for="Technician" />
 
-@*notes listing modal*@
-@if (Model.Notes.Any())
-{
-    <partial name="NoteListPartial" />
-}
+<!-- Note List Modal -->
+<partial name="NoteListPartial" for="Notes" />
 
-@*MERGE MODAL*@
+<!-- Merging Modal -->
 <partial name="MergePartial" />
 
 <div class="panel-group" id="request">
@@ -104,45 +98,7 @@
     </div>
 </div>
 
-@if (Model.Replies.Any())
-{
-<div class="panel">
-    <div class="panel-heading clearfix">
-        <div class="pull-left"><strong>Replies</strong></div>
-    </div>
-    @foreach (var reply in Model.Replies)
-    {
-    <div class="panel-body">
-        <div class="panel-heading clearfix" style="background-color:#42C0FB">
-            <div class="pull-left"><strong>Author:</strong> @reply.Author</div>
-            <div class="pull-right"><strong>Created On:</strong> @reply.CreationTime</div>
-        </div>
-        <div class="panel-body" style="background-color:skyblue">
-            <p><strong>Subject:</strong> @reply.Subject</p>
-            <strong>Description</strong>
-            <p>@reply.Description</p>
-        </div>
-        <div class="panel-footer clearfix" style="background-color:#42C0FB">
-            @if (reply.Attachments != null)
-            {
-                    <div class="text-center">
-                        @foreach (var attachment in reply.Attachments)
-                        {
-                            <label asp-for="@attachment">Attachment: </label>
-                            <a asp-controller="Requests" asp-action="Download"
-                               asp-route-filename="@attachment.FileName" asp-route-filePath="@attachment.PathToFile" asp-route-requestId="@attachment.Id">
-                                @attachment.FileName
-                            </a>
-                            <br />
-                        }
-                    </div>
-            }
-        </div>
-    </div>
-        }
-    </div>
-}
-
+<partial name="ReplyListPartial" for="Replies" />
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script>

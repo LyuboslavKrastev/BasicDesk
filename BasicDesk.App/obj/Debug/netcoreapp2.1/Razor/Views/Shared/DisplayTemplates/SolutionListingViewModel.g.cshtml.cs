@@ -59,7 +59,7 @@ using BasicDesk.Data.Models;
 #line default
 #line hidden
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"713f331721dcfae5c89516309aefb3da26a17f00", @"/Views/Shared/DisplayTemplates/SolutionListingViewModel.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"98c1d29139d626e96128cadfffc2f5d32ab3411f", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"d96ffe35850e90bc8a938653933dc8ffd63c5d13", @"/Views/_ViewImports.cshtml")]
     public class Views_Shared_DisplayTemplates_SolutionListingViewModel : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<SolutionListingViewModel>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-area", "", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -102,7 +102,7 @@ using BasicDesk.Data.Models;
             WriteLiteral("</strong></div>\n        </div>\n            <div class=\"panel-body\">\n                ");
             EndContext();
             BeginContext(276, 127, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "964684823ee44a28a07749b4027ae4e0", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "56eb83a77b6846d1aaf01d730cb92f64", async() => {
                 BeginContext(395, 4, true);
                 WriteLiteral("View");
                 EndContext();

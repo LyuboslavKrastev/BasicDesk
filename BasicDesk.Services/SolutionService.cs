@@ -12,7 +12,6 @@ using System.Threading.Tasks;
 
 namespace BasicDesk.Services
 {
-    //CHANGED TEST THIS
     public class SolutionService
     {
         private readonly DbRepository<Solution> repository;
@@ -36,30 +35,10 @@ namespace BasicDesk.Services
             return this.repository.All().ProjectTo<SolutionListingViewModel>();
         }    
 
-        //public async Task<IActionResult> Details(int id)
-        //{
-        //    var solution = await GetSolutionDetails(id);
-
-        //    if (solution == null)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    var model = mapper.Map<SolutionDetailsViewModel>(solution);
-
-        //    return this.View(model);
-        //}
 
         public SolutionDetailsViewModel GetSolutionDetails(int id)
         {
             return this.repository.All().Where(s => s.Id == id).ProjectTo<SolutionDetailsViewModel>().FirstOrDefault();
         }
-
-        //  private async Task<ICollection<SolutionListingViewModel>> GetAllSolutionsAsync()
-        // {
-        //     var solutions = await this.dbContext.Solutions.ToArrayAsync();
-
-        //     return this.mapper.Map<ICollection<SolutionListingViewModel>>(solutions);
-        // }
     }
 }

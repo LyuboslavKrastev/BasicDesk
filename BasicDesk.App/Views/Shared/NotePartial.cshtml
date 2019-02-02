@@ -1,4 +1,4 @@
-﻿@model RequestDetailsViewModel
+﻿@model int
 
 <div class="modal fade" id="noteModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -8,9 +8,9 @@
             </div>
             <form asp-area="" asp-controller="requests" asp-action="AddNote" method="post">
                 <div class="modal-body">
-                    Request ID - @Model.Id
+                    Request ID - @Model
 
-                    <input style="display:none" name="requestId" value="@Model.Id" />
+                    <input style="display:none" name="requestId" value="@Model" />
                     <textarea class="form-control" rows="4" style="min-width: 100%; resize:none;" name="noteDescription"></textarea>
 
                 </div>

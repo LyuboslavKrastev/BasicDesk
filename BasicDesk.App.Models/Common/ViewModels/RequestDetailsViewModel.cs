@@ -26,7 +26,7 @@ namespace BasicDesk.App.Models.Common.ViewModels
 
         public IEnumerable<RequestAttachment> Attachments { get; set; }
 
-        public IEnumerable<RequestNote> Notes { get; set; }
+        public IEnumerable<RequestNoteViewModel> Notes { get; set; }
 
         public IEnumerable<RequestReplyViewModel> Replies { get; set; }
 

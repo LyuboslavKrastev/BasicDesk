@@ -1,27 +1,31 @@
-﻿@model RequestDetailsViewModel
+﻿@model IEnumerable<RequestNoteViewModel>
 
-<div class="modal fade modal-wide" id="noteListModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content" style="overflow:inherit">
-            <div class="modal-body modal-wide">
-                @{
-                        foreach (var note in Model.Notes)
+@if (Model.Any())
+{
+    <div class="modal fade modal-wide" id="noteListModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content" style="overflow:inherit">
+                <div class="modal-body modal-wide">
+                    @{
+                        foreach (var note in Model)
                         {
-                    <div class="panel-group">
-                        <div class="panel">
-                            <div class="panel-heading clearfix">
-                                <div class="pull-left"><strong>Requester:</strong> @note.Author</div>
-                                <div class="pull-right"><strong>Created On:</strong> @note.CreationTime</div>
+                            <div class="panel-group">
+                                <div class="panel">
+                                    <div class="panel-heading clearfix">
+                                        <div class="pull-left"><strong>Requester:</strong> @note.Author</div>
+                                        <div class="pull-right"><strong>Created On:</strong> @note.CreationTime</div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <strong>Description</strong>
+                                        <p>@note.Description</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="panel-body">
-                                <strong>Description</strong>
-                                <p>@note.Description</p>
-                            </div>
-                        </div>
-                    </div>
                         }
-                }
+                    }
+                </div>
             </div>
         </div>
     </div>
-</div>
+}
+

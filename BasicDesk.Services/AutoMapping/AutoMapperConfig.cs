@@ -77,6 +77,9 @@ namespace BasicDesk.Services.AutoMapping
                 .ForMember(r => r.Technician, opt => opt.MapFrom(req => req.AssignedTo))
                 .ForMember(r => r.Replies, opt => opt.MapFrom(req => req.Repiles)); ;
 
+                configuration.CreateMap<RequestNote, RequestNoteViewModel>()
+                    .ForMember(rn => rn.Author, opt => opt.MapFrom(r => r.Author));
+
                 configuration.CreateMap<CategoryCreationBindingModel, RequestCategory>();
                 configuration.CreateMap<RequestCategory, CategoryViewModel>();
 

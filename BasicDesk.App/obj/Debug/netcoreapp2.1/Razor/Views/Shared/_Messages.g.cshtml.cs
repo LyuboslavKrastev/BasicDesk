@@ -64,7 +64,7 @@ using BasicDesk.App.Common;
 #line default
 #line hidden
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"b5f2af46e83c8148b04c32b1549f7d8b2a0d0fab", @"/Views/Shared/_Messages.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"98c1d29139d626e96128cadfffc2f5d32ab3411f", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"d96ffe35850e90bc8a938653933dc8ffd63c5d13", @"/Views/_ViewImports.cshtml")]
     public class Views_Shared__Messages : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #line hidden
@@ -100,7 +100,7 @@ using BasicDesk.App.Common;
             WriteLiteral("    ");
             EndContext();
             BeginContext(133, 67, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("message", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9c48e19de36743c5aad4109c8b3e2097", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("message", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4f551e5f76244bfcab71c12990c86418", async() => {
             }
             );
             __BasicDesk_App_Helpers_Messages_MessageTagHelper = CreateTagHelper<global::BasicDesk.App.Helpers.Messages.MessageTagHelper>();

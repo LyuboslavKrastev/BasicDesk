@@ -21,20 +21,17 @@
 </div>
 
 <!-- Note Modal -->
-<partial name="ManagementNotePartial" for="ViewModel" />
+<partial name="NotePartial" for="ViewModel.Id" />
 
 <!-- Author Modal -->
 <partial name="UserDetailsPartial" for="ViewModel.Author" />
 
 
 @*Notes listing Modal*@
-@if (Model.ViewModel.Notes.Any())
-{
-    <partial name="ManagementNoteListPartial" for="ViewModel" />
-}
+<partial name="NoteListPartial" for="ViewModel.Notes" />
 
 @*Merge Modal*@
-<partial name="ManagementMergePartial" for="ViewModel" />
+<partial name="MergePartial"/>
 
 <form method="post">
     <div class="panel-group" id="request">
@@ -153,46 +150,22 @@
         <div class="panel-body"><p>Model.History</p></div>
     </div>
 </div>
-@if (Model.ViewModel.Replies.Any())
-{
-    <div class="panel">
-        <div class="panel-heading clearfix">
-            <div class="pull-left"><strong>Replies</strong></div>
-        </div>
-        @foreach (var reply in Model.ViewModel.Replies)
-        {
-            <div class="panel-body">
-                <div class="panel-heading clearfix" style="background-color:#42C0FB">
-                    <div class="pull-left"><strong>Author:</strong> @reply.Author</div>
-                    <div class="pull-right"><strong>Created On:</strong> @reply.CreationTime</div>
-                </div>
-                <div class="panel-body" style="background-color:skyblue">
-                    <p><strong>Subject:</strong> @reply.Subject</p>
-                    <strong>Description</strong>
-                    <p>@reply.Description</p>
-                </div>
-                <div class="panel-footer clearfix" style="background-color:#42C0FB">
-                    @if (reply.Attachments != null)
-                    {
-                        <div class="text-center">
-                            @foreach (var attachment in reply.Attachments)
-                            {
-                                <label asp-for="@attachment">Attachment: </label>
-                                <a asp-area="" asp-controller="Requests" asp-action="Download"
-                                   asp-route-filename="@attachment.FileName" asp-route-filePath="@attachment.PathToFile" asp-route-requestId="@attachment.Id">
-                                    @attachment.FileName
-                                </a>
-                                <br />
-                            }
-                        </div>
-                    }
-                </div>
-            </div>
-        }
-    </div>
-}
+
+<partial name="ReplyListPartial" for="ViewModel.Replies" />
+
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script>
+    function getPage() {
+        $("#tableModalDiv").load("/requests");
+        $("#tableModalDiv").removeData('#navbarMain')
+
+    }
+
+    $('#mergeModal').on('none', function () {
+        $(this).removeData("#tableModalDiv");
+    });
+
+    $("#mergeButton").on('click', getPage());
     $('#btn_desc').on('click', function () {
         $('#history').hide();
         $('#resolution').hide();

@@ -22,7 +22,7 @@ namespace BasicDesk.App.Models.Management.ViewModels
         public string Resolution { get; set; }
 
         public IEnumerable<RequestAttachment> Attachments { get; set; }
-        public IEnumerable<RequestNote> Notes { get; set; }
+        public IEnumerable<RequestNoteViewModel> Notes { get; set; }
 
         public string Category { get; set; }
 
