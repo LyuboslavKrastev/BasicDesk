@@ -78,7 +78,7 @@ using BasicDesk.App.Models.ViewModels;
             WriteLiteral("<h2 class=\"text-center\">Chat Room</h2>\n<hr />\n\n<div id=\"questions\" class=\"row\">\n\n</div>\n<hr />\n<div class=\"row\">\n    ");
             EndContext();
             BeginContext(160, 407, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8d3ef3b3a73c40be83abe7f5950448ec", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4312b0c454b2429d924775f1ba6dfd5b", async() => {
                 BeginContext(215, 74, true);
                 WriteLiteral("\n        <input class=\"form-control text-center\" type=\"text\" id=\"username\"");
                 EndContext();
@@ -111,7 +111,7 @@ WriteAttributeValue("", 297, Model.FullName, 297, 15, false);
             WriteLiteral("\n</div>\n\n<br />\n\n");
             EndContext();
             BeginContext(584, 44, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "faa3233ce6e74225a836d5c0d739a655", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d3360ac01b4c457fad5db8bcdaf6417d", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -129,7 +129,7 @@ WriteAttributeValue("", 297, Model.FullName, 297, 15, false);
             WriteLiteral("\n");
             EndContext();
             BeginContext(629, 36, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e005d7458dea46099b26b07393af436f", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3dd71ceb78ab4b9d84059cfa0868c85c", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();

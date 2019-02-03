@@ -1,5 +1,4 @@
-﻿@using BasicDesk.Common.Constants;
-@model RequestDetailsViewModel
+﻿@model RequestDetailsViewModel
 @{
     ViewData["Title"] = "Details";
 }
@@ -21,7 +20,6 @@
 </div>
 
 <!-- Note Modal -->
-
 <partial name="NotePartial" for="Id" />
 
 <!-- Author Modal -->
@@ -30,10 +28,10 @@
 <!-- Technician Modal -->
 <partial name="UserDetailsPartial" for="Technician" />
 
-<!-- Note List Modal -->
+<!-- Display Notes Modal -->
 <partial name="NoteListPartial" for="Notes" />
 
-<!-- Merging Modal -->
+<!-- Merge Modal -->
 <partial name="MergePartial" />
 
 <div class="panel-group" id="request">
@@ -98,45 +96,10 @@
     </div>
 </div>
 
+
+
 <partial name="ReplyListPartial" for="Replies" />
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
-<script>
-    function getPage() {
-        $("#tableModalDiv").load("/requests");
-        $("#tableModalDiv").removeData('#navbarMain')
-
-    }
-
-    $('#mergeModal').on('none', function () {
-        $(this).removeData("#tableModalDiv");
-    });
-
-    $("#mergeButton").on('click', getPage());
-
-    $('#btn_desc').on('click', function () {
-        $('#history').hide();
-        $('#resolution').hide();
-        $('#request').show();
-        $('#btn_res').removeClass('btn-danger');
-        $('#btn_hist').removeClass('btn-danger');
-        $('#btn_desc').addClass('btn-danger');
-    });
-    $('#btn_res').on('click', function () {
-        $('#history').hide();
-        $('#request').hide();
-        $('#resolution').show();
-        $('#btn_desc').removeClass('btn-danger');
-        $('#btn_hist').removeClass('btn-danger');
-        $('#btn_res').addClass('btn-danger');
-
-    });
-    $('#btn_hist').on('click', function () {
-        $('#request').hide();
-        $('#resolution').hide();
-        $('#history').show();
-        $('#btn_desc').removeClass('btn-danger');
-        $('#btn_res').removeClass('btn-danger');
-        $('#btn_hist').addClass('btn-danger');
-    });
-</script>
+<script src="~/js/requests/details/merge.js"></script>
+<script src="~/js/requests/details/request-tabs.js"></script>

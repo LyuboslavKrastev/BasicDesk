@@ -1,9 +1,8 @@
 ﻿@model RequestSortingViewModel
-@using X.PagedList;
 @using X.PagedList.Mvc.Core;
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Requests";
 }
 
 <h3 class="text-center">Requests</h3>
@@ -17,7 +16,7 @@
                         <h3 class="modal-title text-center">Add Note</h3>
                     </div>
                     <div class="modal-body">
-                        <textarea  id="noteDescription" class="form-control" rows="4" style="min-width: 100%; resize:none;"></textarea>
+                        <textarea id="noteDescription" class="form-control" rows="4" style="min-width: 100%; resize:none;"></textarea>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -66,11 +65,6 @@
             <tr>
                 <th>
                     <div>
-                        <!-- Filter
-                        <div class="btn-group btn-group-toggle">
-                            <a asp-area="" asp-controller="Requests" class="btn btn-success" asp-action="Index" asp-route-currentFilter="MyOpen">My Open Requests</a>
-                            <a asp-area="" asp-controller="Requests" class="btn btn-success" asp-action="Index" asp-route-currentFilter="MyClosed">My Closed Requests</a>
-                            <a asp-controller="Requests" asp-action="Index" class="btn btn-success">View All Requests</a> -->
                         <form asp-area="" asp-controller="Requests" asp-action="Index" method="get" class="form-inline" style="display:inline;">
                             <label for="staticEmail">Showing</label>
                             <select name='currentFilter' onchange='this.form.submit()' class="form-control">
@@ -92,18 +86,6 @@
                             </select>
                         </form>
                     </div>
-                    <!-- <div class="dropdown pull-right">
-                            <div>
-                              <a class="dropdown-toggle btn btn-info" data-toggle="dropdown" href="#" style="color:white">
-                                  Actions
-                              <span class="caret"></span>
-                              </a>
-                              <ul class="dropdown-menu class btn">
-                                  <li><a data-toggle="modal" data-target="#approvalModal">Submit for Approval</a></li>
-                                  <li><a data-toggle="modal" data-target="#noteModal">Add Note</a></li>
-                              </ul>
-                            </div>
-                    </div> -->
                 </th>
                 <th class="col-md-1"><a asp-area="" asp-controller="Requests" asp-action="Create" class="btn btn-success" style="width: 100%;">New Request <i class=glyphicon-plus></i></a></th>
                 <th class="col-md-1"><a class="btn btn-info" data-toggle="modal" style="width: 100%;" data-target="#approvalModal">Submit for Approval</a></th>
@@ -271,152 +253,17 @@
                 </span>
             </h3>
         </label>
-
     </div>
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-
-
-    <!-- Latest compiled and minified CSS -->
-    @* <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">*@
-
-
-    <script>
-        $("#checkAll").click(function () {
-            $(".check").prop('checked', $(this).prop('checked'));
-        });
-
-        $("#searchIcon").on('click', function () {
-            let searchBar = $("#searchBar");
-            if (searchBar.is(':hidden')) {
-                searchBar.show();
-            } else {
-                searchBar.hide();
-            }
-        });
-
-        $(document).ready(function () {
-            let maxLength = 20;
-            let subjects = $(".subject").each(function () {
-                let subject = $(this);
-                let text = subject.text();
-                if (text.length > maxLength) {
-
-                    let modifiedText = text.substring(0, maxLength - 3) + '...';
-                    subject.text(modifiedText);
-                }
-            });
-        });
-
-        function checkCheckboxes(event) {
-            var anyBoxesChecked = false;
-            $('input[type="checkbox"]').each(function () {
-                if ($(this).is(":checked")) {
-                    anyBoxesChecked = true;
-                }
-            });
-
-            if (anyBoxesChecked == false) {
-                alert('Please select request[s] to delete');
-                event.preventDefault();
-                event.stopPropagation();
-            }
-        }
-
-        function setRefresh(miliseconds) {
-            $("timeSelector option:selected").attr("selected");
-            location.reload();
-            setInterval("location.reload(true)", miliseconds);
-        }
-
-        function getCheckedIds(event) {
-            event.preventDefault();
-            var checkedIds = $("input:checkbox:checked").map(function () {
-                return $(this).val();
-            }).get();
-
-            return checkedIds;         
-        };
-
-        //get request ids for deletion
-        $("#deleteReq").click(function (event) {
-            checkCheckboxes();
-            let ids = [];
-            let data = getCheckedIds(event);
-            for (let id of data) {
-                ids.push(id)
-            };
-            let url = "/requests/delete";
-            $.post(url, { '': ids }, function (data) {
-                window.location.assign(data.redirectUrl)
-            });
-        });
-
-        var timer = 0;
-        function startTimer() {
-            setInterval("timerUp()", 1000);
-        }
-
-        function timerUp() {
-            timer++;
-            var resetat = 100000000000; //change this number to adjust the length of time in seconds
-            if (timer == resetat) {
-                window.location.reload();
-            }
-            var tleft = resetat - timer;
-            document.getElementById('timer').innerHTML = tleft;
-        }
-
-        $(document).ready(startTimer());
-
-        function checkCheckboxesForMerge(event) {
-            var checkedCount = 0;
-            debugger;
-            $('input[type="checkbox"]').each(function () {
-                if ($(this).is(":checked")) {
-                    checkedCount++;
-                }
-            });
-            if (checkedCount < 2) {
-                alert('Please select request[s] to delete');
-                event.preventDefault();
-                event.stopPropagation();
-            }
-        }
-
-        $("#mergeReq").click(function (event) {
-            checkCheckboxesForMerge();
-            let ids = [];
-            let data = getCheckedIds(event);
-            for (let id of data) {
-                ids.push(id)
-            };
-            let url = "/requests/merge";
-            $.post(url, { '': ids }, function (data) {
-                window.location.assign(data.redirectUrl)
-            });
-        });
-
-        $("#noteBtn").click(function (event) {
-            checkCheckboxes();
-            debugger;
-            let ids = [];
-            let data = getCheckedIds(event);
-            for (let id of data) {
-                ids.push(id)
-            };
-            let url = "/requests/addnotefromtable";
-            let noteDescription = $('#noteDescription').val();
-
-
-            $.post(url, { '': ids, noteDescription}, function (data) {
-                window.location.assign(data.redirectUrl)
-            });
-        });
-    </script>
-
-    <!-- Latest compiled and minified JavaScript -->
-    @* <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>*@
 </div>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/js/requests/index/checkbox-manager.js"></script>
+<script src="~/js/requests/index/searchbar.js"></script>
+<script src="~/js/requests/index/page-refresh.js"></script>
+<script src="~/js/requests/index/notes.js"></script>
+<script src="~/js/requests/index/delete.js"></script>
+<script src="~/js/requests/index/merge.js"></script>
+
 @{
     var sortOrder = Model.CurrentSort;
     var searchString = Model.CurrentSearch;
@@ -425,109 +272,3 @@
 }
 
 @Html.PagedListPager(Model.Requests, page => Url.Action("Index", "Requests", new { sortOrder, searchString, currentFilter, page, requestsPerPage }))
-
-@*@model RequestSortingViewModel
-    @using X.PagedList;
-    @using X.PagedList.Mvc.Core;
-
-    @{
-        ViewData["Title"] = "Index";
-    }
-
-    <h3 class="text-center text-info">Requests</h3>
-    <div>
-        <div class="btn-group btn-group-toggle">
-            <a asp-area="" asp-controller="Requests" class="btn btn-success" asp-action="Index" asp-route-currentFilter="MyOpen">My Open Requests</a>
-            <a asp-area="" asp-controller="Requests" class="btn btn-success" asp-action="Index" asp-route-currentFilter="MyClosed">My Closed Requests</a>
-            <a asp-controller="Requests" asp-action="Index" class="btn btn-success">View All Requests</a>
-        </div>
-        <form asp-controller="Requests" asp-action="Index" method="get" class="pull-right input-group">
-            <input class="text-right " type="text" placeholder="Search" name="SearchString" value="@Model.CurrentSearch" />
-            <button class="btn btn-default">Search</button>
-        </form>
-    </div>
-
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>
-                    <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.IdSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
-                        @Html.DisplayNameFor(model => model.Requests[0].Id)
-                    </a>
-                </th>
-                <th>
-                    <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.SubjectSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
-                        @Html.DisplayNameFor(model => model.Requests[0].Subject)
-                    </a>
-                </th>
-                <th>
-                    <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.NameSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
-                        @Html.DisplayNameFor(model => model.Requests[0].Requester)
-                    </a>
-                </th>
-                <th>
-                    <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.AssignedToSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
-                        @Html.DisplayNameFor(model => model.Requests[0].AssignedTo)
-                    </a>
-                </th>
-                <th>
-                    <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.StartDateSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
-                        @Html.DisplayNameFor(model => model.Requests[0].StartTime)
-                    </a>
-                </th>
-                <th>
-                    <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.EndDateSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
-                        @Html.DisplayNameFor(model => model.Requests[0].Endtime)
-                    </a>
-                </th>
-                <th>
-                    <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.StatusSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
-                        @Html.DisplayNameFor(model => model.Requests[0].Status)
-                    </a>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Requests)
-            {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    <a asp-area="" asp-controller="Requests" asp-action="Details" asp-route-id="@item.Id">@item.Subject</a>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Requester)
-                </td>
-                <td>
-                    @if (item.AssignedTo != null)
-                    {
-                        <a class="text-success"><strong>@item.AssignedTo</strong></a>
-                    }
-                    else
-                    {
-                        <label class="text-danger">Unassigned</label>
-                    }
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StartTime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Endtime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>
-            </tr>
-            }
-        </tbody>
-    </table>
-
-    @{
-        var sortOrder = Model.CurrentSort;
-        var searchString = Model.CurrentSearch;
-        var currentFilter = Model.CurrentFilter;
-    }
-
-    @Html.PagedListPager(Model.Requests, page => Url.Action("Index", "Requests", new {sortOrder, searchString, currentFilter, page }))*@

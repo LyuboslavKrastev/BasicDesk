@@ -31,7 +31,7 @@
 <partial name="NoteListPartial" for="ViewModel.Notes" />
 
 @*Merge Modal*@
-<partial name="MergePartial"/>
+<partial name="MergePartial" />
 
 <form method="post">
     <div class="panel-group" id="request">
@@ -154,43 +154,10 @@
 <partial name="ReplyListPartial" for="ViewModel.Replies" />
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/js/requests/details/merge.js"></script>
+<script src="~/js/requests/details/request-tabs.js"></script>
+
 <script>
-    function getPage() {
-        $("#tableModalDiv").load("/requests");
-        $("#tableModalDiv").removeData('#navbarMain')
-
-    }
-
-    $('#mergeModal').on('none', function () {
-        $(this).removeData("#tableModalDiv");
-    });
-
-    $("#mergeButton").on('click', getPage());
-    $('#btn_desc').on('click', function () {
-        $('#history').hide();
-        $('#resolution').hide();
-        $('#request').show();
-        $('#btn_res').removeClass('btn-danger');
-        $('#btn_hist').removeClass('btn-danger');
-        $('#btn_desc').addClass('btn-danger');
-    });
-    $('#btn_res').on('click', function () {
-        $('#history').hide();
-        $('#request').hide();
-        $('#resolution').show();
-        $('#btn_desc').removeClass('btn-danger');
-        $('#btn_hist').removeClass('btn-danger');
-        $('#btn_res').addClass('btn-danger');
-
-    });
-    $('#btn_hist').on('click', function () {
-        $('#request').hide();
-        $('#resolution').hide();
-        $('#history').show();
-        $('#btn_desc').removeClass('btn-danger');
-        $('#btn_res').removeClass('btn-danger');
-        $('#btn_hist').addClass('btn-danger');
-    });
     $('#btn_edit').on('click', function () {
         $('#resol').removeAttr('disabled');
     });
