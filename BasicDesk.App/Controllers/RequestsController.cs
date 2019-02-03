@@ -201,6 +201,25 @@ namespace BasicDesk.App.Controllers
             return this.RedirectToAction("Details", new { id = requestId });
         }
 
+        [HttpPost]
+        public async Task<IActionResult> AddNoteFromTable(IEnumerable<string> ids, string noteDescription)
+        {
+            string referer = Request.Headers["Referer"].ToString();
+
+            string userId = this.userManager.GetUserId(User);
+            string userName = this.User.Identity.Name;
+            bool isTechnician = User.IsInRole(WebConstants.AdminRole) || User.IsInRole(WebConstants.HelpdeskRole);
+
+            await this.requestService.AddNote(ids, userId, userName, isTechnician, noteDescription);
+
+            this.AddMessage(MessageType.Success, "Successfully added note");
+
+            return Json(new
+            {
+                redirectUrl = referer
+            });
+        }
+
         public IActionResult Details(string id)
         {
             bool isTechnician = User.IsInRole(WebConstants.AdminRole) || User.IsInRole(WebConstants.HelpdeskRole);

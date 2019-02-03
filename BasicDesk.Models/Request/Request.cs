@@ -39,14 +39,12 @@ namespace BasicDesk.Data.Models.Requests
 
         public ICollection<RequestAttachment> Attachments { get; set; } = new List<RequestAttachment>();
 		
-		//new additions
-		public ICollection<RequestNote> Notes { get; set; } = new List<RequestNote>(); // note userid content
+		public ICollection<RequestNote> Notes { get; set; } = new List<RequestNote>();
 		public string Resolution {get; set;}
         //public string History {get; set;}
 
         public IEnumerable<RequestApproval> Approvals { get; set; } = new List<RequestApproval>();
 
         public ICollection<RequestReply> Repiles { get; set; } = new List<RequestReply>();
-
     }
 }

@@ -21,7 +21,7 @@ namespace BasicDesk.Services
         private readonly DbRepository<RequestStatus> statusRepository;
         private readonly DbRepository<User> userRepository;
 
-        public RequestService(DbRepository<Request> repository, DbRepository<RequestCategory> categoryRepository, 
+        public RequestService(DbRepository<Request> repository, DbRepository<RequestCategory> categoryRepository,
             DbRepository<RequestStatus> statusRepository, DbRepository<User> userRepository)
         {
             this.repository = repository;
@@ -43,7 +43,7 @@ namespace BasicDesk.Services
 
             Request requestToMergeTo = await this.repository.All().FirstOrDefaultAsync(r => r.Id == lastId);
 
-            if(requestToMergeTo == null)
+            if (requestToMergeTo == null)
             {
                 return;
             }
@@ -68,7 +68,8 @@ namespace BasicDesk.Services
 
                 foreach (var attachment in request.Attachments)
                 {
-                    reply.Attachments.Add(new ReplyAttachment {
+                    reply.Attachments.Add(new ReplyAttachment
+                    {
                         PathToFile = attachment.PathToFile,
                         FileName = attachment.FileName
                     });
@@ -91,7 +92,7 @@ namespace BasicDesk.Services
 
             return requests.ProjectTo<RequestListingViewModel>().AsNoTracking();
         }
-             
+
         public IQueryable<RequestListingViewModel> GetBySearch(string userId, bool isTechnician, string searchString)
         {
             IQueryable<Request> requests = this.GetRequestsForRole(userId, isTechnician);
@@ -137,13 +138,13 @@ namespace BasicDesk.Services
         {
             Request request = await this.repository.All().FirstOrDefaultAsync(r => r.Id == id);
 
-            if(model.StatusId != null && model.StatusId != request.StatusId)
+            if (model.StatusId != null && model.StatusId != request.StatusId)
             {
-                RequestStatus status = await  this.GetAllStatuses().FirstOrDefaultAsync(s => s.Id == model.StatusId);
-                if(status != null)
+                RequestStatus status = await this.GetAllStatuses().FirstOrDefaultAsync(s => s.Id == model.StatusId);
+                if (status != null)
                 {
                     request.StatusId = status.Id;
-                }           
+                }
             }
 
             if (model.CategoryId != null && model.CategoryId != request.CategoryId)
@@ -198,22 +199,42 @@ namespace BasicDesk.Services
                     RequestId = requestId,
                     Description = noteDescription,
                     CreationTime = DateTime.UtcNow,
-                    Author = userName                   
+                    Author = userName
                 };
 
                 request.Notes.Add(note);
 
                 await this.SaveChangesAsync();
-            }    
+            }
         }
 
-        public Task AddNote(IEnumerable<int> requestIds)
+        public async Task AddNote(IEnumerable<string> requestIds, string userId, string userName, bool isTechnician, string noteDescription)
         {
-            var requests = this.repository.All()
-                .Where(r => requestIds.Contains(r.Id));
 
-            //TODO
-            return this.SaveChangesAsync();
+            foreach (var id in requestIds)
+            {
+                bool isInt = int.TryParse(id, out int requestId);
+                if (!isInt)
+                {
+                    continue;
+                }
+                Request request = await this.repository.All().FirstOrDefaultAsync(r => r.Id == requestId);
+
+                if (isTechnician || userId == request.RequesterId)
+                {
+                    RequestNote note = new RequestNote
+                    {
+                        RequestId = requestId,
+                        Description = noteDescription,
+                        CreationTime = DateTime.UtcNow,
+                        Author = userName
+                    };
+
+                    request.Notes.Add(note);
+                }
+            }
+
+            await this.SaveChangesAsync();
         }
 
         public IQueryable<RequestCategory> GetAllCategories()

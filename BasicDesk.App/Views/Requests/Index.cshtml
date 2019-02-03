@@ -9,20 +9,6 @@
 <h3 class="text-center">Requests</h3>
 <div class="container-fluid body-content">
     <div>
-        <!-- <div class="btn-group btn-group-toggle">
-        <a asp-area="" asp-controller="Requests" class="btn btn-success" asp-action="Index" asp-route-currentFilter="MyOpen">My Open Requests</a>
-        <a asp-area="" asp-controller="Requests" class="btn btn-success" asp-action="Index" asp-route-currentFilter="MyClosed">My Closed Requests</a>
-        <a asp-controller="Requests" asp-action="Index" class="btn btn-success">View All Requests</a>
-    </div> -->
-        <!-- <div class="btn-group btn-group-toggle"></div>
-    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#approvalModal">
-        Submit for Approval
-    </button>
-
-    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#noteModal">
-            Add Note
-    </button>
-    </div> -->
         <!-- Note Modal -->
         <div class="modal fade" id="noteModal" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -31,12 +17,11 @@
                         <h3 class="modal-title text-center">Add Note</h3>
                     </div>
                     <div class="modal-body">
-                        Request ID - Model.Id
-                        <textarea class="form-control" rows="4" style="min-width: 100%; resize:none;"></textarea>
+                        <textarea  id="noteDescription" class="form-control" rows="4" style="min-width: 100%; resize:none;"></textarea>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-success">Save Note</button>
+                        <button type="button" class="btn btn-success" id="noteBtn">Add Note</button>
                     </div>
                 </div>
             </div>
@@ -407,6 +392,23 @@
             };
             let url = "/requests/merge";
             $.post(url, { '': ids }, function (data) {
+                window.location.assign(data.redirectUrl)
+            });
+        });
+
+        $("#noteBtn").click(function (event) {
+            checkCheckboxes();
+            debugger;
+            let ids = [];
+            let data = getCheckedIds(event);
+            for (let id of data) {
+                ids.push(id)
+            };
+            let url = "/requests/addnotefromtable";
+            let noteDescription = $('#noteDescription').val();
+
+
+            $.post(url, { '': ids, noteDescription}, function (data) {
                 window.location.assign(data.redirectUrl)
             });
         });

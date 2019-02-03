@@ -27,7 +27,7 @@ namespace BasicDesk.App.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(20);
+                        .HasMaxLength(50);
 
                     b.HasKey("Id");
 
@@ -48,11 +48,11 @@ namespace BasicDesk.App.Data.Migrations
 
                     b.Property<string>("FileName")
                         .IsRequired()
-                        .HasMaxLength(100);
+                        .HasMaxLength(200);
 
                     b.Property<string>("PathToFile")
                         .IsRequired()
-                        .HasMaxLength(400);
+                        .HasMaxLength(1000);
 
                     b.Property<int>("ReplyId");
 
@@ -75,7 +75,7 @@ namespace BasicDesk.App.Data.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(200);
+                        .HasMaxLength(20000);
 
                     b.Property<DateTime?>("EndTime");
 
@@ -89,7 +89,7 @@ namespace BasicDesk.App.Data.Migrations
 
                     b.Property<string>("Subject")
                         .IsRequired()
-                        .HasMaxLength(20);
+                        .HasMaxLength(200);
 
                     b.HasKey("Id");
 
@@ -123,7 +123,7 @@ namespace BasicDesk.App.Data.Migrations
                     b.Property<int>("StatusId");
 
                     b.Property<string>("Subject")
-                        .HasMaxLength(20);
+                        .HasMaxLength(200);
 
                     b.HasKey("Id");
 
@@ -146,11 +146,11 @@ namespace BasicDesk.App.Data.Migrations
 
                     b.Property<string>("FileName")
                         .IsRequired()
-                        .HasMaxLength(100);
+                        .HasMaxLength(200);
 
                     b.Property<string>("PathToFile")
                         .IsRequired()
-                        .HasMaxLength(400);
+                        .HasMaxLength(1000);
 
                     b.Property<int>("RequestId");
 
@@ -189,7 +189,7 @@ namespace BasicDesk.App.Data.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(200);
+                        .HasMaxLength(20000);
 
                     b.Property<int>("RequestId");
 
@@ -212,13 +212,13 @@ namespace BasicDesk.App.Data.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(200);
+                        .HasMaxLength(20000);
 
                     b.Property<int>("RequestId");
 
                     b.Property<string>("Subject")
                         .IsRequired()
-                        .HasMaxLength(20);
+                        .HasMaxLength(200);
 
                     b.HasKey("Id");
 
@@ -237,7 +237,7 @@ namespace BasicDesk.App.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(20);
+                        .HasMaxLength(50);
 
                     b.HasKey("Id");
 
@@ -262,13 +262,13 @@ namespace BasicDesk.App.Data.Migrations
 
                     b.Property<string>("Content")
                         .IsRequired()
-                        .HasMaxLength(200);
+                        .HasMaxLength(20000);
 
                     b.Property<DateTime>("CreationTime");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(30);
+                        .HasMaxLength(200);
 
                     b.HasKey("Id");
 
@@ -285,11 +285,11 @@ namespace BasicDesk.App.Data.Migrations
 
                     b.Property<string>("FileName")
                         .IsRequired()
-                        .HasMaxLength(50);
+                        .HasMaxLength(200);
 
                     b.Property<string>("PathToFile")
                         .IsRequired()
-                        .HasMaxLength(400);
+                        .HasMaxLength(1000);
 
                     b.Property<int>("SolutionId");
 

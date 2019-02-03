@@ -99,7 +99,7 @@ using BasicDesk.Data.Models.Solution;
             WriteLiteral("    <div class=\"box-body col-md-5\">\r\n        <div class=\"chart-container\">\r\n            <canvas id=\"chart\"></canvas>\r\n        </div>\r\n    </div>\r\n");
             EndContext();
             BeginContext(492, 48, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "84034169c15141e38ff0a1c94816176e", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0074527f6f764e08b9671b9843098f23", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -117,7 +117,7 @@ using BasicDesk.Data.Models.Solution;
             WriteLiteral("\r\n");
             EndContext();
             BeginContext(542, 51, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "86eee48ee27242a089fbdcaf03681287", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "94c9c2a31ead4369b3f1b754db58921c", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();

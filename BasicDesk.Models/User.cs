@@ -12,6 +12,6 @@ namespace BasicDesk.Data.Models
         [MaxLength(25)]
         public string FullName { get; set; }
 
-        public IEnumerable<Request> Requests { get; set; } = new List<Request>();
+        public IEnumerable<Request> Requests { get; set; }
     }
 }
