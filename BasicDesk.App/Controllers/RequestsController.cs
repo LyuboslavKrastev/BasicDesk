@@ -188,6 +188,20 @@ namespace BasicDesk.App.Controllers
         }
 
         [HttpPost]
+        public async Task<IActionResult> AddReply(string requestId, string replyDescription)
+        {
+            string userId = this.userManager.GetUserId(User);
+            string userName = this.User.Identity.Name;
+            bool isTechnician = User.IsInRole(WebConstants.AdminRole) || User.IsInRole(WebConstants.HelpdeskRole);
+
+            await this.requestService.AddReply(int.Parse(requestId), userId, userName, isTechnician, replyDescription);
+
+            this.AddMessage(MessageType.Success, "Successfully added note");
+
+            return this.RedirectToAction("Details", new { id = requestId });
+        }
+
+        [HttpPost]
         public async Task<IActionResult> AddNote(string requestId, string noteDescription)
         {
             string userId = this.userManager.GetUserId(User);

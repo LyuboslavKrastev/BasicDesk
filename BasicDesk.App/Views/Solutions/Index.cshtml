@@ -1,11 +1,30 @@
 ﻿@using BasicDesk.Common.Constants
-@model IEnumerable<SolutionListingViewModel>
+@model SolutionTablesViewModel
 @{
     ViewData["Title"] = "Index";
 }
 
-<h2 class="text-center">Solutions</h2>
-<hr />
+<div class="col-md-6">
+    <table class="table table-hover table-striped table-bordered">
+        <tr>
+            <th class="text-center" style="background-color:#1C86EE; color:white">Most Recent</th>
+        </tr>
+        <tbody>
+            @Html.DisplayFor(m => m.MostRecent)
+        </tbody>
+    </table>
+</div>
+<div class="col-md-6">
+    <table class="table table-hover table-striped table-bordered col-md-6">
+        <tr>
+            <th class="text-center" style="background-color:#1C86EE; color:white">Most Viewed</th>
+        </tr>
+
+        <tbody>
+            @Html.DisplayFor(m => m.MostViewed)
+        </tbody>
+    </table>
+</div>
 
 @if (User.IsInRole(WebConstants.AdminRole) || User.IsInRole(WebConstants.HelpdeskRole))
 {
@@ -16,5 +35,3 @@
     </div>
     <br />
 }
-
-@Html.DisplayForModel()

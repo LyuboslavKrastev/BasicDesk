@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BasicDesk.App.Controllers
@@ -29,14 +30,22 @@ namespace BasicDesk.App.Controllers
 
         public IActionResult Index()
         {      
-            var solutionListingModels = service.GetAll();
+            var solutions = service.GetAll();
 
-            return View(solutionListingModels);
+            SolutionTablesViewModel model = new SolutionTablesViewModel();
+
+            model.MostRecent = solutions.OrderByDescending(s => s.CreationTime);
+
+            model.MostViewed = solutions.OrderByDescending(s => s.Views);
+
+
+            return View(model);
         }
 
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            var solution = this.service.GetSolutionDetails(id);
+
+            var solution = await this.service.GetSolutionDetails(id);
 
             if (solution == null)
             {

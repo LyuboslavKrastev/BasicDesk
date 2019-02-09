@@ -22,6 +22,8 @@ namespace BasicDesk.Data.Models.Solution
         public string AuthorId { get; set; }
         public User Author { get; set; }
 
+        public int Views { get; set; }
+
         [Required]
         public DateTime CreationTime { get; set; }
 

@@ -1,19 +1,20 @@
 ﻿@model RequestDetailsViewModel
 @{
     ViewData["Title"] = "Details";
+    var notesId = Model.Id + "Notes";
 }
 <div class="btn-group btn-group-toggle" data-toggle="buttons">
-    <button class="btn disabled btn" style="display:table; background-color: #00611C; color:white;">Request ID: @Model.Id</button>
-    <button id="btn_desc" class="btn btn-danger">Request</button>
-    <button id="btn_res" class="btn">Resolution</button>
-    <button id="btn_hist" class="btn">History</button>
+    <button class="btn disabled" style="display:table; background-color: #00611C; color:white;">Request ID: @Model.Id</button>
+    <button id="btn_desc" class="btn btn btn-danger">Request</button>
+    <button id="btn_res" class="btn btn">Resolution</button>
+    <button id="btn_hist" class="btn btn">History</button>
 </div>
 <div class="btn-group btn-group-toggle pull-right" data-toggle="buttons">
     <button class="btn btn-info" data-toggle="modal" data-target="#approvalModal">Submit for Approval</button>
     <button class="btn btn-info" data-toggle="modal" data-target="#noteModal">Add Note</button>
     @if (Model.Notes.Any())
     {
-        <button class="btn btn-info" data-toggle="modal" data-target="#noteListModal">View Notes</button>
+        <button class="btn btn-info" data-toggle="modal" data-target="#@notesId">View Notes</button>
     }
 
     <button class="btn btn-info pull-right" data-toggle="modal" data-target="#mergeModal" id="mergeButton">Merge Request</button>
@@ -31,6 +32,9 @@
 <!-- Display Notes Modal -->
 <partial name="NoteListPartial" for="Notes" />
 
+<partial name="ReplyPartial" for="Id" />
+
+
 <!-- Merge Modal -->
 <partial name="MergePartial" />
 
@@ -40,7 +44,7 @@
             <div class="pull-left"><strong>Requester:</strong> <a data-toggle="modal" data-target="#@Model.Author.Id">@Model.Author.UserName</a></div>
             <div class="pull-right"><strong>Created On:</strong> @Model.CreatedOn</div>
         </div>
-        <div class="panel-body">
+        <div class="panel-body" style="height: 300px; overflow-y: scroll;">
             <p><strong>Subject:</strong> @Model.Subject</p>
             <strong>Description</strong>
             <p>@Model.Description</p>
@@ -58,10 +62,8 @@
             }
             <br />
             <div class="pull-left"><strong>Category:</strong> @Model.Category</div>
-        </div>
-        @if (Model.Attachments != null)
-        {
-            <div class="panel-footer clearfix">
+            @if (Model.Attachments.Any())
+            {
                 <div class="text-center">
                     @foreach (var attachment in Model.Attachments)
                     {
@@ -73,8 +75,9 @@
                         <br />
                     }
                 </div>
-            </div>
-        }
+            }
+        </div>
+
     </div>
 </div>
 <div class="panel-group" id="resolution" style="display:none">
@@ -96,10 +99,10 @@
     </div>
 </div>
 
-
-
 <partial name="ReplyListPartial" for="Replies" />
+<button class="btn btn-info" data-toggle="modal" data-target="#replyModal">Reply</button>
 
-<script src="~/lib/jquery/dist/jquery.js"></script>
-<script src="~/js/requests/details/merge.js"></script>
-<script src="~/js/requests/details/request-tabs.js"></script>
+@section scriptz{
+    <script src="~/js/requests/details/merge.js"></script>
+    <script src="~/js/requests/details/request-tabs.js"></script>
+}

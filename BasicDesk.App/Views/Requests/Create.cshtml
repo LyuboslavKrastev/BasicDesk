@@ -4,7 +4,7 @@
 }
 
 <h2 class="text-center">Create a request</h2>
-<hr />
+
 <form method="post" class="form-horizontal" enctype="multipart/form-data">
     @Html.InputFormGroupFor(m => m.Subject)
     @Html.TextAreaFormGroupFor(m => m.Description)
@@ -16,9 +16,10 @@
     </div>
     <input class="center-block" asp-for="Attachments" type="file" multiple />
     <div class="form-group">
-        <div class="col-sm-10 col-sm-push-2">
+        <br />
+        <div class="col-sm-10 col-sm-push-5">
             <input type="submit" value="Create" class="btn btn-success" />
-            <a asp-page="/Index" class="btn btn-default">Cancel</a>
+            <a asp-page="/Index" class="btn btn-danger">Cancel</a>
         </div>
     </div>
 </form>

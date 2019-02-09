@@ -1,18 +1,26 @@
 ﻿@model SolutionListingViewModel
-
-<div class="panel-group col-sm-2">
-    <div class="panel">
-        <div class="panel-heading clearfix">
-            <div class="pull-left"><strong>@Model.Title</strong></div>
-        </div>
-            <div class="panel-body">
-                <a asp-area="" asp-controller="Solutions" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-lg btn-primary">View</a>
-
+@*<div class="panel-group col-sm-2">
+        <div class="panel">
+            <div class="panel-heading clearfix">
+                <div class="pull-left"><strong>@Model.Title</strong></div>
             </div>
-            <div class="panel-footer clearfix">
-                <div>
-                    <p>Author: @Model.Author</p>
+                <div class="panel-body">
+                    <a asp-area="" asp-controller="Solutions" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-lg btn-primary">View</a>
+
                 </div>
-            </div>
-    </div>
-</div>
+                <div class="panel-footer clearfix">
+                    <div>
+                        <p>Author: @Model.Author</p>
+                    </div>
+                </div>
+        </div>
+    </div>*@
+
+<tr>
+    <td>
+        <a asp-area="" asp-controller="Solutions" asp-action="Details" asp-route-id="@Model.Id"><strong>@Model.Title</strong></a>
+       <br />
+        @Model.CreationTime | Views: @Model.Views <br />
+        Author: @Model.Author
+    </td>
+</tr>

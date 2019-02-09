@@ -11,20 +11,27 @@ body {
     padding-left: 15px;
     padding-right: 15px;
 }
-.modal-body p { word-wrap: break-word; }
+
+.modal-body p {
+    word-wrap: break-word;
+}
 /* Carousel */
 .carousel-caption p {
     font-size: 20px;
     line-height: 1.4;
 }
 
+.navbar-brand {
+    color: white !important;
+}
+
 .modal.modal-wide .modal-dialog {
     width: 90%;
-  }
+}
 
-  .modal-wide .modal-body {
+.modal-wide .modal-body {
     overflow-y: auto;
-  }
+}
 
 /* Make .svg files in the carousel display properly in older browsers */
 .carousel-inner .item img[src$=".svg"] {
@@ -53,12 +60,31 @@ body {
     background-color: #C6E2FF;
 }
 
+.table-striped > tbody > tr:nth-child(2n) > td, .table-striped > tbody > tr:nth-child(2n) > th {
+    background-color: white;
+}
+
+.table-hover tbody tr:hover td {
+    background: #FFFF99;
+}
+
 textarea {
     width: 100%;
 }
 
-th{
-    background-color: gold;
+th {
+    background-color: #36648B;
+    color: white;
+}
+
+th a{
+    color:orange;
+    font-weight:bold;
+    
+}
+
+th a:hover {
+    color: white;
 }
 
 hr {
@@ -71,77 +97,114 @@ hr {
 }
 
 .panel {
-    background: #ffea7f;
+    background-color: whitesmoke;
 }
 
 .panel-heading {
-    background-color: gold;
+    background-color: #36648B;
+    color: white;
+}
+
+
+
+.panel-heading a {
+    color: gold;
+    font-weight: bold;
 }
 
 .panel-footer {
-    background-color: gold;
+    background-color: #36648B;
+    color: white;
+}
+
+.panel-body {
+    background-color: white;
+}
+
+.panel-footer a {
+    color: gold;
+    font-weight: bold;
 }
 
 .navbar-inverse {
-    background-color: #1C86EE;
+    background-color: #36648B;
     border-color: #080808;
 }
 
-.navbar-inverse .navbar-nav > li > a {
-    color: #ffffff;
+    .navbar-inverse .navbar-nav > li > a {
+        color: #ffffff;
+    }
+
+.pagination {
+    margin-top: 1px;
+    margin-bottom: 1px;
+    display: inline
 }
 
 .navbar-inverse .navbar-nav > .open > a,
 .navbar-inverse .navbar-nav > .open > a:hover,
 .navbar-inverse .navbar-nav > .open > a:focus {
-   color: #fff;
-   background-color: #42C0FB;
- }
+    color: #fff;
+    background-color: #63B8FF;
+}
 
 .dropdown-menu {
-    background: #42C0FB;
+    background: #63B8FF;
 }
 
 .navbar-inverse .navbar-nav .open .dropdown-menu > li > a, .navbar-default .navbar-nav .open .dropdown-menu {
-    background: #42C0FB;
+    background: #63B8FF;
     color: white;
 }
 
-a { cursor:pointer; }
+a {
+    cursor: pointer;
+}
 
-body{padding-top:40px; padding-bottom:40px}
-@media screen and (max-width: 768px){
-    body {padding-top: 280px;}
+body {
+    padding-top: 40px;
+    padding-bottom: 40px
+}
+
+@media screen and (max-width: 768px) {
+    body {
+        padding-top: 280px;
+    }
 }
 
 .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover,
 .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:focus {
     color: white;
-    background-color: #1C86EE;
-}
-.navbar-inverse .navbar-nav > li > a:hover,
-.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
-    background-color: #42C0FB;
-    color: white;
+    background-color: #36648B;
 }
 
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+    background-color: #63B8FF;
+    color: white;
+}
+body {
+    background-color: whitesmoke;
+}
 .myBtn {
-    background-color:#1C86EE;
+    background-color: #36648B;
     color: white;
 }
 
     .myBtn:hover {
-        background-color: #42C0FB;
+        background-color: #63B8FF;
         color: white;
     }
 
-    .myBtn:after{
-        color:white;
+    .myBtn:after {
+        color: white;
     }
-    .myBtn:active:after{
-        color:white;
+
+    .myBtn:active:after {
+        color: white;
     }
-    .myBtn:active{
-        color:white;
+
+    .myBtn:active {
+        color: white;
         transform: translateY(4px)
     }

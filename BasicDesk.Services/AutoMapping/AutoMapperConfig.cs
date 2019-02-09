@@ -78,14 +78,15 @@ namespace BasicDesk.Services.AutoMapping
                 .ForMember(r => r.Replies, opt => opt.MapFrom(req => req.Repiles)); ;
 
                 configuration.CreateMap<RequestNote, RequestNoteViewModel>()
-                    .ForMember(rn => rn.Author, opt => opt.MapFrom(r => r.Author));
+                    .ForMember(rn => rn.Author, opt => opt.MapFrom(r => r.Author))
+                    .ForMember(rn => rn.RequestId, opt => opt.MapFrom(r => r.RequestId));
 
                 configuration.CreateMap<CategoryCreationBindingModel, RequestCategory>();
                 configuration.CreateMap<RequestCategory, CategoryViewModel>();
 
                 configuration.CreateMap<Solution, SolutionDetailsViewModel>()
-					.ForMember(s => s.Attachment, opt => opt.MapFrom(sol => sol.Attachments.FirstOrDefault()))
-					.ForMember(s => s.Author, opt => opt.MapFrom(sol => sol.Author.FullName))
+                    .ForMember(s => s.Author, opt => opt.MapFrom(sol => sol.Author.FullName))
+                    .ForMember(s => s.Attachments, opt => opt.MapFrom(sol => sol.Attachments))
 					.ForMember(s => s.CreatedOn, opt => opt.MapFrom(sol => sol.CreationTime.ToString()));												
             });
 			//Mapper.Configuration.AssertConfigurationIsValid();

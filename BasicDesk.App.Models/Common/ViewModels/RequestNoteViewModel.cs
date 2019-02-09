@@ -11,5 +11,7 @@ namespace BasicDesk.App.Models.Common.ViewModels
         public string CreationTime { get; set; }
 
         public string Author { get; set; }
+
+        public int RequestId { get; set; }
     }
 }

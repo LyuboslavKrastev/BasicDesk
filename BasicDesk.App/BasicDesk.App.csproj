@@ -17,7 +17,6 @@
     <ProjectReference Include="..\BasicDesk.App.Models\BasicDesk.App.Models.csproj" />
     <ProjectReference Include="..\BasicDesk.Common\BasicDesk.Common.csproj" />
     <ProjectReference Include="..\BasicDesk.Data\BasicDesk.Data.csproj" />
-    <ProjectReference Include="..\BasicDesk.Models\BasicDesk.Data.Models.csproj" />
     <ProjectReference Include="..\BasicDesk.Services\BasicDesk.Services.csproj" />
   </ItemGroup>
 
@@ -67,6 +66,9 @@
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Shared\MergePartial.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\ReplyPartial.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Shared\NotePartial.cshtml">

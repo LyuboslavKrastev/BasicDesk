@@ -1,4 +1,5 @@
 ﻿using BasicDesk.Data.Models.Solution;
+using System.Collections.Generic;
 
 namespace BasicDesk.App.Models.Common.ViewModels
 {
@@ -14,6 +15,6 @@ namespace BasicDesk.App.Models.Common.ViewModels
 
         public string Author { get; set; }
 
-        public SolutionAttachment Attachment { get; set; }
+        public IEnumerable<SolutionAttachment> Attachments { get; set; }
     }
 }

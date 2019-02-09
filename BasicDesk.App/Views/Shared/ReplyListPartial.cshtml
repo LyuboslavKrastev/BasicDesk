@@ -5,38 +5,38 @@
     <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#replies">Show Replies</button>
     <div id="replies" class="collapse">
         <div class="panel">
-            <div class="panel-heading clearfix" style="background-color:#42C0FB">
+            <div class="panel-heading clearfix">
                 <div class="pull-left"><strong>Replies</strong></div>
             </div>
             @foreach (var reply in Model)
             {
-                <div class="panel-body" style="background-color:silver">
-                    <div class="panel-heading clearfix" style="background-color:#42C0FB">
-                        <div class="pull-left"><strong>Author:</strong> @reply.Author</div>
-                        <div class="pull-right"><strong>Created On:</strong> @reply.CreationTime</div>
-                    </div>
-                    <div class="panel-body" style="background-color:skyblue">
-                        <p><strong>Subject:</strong> @reply.Subject</p>
-                        <strong>Description</strong>
-                        <p>@reply.Description</p>
-                    </div>
-                    <div class="panel-footer clearfix" style="background-color:#42C0FB">
-                        @if (reply.Attachments != null)
-                        {
-                            <div class="text-center">
-                                @foreach (var attachment in reply.Attachments)
-                                {
-                                    <label asp-for="@attachment">Attachment: </label>
-                                    <a asp-controller="Requests" asp-action="Download"
-                                       asp-route-filename="@attachment.FileName" asp-route-filePath="@attachment.PathToFile" asp-route-requestId="@attachment.Id">
-                                        @attachment.FileName
-                                    </a>
-                                    <br />
-                                }
-                            </div>
-                        }
-                    </div>
+            <div class="panel-body">
+                <div class="panel-heading clearfix">
+                    <div class="pull-left"><strong>Author:</strong> @reply.Author</div>
+                    <div class="pull-right"><strong>Created On:</strong> @reply.CreationTime</div>
                 </div>
+                <div class="panel-body">
+                    <p><strong>Subject:</strong> @reply.Subject</p>
+                    <strong>Description</strong>
+                    <p>@reply.Description</p>
+                </div>
+                @if (reply.Attachments.Any())
+                {
+                    <div class="panel-footer clearfix">
+                        <div class="text-center">
+                            @foreach (var attachment in reply.Attachments)
+                            {
+                                <label asp-for="@attachment">Attachment: </label>
+                                <a asp-controller="Requests" asp-action="Download"
+                                   asp-route-filename="@attachment.FileName" asp-route-filePath="@attachment.PathToFile" asp-route-requestId="@attachment.Id">
+                                    @attachment.FileName
+                                </a>
+                                <br />
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
             }
         </div>
     </div>

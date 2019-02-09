@@ -2,7 +2,8 @@
 
 @if (Model.Any())
 {
-    <div class="modal fade modal-wide" id="noteListModal" tabindex="-1" role="dialog">
+    var id = Model.First().RequestId + "Notes";
+    <div class="modal fade" id="@id" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content" style="overflow:inherit">
                 <div class="modal-body modal-wide">

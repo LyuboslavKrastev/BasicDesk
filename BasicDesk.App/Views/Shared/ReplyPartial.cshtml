@@ -1,0 +1,24 @@
+﻿@model int
+
+<div class="modal fade" id="replyModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title text-center">Add Reply</h3>
+            </div>
+            <form asp-area="" asp-controller="requests" asp-action="AddReply" method="post">
+                <div class="modal-body">
+                    Request ID - @Model
+
+                    <input style="display:none" name="requestId" value="@Model" />
+                    <textarea class="form-control" rows="4" style="min-width: 100%; resize:none;" name="replyDescription"></textarea>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success">Add Reply</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

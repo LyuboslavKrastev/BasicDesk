@@ -28,7 +28,6 @@
           "BasicDesk.App.Models": "1.0.0",
           "BasicDesk.Common": "1.0.0",
           "BasicDesk.Data": "1.0.0",
-          "BasicDesk.Data.Models": "1.0.0",
           "BasicDesk.Services": "1.0.0",
           "Microsoft.AspNetCore.App": "2.1.1",
           "Microsoft.NETCore.App": "2.1.0",

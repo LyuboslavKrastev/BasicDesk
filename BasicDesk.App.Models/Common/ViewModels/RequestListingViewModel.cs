@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace BasicDesk.App.Models.Common.ViewModels
@@ -9,6 +10,7 @@ namespace BasicDesk.App.Models.Common.ViewModels
 
         public string Subject { get; set; }
 
+        [Display(Name = "Requester")]
         public string Requester { get; set; }
 
         [Display(Name ="Assigned To")]
@@ -21,5 +23,7 @@ namespace BasicDesk.App.Models.Common.ViewModels
         public DateTime? Endtime { get; set; }
 
         public string Status { get; set; }
+
+        public IEnumerable<RequestNoteViewModel> Notes { get; set; }
     }
 }

@@ -208,6 +208,30 @@ namespace BasicDesk.Services
             }
         }
 
+        public async Task AddReply(int requestId, string userId, string userName, bool isTechnician, string noteDescription)
+        {
+            Request request = await this.repository.All().FirstOrDefaultAsync(r => r.Id == requestId);
+
+            User author = await this.userRepository.All().FirstOrDefaultAsync(u => u.Id == userId);
+
+            if (isTechnician || userId == request.RequesterId)
+            {
+
+                RequestReply reply = new RequestReply
+                {
+                    Subject = $"Re: [{request.Subject}]",
+                    RequestId = requestId,
+                    Description = noteDescription,
+                    CreationTime = DateTime.UtcNow,
+                    Author = author
+                };
+
+                request.Repiles.Add(reply);
+
+                await this.SaveChangesAsync();
+            }
+        }
+
         public async Task AddNote(IEnumerable<string> requestIds, string userId, string userName, bool isTechnician, string noteDescription)
         {
 

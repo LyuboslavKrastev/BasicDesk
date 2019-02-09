@@ -36,9 +36,20 @@ namespace BasicDesk.Services
         }    
 
 
-        public SolutionDetailsViewModel GetSolutionDetails(int id)
+        public async Task<SolutionDetailsViewModel> GetSolutionDetails(int id)
         {
-            return this.repository.All().Where(s => s.Id == id).ProjectTo<SolutionDetailsViewModel>().FirstOrDefault();
+            Solution solution = await this.repository.All()
+                .Include(s => s.Author)
+                .Include(s => s.Attachments)
+                .FirstOrDefaultAsync(s => s.Id == id);
+
+            if (solution == null)
+            {
+                return null;
+            }
+            solution.Views++;
+            await this.SaveChangesAsync();
+            return Mapper.Map<SolutionDetailsViewModel>(solution);
         }
     }
 }

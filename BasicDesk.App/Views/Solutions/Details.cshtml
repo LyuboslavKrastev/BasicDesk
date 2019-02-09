@@ -13,21 +13,21 @@
                 <div class="pull-right"><strong>Created On:</strong> @Model.CreatedOn</div>
             </div>
             <div class="panel-body"><strong>Description:</strong> <p>@Model.Content</p></div>
-
             <div class="panel-footer clearfix">
                 <div class="text-center"><strong> Author:</strong> @Model.Author</div>
             </div>
-
-            @if (Model.Attachment != null)
+            @if (Model.Attachments.Any())
             {
-                <div class="panel-footer clearfix">
-                    <div class="text-center">
-                        <label asp-for="@Model.Attachment">Attachment: </label>
-                        <a asp-controller="Solutions" asp-action="Download"
-                           asp-route-filename="@Model.Attachment.FileName" asp-route-filePath="@Model.Attachment.PathToFile" asp-route-solutionId="@Model.Id">
-                            @Model.Attachment.FileName
+                <div class="text-center">
+                    @foreach (var attachment in Model.Attachments)
+                    {
+                        <label asp-for="@attachment">Attachment: </label>
+                        <a asp-controller="Requests" asp-action="Download"
+                           asp-route-filename="@attachment.FileName" asp-route-filePath="@attachment.PathToFile" asp-route-requestId="@Model.Id">
+                            @attachment.FileName
                         </a>
-                    </div>
+                        <br />
+                    }
                 </div>
             }
         </div>

@@ -270,6 +270,8 @@ namespace BasicDesk.App.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(200);
 
+                    b.Property<int>("Views");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");

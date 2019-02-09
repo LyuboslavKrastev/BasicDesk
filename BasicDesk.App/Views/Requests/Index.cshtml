@@ -4,9 +4,18 @@
 @{
     ViewData["Title"] = "Requests";
 }
+@{
+    var sortOrder = Model.CurrentSort;
+    var searchString = Model.CurrentSearch;
+    var currentFilter = Model.CurrentFilter;
+    var requestsPerPage = Model.RequestsPerPage;
+}
+@foreach (var req in Model.Requests)
+{
+    <partial name="NoteListPartial" model="req.Notes" />
+}
 
-<h3 class="text-center">Requests</h3>
-<div class="container-fluid body-content">
+<div>
     <div>
         <!-- Note Modal -->
         <div class="modal fade" id="noteModal" tabindex="-1" role="dialog">
@@ -24,6 +33,10 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div id="testPart">
+
         </div>
 
         <!-- Approval Modal -->
@@ -88,9 +101,9 @@
                     </div>
                 </th>
                 <th class="col-md-1"><a asp-area="" asp-controller="Requests" asp-action="Create" class="btn btn-success" style="width: 100%;">New Request <i class=glyphicon-plus></i></a></th>
-                <th class="col-md-1"><a class="btn btn-info" data-toggle="modal" style="width: 100%;" data-target="#approvalModal">Submit for Approval</a></th>
-                <th class="col-md-1"><a class="btn btn-info" style="width: 100%;" data-toggle="modal" data-target="#noteModal">Add Note</a></th>
-                <th class="col-md-1"><a class="btn btn-info" style="width: 100%;" id="mergeReq">Merge</a></th>
+                <th class="col-md-1"><a class="btn btn-warning" data-toggle="modal" style="width: 100%;" data-target="#approvalModal">Submit for Approval</a></th>
+                <th class="col-md-1"><a class="btn btn-warning" style="width: 100%;" data-toggle="modal" data-target="#noteModal">Add Note</a></th>
+                <th class="col-md-1"><a class="btn btn-warning" style="width: 100%;" id="mergeReq">Merge</a></th>
                 <th class="col-md-1"><a class="btn btn-danger" style="width: 100%;" id="deleteReq">Delete</a></th>
 
                 <th>
@@ -130,53 +143,49 @@
                         </div>
                     </form>
                 </th>
+                <th>
+                    @Html.PagedListPager(Model.Requests, page => Url.Action("Index", "Requests", new { sortOrder, searchString, currentFilter, page, requestsPerPage }))
+                </th>
             </tr>
     </table>
 
     <table class="table table-hover table-striped table-bordered">
         <thead>
-        <th><input type="checkbox" class="checkbox-inline" id="checkAll"></th>
+        <th class="text-center"><input type="checkbox" class="checkbox-inline" id="checkAll"></th>
+        <th></th>
         <th>
             <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.IdSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
-                Id
-                <!-- @Html.DisplayNameFor(model => model.Requests[0].Id) -->
+                @Html.DisplayNameFor(model => model.Requests[0].Id)
             </a>
         </th>
         <th>
             <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.SubjectSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
-                Subject
-                <!-- @Html.DisplayNameFor(model => model.Requests[0].Subject) -->
+                @Html.DisplayNameFor(model => model.Requests[0].Subject)
             </a>
         </th>
         <th>
             <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.NameSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
-                Requester Name
-                <!-- @Html.DisplayNameFor(model => model.Requests[0].Requester) -->
+                @Html.DisplayNameFor(model => model.Requests[0].Requester)
             </a>
         </th>
         <th>
             <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.AssignedToSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
-                Assigned To
-                <!-- @Html.DisplayNameFor(model => model.Requests[0].AssignedTo) -->
+                @Html.DisplayNameFor(model => model.Requests[0].AssignedTo)
             </a>
         </th>
         <th>
             <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.StartDateSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
-                Created Date
-                <!-- @Html.DisplayNameFor(model => model.Requests[0].StartTime) -->
+                @Html.DisplayNameFor(model => model.Requests[0].StartTime)
             </a>
         </th>
         <th>
             <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.EndDateSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
-                Closed On
-                <!-- @Html.DisplayNameFor(model => model.Requests[0].Endtime) -->
+                @Html.DisplayNameFor(model => model.Requests[0].Endtime)
             </a>
         </th>
         <th>
             <a asp-area="" asp-controller="Requests" asp-action="Index" asp-route-sortOrder="@Model.StatusSort" asp-route-currentFilter="@Model.CurrentFilter" asp-route-searchString="@Model.CurrentSearch">
-                <!-- @Html.DisplayNameFor(model => model.Requests[0].Status) -->
-                Status
-
+                @Html.DisplayNameFor(model => model.Requests[0].Status)
             </a>
             <a id="searchIcon"><i class="glyphicon glyphicon-zoom-in pull-right"></i></a>
         </th>
@@ -185,35 +194,48 @@
         <tbody>
             <tr id="searchBar" style="display: none">
                 <td></td>
-                <td form id="searchForm" asp-controller="Requests" asp-action="Index" method="get" class="input-group">
-                    <input class="text-right " type="text" placeholder="Id" name="SearchString" value="@Model.CurrentSearch" />
-                </td>
-                <td>
-                    <input form="searchForm" class="text-right " type="text" placeholder="Subject" name="SearchString" value="@Model.CurrentSearch" />
-                </td>
-                <td>
-                    <input form="searchForm" class="text-right " type="text" placeholder="Requester Name" name="SearchString" value="@Model.CurrentSearch" />
-                </td>
-                <td>
-                    <input form="searchForm" class="text-right " type="text" placeholder="Assigned To" name="SearchString" value="@Model.CurrentSearch" />
-                </td>
-                <td>
-                    <input form="searchForm" class="text-right " type="text" placeholder="Created Date" name="SearchString" value="@Model.CurrentSearch" />
-                </td>
-                <td>
-                    <input form="searchForm" class="text-right " type="text" placeholder="Closed On" name="SearchString" value="@Model.CurrentSearch" />
+                <td></td>
+                <form id="searchForm" asp-area="" asp-controller="Requests" asp-action="Index" method="get" class="input-group">
+                    <td>
+                        <input form="searchForm" class="text-right " type="text" placeholder="Id" name="SearchString" value="@Model.CurrentSearch" />
+                    </td>
+                    <td>
+                        <input form="searchForm" class="text-right " type="text" placeholder="Subject" name="SearchString" value="@Model.CurrentSearch" />
+                    </td>
+                    <td>
+                        <input form="searchForm" class="text-right " type="text" placeholder="Requester Name" name="SearchString" value="@Model.CurrentSearch" />
+                    </td>
+                    <td>
+                        <input form="searchForm" class="text-right " type="text" placeholder="Assigned To" name="SearchString" value="@Model.CurrentSearch" />
+                    </td>
+                    <td>
+                        <input form="searchForm" class="text-right " type="text" placeholder="Created Date" name="SearchString" value="@Model.CurrentSearch" />
+                    </td>
+                    <td>
+                        <input form="searchForm" class="text-right " type="text" placeholder="Closed On" name="SearchString" />
 
-                </td>
-                <td>
-                    <input form="searchForm" class="text-right " type="text" placeholder="Status" name="SearchString" value="@Model.CurrentSearch" />
-                    <button form="serachForm" class="btn btn-default">Go</button>
-                </td>
+                    </td>
+                    <td>
+                        <input class="text-right " type="text" placeholder="Status" name="SearchString" />
+                        <button class="btn btn-default">Go</button>
+                    </td>
+                </form>
             </tr>
 
             @foreach (var item in Model.Requests)
             {
+                var notesModalId = item.Id + "Notes";
                 <tr>
-                    <td><input value="@item.Id" type="checkbox" class="check"></td>
+
+                    <td class="text-center"><input value="@item.Id" type="checkbox" class="check"></td>
+                    @if (item.Notes.Any())
+                    {
+                        <td class="text-center"><a class="glyphicon glyphicon-file" name="noteIcon" style="color:orange" data-toggle="modal" data-target="#@notesModalId"></a></td>
+                    }
+                    else
+                    {
+                        <td class="text-center"><i class="glyphicon glyphicon-file" style="color:wheat"></i></td>
+                    }
                     <td>
                         @Html.DisplayFor(modelItem => item.Id)
                     </td>
@@ -264,11 +286,5 @@
 <script src="~/js/requests/index/delete.js"></script>
 <script src="~/js/requests/index/merge.js"></script>
 
-@{
-    var sortOrder = Model.CurrentSort;
-    var searchString = Model.CurrentSearch;
-    var currentFilter = Model.CurrentFilter;
-    var requestsPerPage = Model.RequestsPerPage;
-}
 
-@Html.PagedListPager(Model.Requests, page => Url.Action("Index", "Requests", new { sortOrder, searchString, currentFilter, page, requestsPerPage }))
+

@@ -1,4 +1,4 @@
-﻿@model UserDetailsViewModel
+﻿@*@model UserDetailsViewModel
 
 @Html.DisabledInputFormGroupFor(m => m.Id)
 @Html.DisabledInputFormGroupFor(m => m.UserName)
@@ -7,6 +7,6 @@
 @if (!String.IsNullOrWhiteSpace(Model.Phone))
 {
     @Html.DisabledInputFormGroupFor(m => m.Phone)
-}
+}*@
 
 
