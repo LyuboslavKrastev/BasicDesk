@@ -35,5 +35,9 @@ namespace BasicDesk.App.Models.Management.ViewModels
         public IEnumerable<SelectListItem> Statuses { get; set; }
 
         public IEnumerable<RequestReplyViewModel> Replies { get; set; }
+
+        public IEnumerable<SelectListItem> Users { get; set; }
+
+        public IEnumerable<RequestApproval> Approvals { get; set; }
     }
 }

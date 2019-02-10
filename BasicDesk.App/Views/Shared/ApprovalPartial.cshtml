@@ -1,0 +1,33 @@
+﻿@model RequestDetailsViewModel
+
+<div class="modal fade" id="approvalModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title text-center">Submit for Approval</h3>
+            </div>
+            <form asp-area="" asp-controller="requests" asp-action="AddApproval" method="post">
+                <div class="modal-body">
+                    <label>To</label>
+                    <input hidden value="@Model.Id" name="requestId" />
+                    <select name="approverId" class="form-control">
+                        @foreach (var user in Model.Users)
+                        {
+                            <option value="@user.Value">@user.Text</option>
+                        }
+                    </select>
+                    <br>
+                    <label>Subject</label>
+                    <input class="form-control" name="subject">
+                    <br>
+                    <label>Description</label>
+                    <textarea class="form-control" name="description" rows="4" style="min-width: 100%; resize:none;"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,4 +1,5 @@
-﻿using BasicDesk.Data.Models.Solution;
+﻿using BasicDesk.Data.Models.Requests;
+using BasicDesk.Data.Models.Solution;
 using System.Collections.Generic;
 
 namespace BasicDesk.App.Models.Common.ViewModels

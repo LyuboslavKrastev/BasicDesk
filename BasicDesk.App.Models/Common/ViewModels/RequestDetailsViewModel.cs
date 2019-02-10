@@ -1,5 +1,6 @@
 ﻿using BasicDesk.App.Models.Management.ViewModels;
 using BasicDesk.Data.Models.Requests;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 
 namespace BasicDesk.App.Models.Common.ViewModels
@@ -30,5 +31,8 @@ namespace BasicDesk.App.Models.Common.ViewModels
 
         public IEnumerable<RequestReplyViewModel> Replies { get; set; }
 
+        public IEnumerable<SelectListItem> Users { get; set; }
+
+        public IEnumerable<RequestApproval> Approvals { get; set; }
     }
 }

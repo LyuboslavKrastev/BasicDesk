@@ -68,6 +68,8 @@ namespace BasicDesk.App
             services.AddScoped(typeof(DbRepository<>), typeof(DbRepository<>));
             services.AddScoped<RequestService, RequestService>();
             services.AddScoped<SolutionService, SolutionService>();
+            services.AddScoped<ApprovalService, ApprovalService>();
+
 
             services.AddScoped<RequestSorter, RequestSorter>();
 

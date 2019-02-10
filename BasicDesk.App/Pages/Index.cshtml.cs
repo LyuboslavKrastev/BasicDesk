@@ -1,4 +1,5 @@
-﻿using BasicDesk.App.Models.Management.ViewModels;
+﻿using BasicDesk.App.Models.Common.ViewModels;
+using BasicDesk.App.Models.Management.ViewModels;
 using BasicDesk.Data.Models;
 using BasicDesk.Data.Models.Requests;
 using BasicDesk.Services;
@@ -13,35 +14,39 @@ namespace BasicDesk.App.Pages
     {
         private readonly UserManager<User> userManager;
         private readonly RequestService service;
+        private readonly ApprovalService approvalService;
 
-        public IList<ReportViewModel> Model { get; set; }
+        public IndexViewModel Model { get; set; }
 
-        public IndexModel(UserManager<User> userManager, RequestService service)
+        public IndexModel(UserManager<User> userManager, RequestService service, ApprovalService approvalService)
         {
-            this.Model = new List<ReportViewModel>();
+            this.Model = new IndexViewModel();
             this.userManager = userManager;
             this.service = service;
+            this.approvalService = approvalService;
         }
 
         public void OnGet()
         {
             IEnumerable <RequestStatus> statuses = service.GetAllStatuses().ToArray();
             string userId = this.userManager.GetUserId(this.User);
-
+            Model.Reports = new List<ReportViewModel>();
             foreach (var status in statuses)
             {
-
-                int quantity = this.service.GetByFilter(userId, false, status.Id.ToString()).Count();
+                int requestsCount = this.service.GetByFilter(userId, false, status.Id.ToString()).Count();
                 string requestType = status.Name;
-                if (quantity > 0)
+                if (requestsCount > 0)
                 {
-                    Model.Add(new ReportViewModel
+                    Model.Reports.Add(new ReportViewModel
                     {
                         DimensionOne = requestType,
-                        Quantity = quantity
+                        Quantity = requestsCount
                     });
                 }
             }
+
+            this.Model.ApprovalsToApprove = this.approvalService.GetUserApprovalsToApprove(userId).ToArray();
+            this.Model.SubmittedApprovals = this.approvalService.GetUserSubmittedApprovals(userId).ToArray();
 
             TempData["Type"] = "pie";
         }

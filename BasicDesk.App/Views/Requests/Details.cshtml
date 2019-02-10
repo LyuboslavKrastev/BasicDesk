@@ -20,6 +20,13 @@
     <button class="btn btn-info pull-right" data-toggle="modal" data-target="#mergeModal" id="mergeButton">Merge Request</button>
 </div>
 
+@if (Model.Approvals.Any())
+{
+    <h5>IMA APROVALI</h5>
+}
+<!-- Approval Modal -->
+<partial name="ApprovalPartial" />
+
 <!-- Note Modal -->
 <partial name="NotePartial" for="Id" />
 

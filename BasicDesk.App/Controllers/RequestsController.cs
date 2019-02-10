@@ -191,12 +191,25 @@ namespace BasicDesk.App.Controllers
         public async Task<IActionResult> AddReply(string requestId, string replyDescription)
         {
             string userId = this.userManager.GetUserId(User);
-            string userName = this.User.Identity.Name;
             bool isTechnician = User.IsInRole(WebConstants.AdminRole) || User.IsInRole(WebConstants.HelpdeskRole);
 
-            await this.requestService.AddReply(int.Parse(requestId), userId, userName, isTechnician, replyDescription);
+            await this.requestService.AddReply(int.Parse(requestId), userId, isTechnician, replyDescription);
 
             this.AddMessage(MessageType.Success, "Successfully added note");
+
+            return this.RedirectToAction("Details", new { id = requestId });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddApproval(string requestId, string approverId, string subject, string description)
+        {
+            string userId = this.userManager.GetUserId(User);
+
+            bool isTechnician = User.IsInRole(WebConstants.AdminRole) || User.IsInRole(WebConstants.HelpdeskRole);
+
+            await this.requestService.AddAproval(int.Parse(requestId), userId, isTechnician, approverId, subject, description);
+
+            this.AddMessage(MessageType.Success, "Successfully submitted for approval");
 
             return this.RedirectToAction("Details", new { id = requestId });
         }
@@ -236,6 +249,11 @@ namespace BasicDesk.App.Controllers
 
         public IActionResult Details(string id)
         {
+            if(int.TryParse(id, out _) == false)
+            {
+                return BadRequest();
+            }
+
             bool isTechnician = User.IsInRole(WebConstants.AdminRole) || User.IsInRole(WebConstants.HelpdeskRole);
             if (isTechnician)
             {
@@ -254,6 +272,12 @@ namespace BasicDesk.App.Controllers
                 {
                     return this.Forbid();
                 }
+
+                model.Users = this.userManager.Users.Select(u => new SelectListItem
+                {
+                    Text = u.UserName,
+                    Value = u.Id
+                });
 
                 return this.View(model);
             }

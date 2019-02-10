@@ -15,8 +15,6 @@
     <partial name="NoteListPartial" model="req.Notes" />
 }
 
-<div>
-    <div>
         <!-- Note Modal -->
         <div class="modal fade" id="noteModal" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -34,44 +32,6 @@
                 </div>
             </div>
         </div>
-
-        <div id="testPart">
-
-        </div>
-
-        <!-- Approval Modal -->
-        <div class="modal fade" id="approvalModal" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3 class="modal-title text-center">Submit for Approval</h3>
-                    </div>
-                    <div class="modal-body">
-                        <p>Request ID - Model.Id</p>
-                        <label>To</label>
-                        <select class="form-control">
-                            <option>Pesho</option>
-                            <option>Gosho</option>
-                            <option>RandomPich</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select>
-                        <br>
-                        <label>Subject</label>
-                        <input class="form-control" name="subject" id="subject">
-                        <br>
-                        <label>Description</label>
-                        <textarea class="form-control" rows="4" style="min-width: 100%; resize:none;"></textarea>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-success">Send</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
 
     <table class="table table-hover table-bordered">
         <thead>
@@ -101,7 +61,6 @@
                     </div>
                 </th>
                 <th class="col-md-1"><a asp-area="" asp-controller="Requests" asp-action="Create" class="btn btn-success" style="width: 100%;">New Request <i class=glyphicon-plus></i></a></th>
-                <th class="col-md-1"><a class="btn btn-warning" data-toggle="modal" style="width: 100%;" data-target="#approvalModal">Submit for Approval</a></th>
                 <th class="col-md-1"><a class="btn btn-warning" style="width: 100%;" data-toggle="modal" data-target="#noteModal">Add Note</a></th>
                 <th class="col-md-1"><a class="btn btn-warning" style="width: 100%;" id="mergeReq">Merge</a></th>
                 <th class="col-md-1"><a class="btn btn-danger" style="width: 100%;" id="deleteReq">Delete</a></th>

@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
+﻿using AutoMapper.QueryableExtensions;
 using BasicDesk.App.Models.Common.ViewModels;
 using BasicDesk.App.Models.Management.BindingModels;
 using BasicDesk.App.Models.Management.ViewModels;
@@ -20,14 +19,16 @@ namespace BasicDesk.Services
         private readonly DbRepository<RequestCategory> categoryRepository;
         private readonly DbRepository<RequestStatus> statusRepository;
         private readonly DbRepository<User> userRepository;
+        private readonly DbRepository<ApprovalStatus> approvalStatusRepository;
 
         public RequestService(DbRepository<Request> repository, DbRepository<RequestCategory> categoryRepository,
-            DbRepository<RequestStatus> statusRepository, DbRepository<User> userRepository)
+            DbRepository<RequestStatus> statusRepository, DbRepository<User> userRepository, DbRepository<ApprovalStatus> approvalStatusRepository)
         {
             this.repository = repository;
             this.categoryRepository = categoryRepository;
             this.statusRepository = statusRepository;
             this.userRepository = userRepository;
+            this.approvalStatusRepository = approvalStatusRepository;
         }
 
         public Task AddAsync(Request request)
@@ -208,7 +209,7 @@ namespace BasicDesk.Services
             }
         }
 
-        public async Task AddReply(int requestId, string userId, string userName, bool isTechnician, string noteDescription)
+        public async Task AddReply(int requestId, string userId, bool isTechnician, string noteDescription)
         {
             Request request = await this.repository.All().FirstOrDefaultAsync(r => r.Id == requestId);
 
@@ -232,9 +233,35 @@ namespace BasicDesk.Services
             }
         }
 
+        public async Task AddAproval(int requestId, string userId, bool isTechnician, string approverId, string subject, string description)
+        {
+            Request request = await this.repository.All().FirstOrDefaultAsync(r => r.Id == requestId);
+
+            User author = await this.userRepository.All().FirstOrDefaultAsync(u => u.Id == userId);
+
+            if (isTechnician || userId == request.RequesterId)
+            {
+                ApprovalStatus pendingStatus = await this.approvalStatusRepository.All().FirstOrDefaultAsync(s => s.Name == "Pending");
+
+                RequestApproval approval = new RequestApproval
+                {
+                    Subject = subject,
+                    RequestId = requestId,
+                    Description = description,
+                    RequesterId = userId,
+                    ApproverId = approverId,
+                    StatusId = pendingStatus.Id
+                };
+
+                request.Approvals.Add(approval);
+
+                await this.SaveChangesAsync();
+            }
+        }
+
+
         public async Task AddNote(IEnumerable<string> requestIds, string userId, string userName, bool isTechnician, string noteDescription)
         {
-
             foreach (var id in requestIds)
             {
                 bool isInt = int.TryParse(id, out int requestId);

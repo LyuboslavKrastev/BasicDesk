@@ -43,7 +43,7 @@ namespace BasicDesk.Data.Models.Requests
 		public string Resolution {get; set;}
         //public string History {get; set;}
 
-        public IEnumerable<RequestApproval> Approvals { get; set; } = new List<RequestApproval>();
+        public ICollection<RequestApproval> Approvals { get; set; } = new List<RequestApproval>();
 
         public ICollection<RequestReply> Repiles { get; set; } = new List<RequestReply>();
     }

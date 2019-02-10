@@ -4,8 +4,8 @@
     ViewData["Title"] = "Index";
 }
 @{
-    var XLabels = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Model.Select(x => x.DimensionOne).ToList());
-    var YValues = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Model.Select(x => x.Quantity).ToList());
+    var XLabels = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Model.Reports.Select(x => x.DimensionOne).ToList());
+    var YValues = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Model.Reports.Select(x => x.Quantity).ToList());
 }
 @if (!User.Identity.IsAuthenticated)
 {
@@ -28,10 +28,58 @@ else
         </div>
         <div class="col-md-6">
             <h4 class="text-center">Actions</h4>
-            <a asp-controller="Requests" asp-action="Index" class="btn myBtn btn-block">View All Requests</a>
-            <a asp-area="" asp-controller="Requests" asp-action="Create" class="btn myBtn btn-block">
+            <a asp-area="" asp-controller="Requests" asp-action="Create" class="btn btn-success btn-block">
                 Create Request <i class="glyphicon-plus"></i>
             </a>
+            <a asp-controller="Requests" asp-action="Index" class="btn btn-warning btn-block">View All Requests</a>
+
+
+            @if (Model.Model.SubmittedApprovals.Any() || Model.Model.ApprovalsToApprove.Any())
+            {
+                <h4 class="text-center">Approvals</h4>
+                <div class="col-md-6">
+                    <table class="table table-hover table-bordered">
+                        <tr>
+                            <th class="text-center">To Approve</th>
+                        </tr>
+                        <tbody>
+                            @foreach (var approval in Model.Model.ApprovalsToApprove)
+                            {
+                                <tr>
+                                    <td>
+                                        Subject: @approval.Subject
+                                        <br>
+                                        <a asp-area="" asp-controller="Requests" asp-action="Details" asp-route-id="@approval.RequestId">Click here to view request</a>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-md-6">
+                    <table class="table table-hover table-bordered">
+                        <tr>
+                            <th class="text-center">Submitted</th>
+                        </tr>
+
+                        <tbody>
+                            @foreach (var approval in Model.Model.SubmittedApprovals)
+                            {
+                                <tr>
+                                    <td>
+                                        Subject: @approval.Subject
+                                        <br>
+                                        <a asp-area="" asp-controller="Requests" asp-action="Details" asp-route-id="@approval.RequestId">Click here to view request</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+
         </div>
     </div>
         <script src="~/js/Chart.bundle.min.js"></script>
