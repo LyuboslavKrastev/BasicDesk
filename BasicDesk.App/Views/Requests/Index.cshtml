@@ -155,28 +155,27 @@
                 <td></td>
                 <td></td>
                 <form id="searchForm" asp-area="" asp-controller="Requests" asp-action="Index" method="get" class="input-group">
+                    <input hidden name="currentFilter" value="@Model.CurrentFilter" />
                     <td>
-                        <input form="searchForm" class="text-right " type="text" placeholder="Id" name="SearchString" value="@Model.CurrentSearch" />
+                        <input form="searchForm" class="text-right " type="text" placeholder="Id" name="IdSearch" value="@Model.CurrentSearch.IdSearch" />
                     </td>
                     <td>
-                        <input form="searchForm" class="text-right " type="text" placeholder="Subject" name="SearchString" value="@Model.CurrentSearch" />
+                        <input form="searchForm" class="text-right " type="text" placeholder="Subject" name="SubjectSearch" value="@Model.CurrentSearch.SubjectSearch" />
                     </td>
                     <td>
-                        <input form="searchForm" class="text-right " type="text" placeholder="Requester Name" name="SearchString" value="@Model.CurrentSearch" />
+                        <input form="searchForm" class="text-right " type="text" placeholder="Requester Name" name="RequesterSearch" value="@Model.CurrentSearch.RequesterSearch" />
                     </td>
                     <td>
-                        <input form="searchForm" class="text-right " type="text" placeholder="Assigned To" name="SearchString" value="@Model.CurrentSearch" />
+                        <input form="searchForm" class="text-right " type="text" placeholder="Assigned To" name="AssignedToSearch" value="@Model.CurrentSearch.AssignedToSearch" />
                     </td>
                     <td>
-                        <input form="searchForm" class="text-right " type="text" placeholder="Created Date" name="SearchString" value="@Model.CurrentSearch" />
+                        <input form="searchForm" class="text-right " type="text" placeholder="MM/DD/YYYY" name="CreationDateSearch" value="@Model.CurrentSearch.CreationDateSearch" />
                     </td>
                     <td>
-                        <input form="searchForm" class="text-right " type="text" placeholder="Closed On" name="SearchString" />
-
+                        <input form="searchForm" class="text-right " type="text" placeholder="MM/DD/YYYY" name="ClosingDateSearch" value="@Model.CurrentSearch.ClosingDateSearch" />
                     </td>
                     <td>
-                        <input class="text-right " type="text" placeholder="Status" name="SearchString" />
-                        <button class="btn btn-default">Go</button>
+                        <button type="submit" class="btn btn-default btn-block">Go</button>
                     </td>
                 </form>
             </tr>

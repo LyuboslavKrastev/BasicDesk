@@ -1,4 +1,5 @@
-﻿using BasicDesk.App.Models.Common.ViewModels;
+﻿using BasicDesk.App.Models.Common;
+using BasicDesk.App.Models.Common.ViewModels;
 using BasicDesk.Data.Models.Requests;
 using System.Linq;
 
@@ -6,13 +7,17 @@ namespace BasicDesk.App.Common
 {
     public class RequestSorter
     {
-        public RequestSortingViewModel ConfigureSorting(string sortOrder, string currentFilter, string searchString)
+        public RequestSortingViewModel ConfigureSorting(string sortOrder, string currentFilter, SearchModel searchModel)
         {
             var viewModel = new RequestSortingViewModel
             {
+                //CurrentSort = sortOrder,
+                //CurrentFilter = currentFilter,
+                //CurrentSearch = searchString,
+
                 CurrentSort = sortOrder,
                 CurrentFilter = currentFilter,
-                CurrentSearch = searchString,
+                CurrentSearch = searchModel,
 
                 NameSort = sortOrder == "Name" ? "name_desc" : "Name",
                 StartDateSort = sortOrder == "StartDate" ? "startDate_desc" : "StartDate",
@@ -21,6 +26,14 @@ namespace BasicDesk.App.Common
                 StatusSort = sortOrder == "Status" ? "status_desc" : "Status",
                 SubjectSort = sortOrder == "Subject" ? "subject_desc" : "Subject",
                 AssignedToSort = sortOrder == "AssignedTo" ? "assignedTo_desc" : "AssignedTo"
+
+                //NameSort = sortOrder == "Name" ? "name_desc" : "Name",
+                //StartDateSort = sortOrder == "StartDate" ? "startDate_desc" : "StartDate",
+                //EndDateSort = sortOrder == "EndDate" ? "endDate_desc" : "EndDate",
+                //IdSort = sortOrder == "Id" ? "id_desc" : "Id",
+                //StatusSort = sortOrder == "Status" ? "status_desc" : "Status",
+                //SubjectSort = sortOrder == "Subject" ? "subject_desc" : "Subject",
+                //AssignedToSort = sortOrder == "AssignedTo" ? "assignedTo_desc" : "AssignedTo"
             };
             return viewModel;
         }

@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using BasicDesk.App.Common;
 using BasicDesk.App.Helpers.Messages;
+using BasicDesk.App.Models.Common;
 using BasicDesk.App.Models.Common.BindingModels;
 using BasicDesk.App.Models.Common.ViewModels;
 using BasicDesk.Common.Constants;
@@ -17,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using X.PagedList;
 
@@ -42,10 +45,20 @@ namespace BasicDesk.App.Controllers
             this.requestSorter = requestSorter;
         }
 
-        [HttpGet]
-        public IActionResult Index(string sortOrder, string searchString, string currentFilter, int? page, int? requestsPerPage)
+        private bool HasSearchCriteria(SearchModel searchModel)
         {
-            RequestSortingViewModel model = this.requestSorter.ConfigureSorting(sortOrder, currentFilter, searchString);
+            //Using a bit of reflection to check if any of the properties are not empty
+            var type = searchModel.GetType();
+            var properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            var hasProperty = properties.Select(x => x.GetValue(searchModel, null))
+                                        .Any(y => y != null && !String.IsNullOrWhiteSpace(y.ToString()));
+            return hasProperty;
+        }
+
+        [HttpGet]
+        public IActionResult Index(string sortOrder, string currentFilter, int? page, int? requestsPerPage, SearchModel searchModel)
+        {
+            RequestSortingViewModel model = this.requestSorter.ConfigureSorting(sortOrder, currentFilter, searchModel);
 
             if(model.RequestsPerPage != requestsPerPage)
             {
@@ -57,25 +70,28 @@ namespace BasicDesk.App.Controllers
 
             string userId = userManager.GetUserId(User);
             bool isTechnician = User.IsInRole(WebConstants.AdminRole) || User.IsInRole(WebConstants.HelpdeskRole);
+            bool hasFilter = !String.IsNullOrEmpty(currentFilter) || currentFilter == "All";
+            bool hasSearch = HasSearchCriteria(searchModel);
 
-            IQueryable<RequestListingViewModel> requests;      
+            IQueryable<Request> requests = Enumerable.Empty<Request>().AsQueryable();
 
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                requests = this.requestService.GetBySearch(userId, isTechnician, searchString);
-            }
-            else if (!String.IsNullOrEmpty(currentFilter) || currentFilter == "All")
+            if (hasFilter)
             {
                 requests = this.requestService.GetByFilter(userId, isTechnician, currentFilter);
             }
-            else
+            if (hasSearch)
+            {
+                requests = this.requestService.GetBySearch(userId, isTechnician, searchModel, requests);
+            }
+            if(!hasFilter && !hasSearch)
             {
                 requests = this.requestService.GetAll(userId, isTechnician);
             }
 
-            requests = this.requestSorter.SortRequests(requests, sortOrder);
+            var listModelRequests = requests.ProjectTo<RequestListingViewModel>();
+            listModelRequests = this.requestSorter.SortRequests(listModelRequests, sortOrder);
 
-            model.Requests = requests.ToPagedList(pageNumber, requestsCount);
+            model.Requests = listModelRequests.ToPagedList(pageNumber, requestsCount);
 
             model.Statuses = this.requestService.GetAllStatuses().Select(s => new SelectListItem
             {

@@ -134,7 +134,7 @@ using BasicDesk.App.Helpers;
             WriteLiteral("</td>\n    <td>\n        ");
             EndContext();
             BeginContext(245, 122, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3f0e313375b745b1b8dde96f7e9ba351", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "131d877b5cdd484cab57449835e8e902", async() => {
                 BeginContext(356, 7, true);
                 WriteLiteral("Details");
                 EndContext();
@@ -181,7 +181,7 @@ using BasicDesk.App.Helpers;
             WriteLiteral("            ");
             EndContext();
             BeginContext(445, 202, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "11d905f0c21c4dc6baa13d35ec7c0925", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "b17de7bb95024b1d927df383c7f3d794", async() => {
                 BeginContext(588, 55, true);
                 WriteLiteral("\n                Promote to HelpDesk Agent\n            ");
                 EndContext();
@@ -231,7 +231,7 @@ using BasicDesk.App.Helpers;
             WriteLiteral("            ");
             EndContext();
             BeginContext(693, 186, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7f159da608994d74a34eb5647dfe5784", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f82a5b256fba4d13a536dc38d94effa0", async() => {
                 BeginContext(831, 44, true);
                 WriteLiteral("\n                Demote to User\n            ");
                 EndContext();
@@ -288,7 +288,7 @@ using BasicDesk.App.Helpers;
             WriteLiteral("            ");
             EndContext();
             BeginContext(942, 165, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a5360fbdb8f9463bbbadc81c09870410", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cb7ba42fb556445db169e76c4931102c", async() => {
                 BeginContext(1070, 33, true);
                 WriteLiteral("\n                Ban\n            ");
                 EndContext();
@@ -338,7 +338,7 @@ using BasicDesk.App.Helpers;
             WriteLiteral("            ");
             EndContext();
             BeginContext(1153, 167, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "831bd26284c44dd5b4eb6b7f16b437f7", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "da202068979542528d26419307500c7c", async() => {
                 BeginContext(1281, 35, true);
                 WriteLiteral("\n                Unban\n            ");
                 EndContext();

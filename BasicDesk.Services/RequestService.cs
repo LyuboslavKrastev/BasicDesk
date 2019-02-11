@@ -1,4 +1,5 @@
 ﻿using AutoMapper.QueryableExtensions;
+using BasicDesk.App.Models.Common;
 using BasicDesk.App.Models.Common.ViewModels;
 using BasicDesk.App.Models.Management.BindingModels;
 using BasicDesk.App.Models.Management.ViewModels;
@@ -87,30 +88,54 @@ namespace BasicDesk.Services
             return this.repository.SaveChangesAsync();
         }
 
-        public IQueryable<RequestListingViewModel> GetAll(string userId, bool isTechnician)
+        public IQueryable<Request> GetAll(string userId, bool isTechnician)
         {
-            IQueryable<Request> requests = GetRequestsForRole(userId, isTechnician);
-
-            return requests.ProjectTo<RequestListingViewModel>().AsNoTracking();
+            return GetRequestsForRole(userId, isTechnician);
         }
 
-        public IQueryable<RequestListingViewModel> GetBySearch(string userId, bool isTechnician, string searchString)
+        public IQueryable<Request> GetBySearch(string userId, bool isTechnician, SearchModel searchModel, IQueryable<Request> requests)
         {
-            IQueryable<Request> requests = this.GetRequestsForRole(userId, isTechnician);
+            if(!requests.Any())
+            {
+                requests = GetRequestsForRole(userId, isTechnician);
+            }
 
-            return requests.Where(a => a.Subject.Contains(searchString))
-               .ProjectTo<RequestListingViewModel>().AsNoTracking();
+            if (int.TryParse(searchModel.IdSearch, out int id))
+            {
+                requests = requests.Where(r => r.Id == id);
+            }
+            if (searchModel.RequesterSearch != null)
+            {
+                requests = requests.Where(r => r.Requester.FullName.Contains(searchModel.RequesterSearch));
+            }
+            if (searchModel.AssignedToSearch != null)
+            {
+                requests = requests.Where(r => r.AssignedTo.FullName.Contains(searchModel.AssignedToSearch));
+            }
+            if (searchModel.SubjectSearch != null)
+            {
+                requests = requests.Where(r => r.Subject.Contains(searchModel.SubjectSearch));
+            }
+            if (DateTime.TryParse(searchModel.CreationDateSearch, out DateTime creationDateTime))
+            {
+                requests = requests.Where(r => r.StartTime.Date == creationDateTime.Date);
+            }
+            if (DateTime.TryParse(searchModel.ClosingDateSearch, out DateTime closingDateTime))
+            {
+
+                requests = requests.Where(r => r.EndTime.Value.Date == closingDateTime.Date);
+            }
+            return requests.AsNoTracking();
         }
 
-        public IQueryable<RequestListingViewModel> GetByFilter(string userId, bool isTechnician, string currentFilter)
+        public IQueryable<Request> GetByFilter(string userId, bool isTechnician, string currentFilter)
         {
             bool isInt = int.TryParse(currentFilter, out int statusId);
             IQueryable<Request> requests = GetRequestsForRole(userId, isTechnician);
 
             if (isInt)
             {
-                return requests.Where(r => r.Status.Id == statusId)
-                    .ProjectTo<RequestListingViewModel>().AsNoTracking();
+                return requests.Where(r => r.Status.Id == statusId).AsNoTracking();
             }
             return GetAll(userId, isTechnician);
         }
@@ -145,6 +170,10 @@ namespace BasicDesk.Services
                 if (status != null)
                 {
                     request.StatusId = status.Id;
+                }
+                if (status.Name.ToLower() == "closed" || status.Name.ToLower() == "rejected")
+                {
+                    request.EndTime = DateTime.UtcNow;
                 }
             }
 
