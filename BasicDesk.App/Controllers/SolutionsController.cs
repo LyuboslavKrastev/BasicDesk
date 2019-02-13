@@ -6,6 +6,7 @@ using BasicDesk.App.Models.ViewModels;
 using BasicDesk.Data;
 using BasicDesk.Data.Models.Solution;
 using BasicDesk.Services;
+using BasicDesk.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -20,9 +21,9 @@ namespace BasicDesk.App.Controllers
     public class SolutionsController : Controller
     {
         private readonly BasicDeskDbContext dbContext;
-        private readonly SolutionService service;
+        private readonly ISolutionService service;
 
-        public SolutionsController(BasicDeskDbContext dbContext, SolutionService service)
+        public SolutionsController(BasicDeskDbContext dbContext, ISolutionService service)
         {
             this.service = service;
             this.dbContext = dbContext;

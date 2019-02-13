@@ -10,6 +10,7 @@ using BasicDesk.Data;
 using BasicDesk.Data.Models;
 using BasicDesk.Data.Models.Requests;
 using BasicDesk.Services;
+using BasicDesk.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -30,18 +31,20 @@ namespace BasicDesk.App.Controllers
     {
         private readonly BasicDeskDbContext dbContext;
         private readonly UserManager<User> userManager;
-        private readonly RequestService requestService;
+        private readonly IRequestService requestService;
+        private readonly ApprovalService approvalService;
         private readonly RequestSorter requestSorter;
         private const int DEFAULT_PAGE_NUMBER = 1;
         private const int DEFAULT_REQUESTS_PER_PAGE = 5;
 
 
         public RequestsController(BasicDeskDbContext dbContext, UserManager<User> userManager, 
-            RequestService requestService, RequestSorter requestSorter)
+            IRequestService requestService, ApprovalService approvalService, RequestSorter requestSorter)
         {
             this.dbContext = dbContext;
             this.userManager = userManager;
             this.requestService = requestService;
+            this.approvalService = approvalService;
             this.requestSorter = requestSorter;
         }
 
@@ -51,7 +54,7 @@ namespace BasicDesk.App.Controllers
             var type = searchModel.GetType();
             var properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
             var hasProperty = properties.Select(x => x.GetValue(searchModel, null))
-                                        .Any(y => y != null && !String.IsNullOrWhiteSpace(y.ToString()));
+                .Any(y => y != null && !String.IsNullOrWhiteSpace(y.ToString()));
             return hasProperty;
         }
 
@@ -217,15 +220,55 @@ namespace BasicDesk.App.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddApproval(string requestId, string approverId, string subject, string description)
+        public async Task<IActionResult> AddApproval(ApprovalCreationBindingModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                this.AddMessage(MessageType.Danger, "Invalid approval data");
+                return this.RedirectToAction("Details", new { id = model.RequestId });
+            }
+
             string userId = this.userManager.GetUserId(User);
 
             bool isTechnician = User.IsInRole(WebConstants.AdminRole) || User.IsInRole(WebConstants.HelpdeskRole);
 
-            await this.requestService.AddAproval(int.Parse(requestId), userId, isTechnician, approverId, subject, description);
+            await this.requestService.AddAproval(model.RequestId, userId, isTechnician, model.ApproverId, model.Subject, model.Description);
 
             this.AddMessage(MessageType.Success, "Successfully submitted for approval");
+
+            return this.RedirectToAction("Details", new { id = model.RequestId });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ApproveApproval(string requestId, string approvalId)
+        {
+            if(!int.TryParse(approvalId,  out int appId) || !int.TryParse(requestId, out _))
+            {
+                return BadRequest();
+            }
+
+            string userId = this.userManager.GetUserId(User);
+
+            await this.approvalService.ApproveApproval(appId, userId);
+
+            this.AddMessage(MessageType.Success, "Successfully approved approval");
+
+            return this.RedirectToAction("Details", new { id = requestId });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DenyApproval(string requestId, string approvalId)
+        {
+            if (!int.TryParse(approvalId, out int appId) || !int.TryParse(requestId, out _))
+            {
+                return BadRequest();
+            }
+
+            string userId = this.userManager.GetUserId(User);
+
+            await this.approvalService.DenyApproval(appId, userId);
+
+            this.AddMessage(MessageType.Success, "Successfully denied approval");
 
             return this.RedirectToAction("Details", new { id = requestId });
         }
@@ -289,11 +332,15 @@ namespace BasicDesk.App.Controllers
                     return this.Forbid();
                 }
 
-                model.Users = this.userManager.Users.Select(u => new SelectListItem
+                model.ApprovalModel = new ApprovalCreationViewModel
                 {
-                    Text = u.UserName,
-                    Value = u.Id
-                });
+                    RequestId = requestId,
+                    Users = this.userManager.Users.Select(u => new SelectListItem
+                    {
+                        Text = u.FullName,
+                        Value = u.Id
+                    })
+                };
 
                 return this.View(model);
             }

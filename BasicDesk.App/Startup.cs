@@ -15,6 +15,7 @@ using BasicDesk.App.Hubs;
 using BasicDesk.Services;
 using BasicDesk.Services.Repository;
 using BasicDesk.Services.AutoMapping;
+using BasicDesk.Services.Interfaces;
 
 namespace BasicDesk.App
 {
@@ -66,11 +67,9 @@ namespace BasicDesk.App
             services.AddSingleton<IEmailSender, VerificationEmailSender>();
             services.Configure<EmailSenderOptions>(this.Configuration.GetSection("EmailSettings"));
             services.AddScoped(typeof(DbRepository<>), typeof(DbRepository<>));
-            services.AddScoped<RequestService, RequestService>();
-            services.AddScoped<SolutionService, SolutionService>();
+            services.AddScoped<IRequestService, RequestService>();
+            services.AddScoped<ISolutionService, SolutionService>();
             services.AddScoped<ApprovalService, ApprovalService>();
-
-
             services.AddScoped<RequestSorter, RequestSorter>();
 
             AutoMapperConfig.RegisterMappings();

@@ -2,20 +2,13 @@
  <nav class="navbar-inverse navbar-fixed-top">
      <div class="container-fluid">
          <div class="navbar-header">
-             <a class="navbar-brand" href="/">BasicDesk</a>
+             <a asp-area="" asp-page="/Index" class="navbar-brand">BasicDesk</a>
          </div>
          <ul class="nav navbar-nav">
-             <li class="dropdown">
-                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                     Services
-                     <span class="caret"></span>
-                 </a>
-                 <ul class="dropdown-menu">
+                     <li><a asp-area="" asp-page="/Index"><span class="glyphicon glyphicon-home"></span></a></li>
                      <li><a asp-area="" asp-controller="Requests" asp-action="Index">Requests</a></li>
                      <li><a asp-area="" asp-controller="Solutions" asp-action="Index">Solutions</a></li>
                      <li><a asp-area="" asp-page="/Chat">Chat</a></li>
-                 </ul>
-             </li>
              @if (User.IsInRole(WebConstants.AdminRole))
              {
                  <li class="dropdown">
@@ -42,4 +35,5 @@
      </div>
 </nav>  
 <br />
+
 

@@ -1,6 +1,7 @@
 ﻿using AutoMapper.QueryableExtensions;
 using BasicDesk.App.Common;
 using BasicDesk.App.Helpers.Messages;
+using BasicDesk.App.Models.Common.ViewModels;
 using BasicDesk.App.Models.Management.BindingModels;
 using BasicDesk.App.Models.Management.ViewModels;
 using BasicDesk.Common.Constants;
@@ -8,6 +9,7 @@ using BasicDesk.Data;
 using BasicDesk.Data.Models;
 using BasicDesk.Data.Models.Requests;
 using BasicDesk.Services;
+using BasicDesk.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -22,14 +24,14 @@ namespace BasicDesk.App.Areas.Management.Pages.Requests
     public class ManageModel : BasePageModel
     {
         private readonly UserManager<User> userManager;
-        private readonly RequestService requestService;
+        private readonly IRequestService requestService;
 
         public RequestManagingModel ViewModel { get; set; }
 
         [BindProperty]
         public RequestEditingBindingModel bindingModel { get; set; }
 
-        public ManageModel(BasicDeskDbContext dbContext, UserManager<User> userManager, RequestService requestService)
+        public ManageModel(BasicDeskDbContext dbContext, UserManager<User> userManager, IRequestService requestService)
         {
             this.ViewModel = new RequestManagingModel();
             this.bindingModel = new RequestEditingBindingModel();
@@ -87,6 +89,16 @@ namespace BasicDesk.App.Areas.Management.Pages.Requests
                 Value = t.Id,
                 Text = t.UserName
             });
+
+            ViewModel.ApprovalModel = new ApprovalCreationViewModel
+            {
+                RequestId = requestId,
+                Users = this.userManager.Users.Select(u => new SelectListItem
+                {
+                    Text = u.FullName,
+                    Value = u.Id
+                })
+            };
         }
     }
 }

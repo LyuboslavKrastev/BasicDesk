@@ -157,25 +157,25 @@
                 <form id="searchForm" asp-area="" asp-controller="Requests" asp-action="Index" method="get" class="input-group">
                     <input hidden name="currentFilter" value="@Model.CurrentFilter" />
                     <td>
-                        <input form="searchForm" class="text-right " type="text" placeholder="Id" name="IdSearch" value="@Model.CurrentSearch.IdSearch" />
+                        <input form="searchForm" class="text-right center-block" type="text" placeholder="Id" name="IdSearch" value="@Model.CurrentSearch.IdSearch" />
                     </td>
                     <td>
-                        <input form="searchForm" class="text-right " type="text" placeholder="Subject" name="SubjectSearch" value="@Model.CurrentSearch.SubjectSearch" />
+                        <input form="searchForm" class="text-right center-block " type="text" placeholder="Subject" name="SubjectSearch" value="@Model.CurrentSearch.SubjectSearch" />
                     </td>
                     <td>
-                        <input form="searchForm" class="text-right " type="text" placeholder="Requester Name" name="RequesterSearch" value="@Model.CurrentSearch.RequesterSearch" />
+                        <input form="searchForm" class="text-right center-block" type="text" placeholder="Requester Name" name="RequesterSearch" value="@Model.CurrentSearch.RequesterSearch" />
                     </td>
                     <td>
-                        <input form="searchForm" class="text-right " type="text" placeholder="Assigned To" name="AssignedToSearch" value="@Model.CurrentSearch.AssignedToSearch" />
+                        <input form="searchForm" class="text-right center-block" type="text" placeholder="Assigned To" name="AssignedToSearch" value="@Model.CurrentSearch.AssignedToSearch" />
                     </td>
                     <td>
-                        <input form="searchForm" class="text-right " type="text" placeholder="MM/DD/YYYY" name="CreationDateSearch" value="@Model.CurrentSearch.CreationDateSearch" />
+                        <input form="searchForm" class="text-right center-block" type="text" placeholder="MM/DD/YYYY" name="CreationDateSearch" value="@Model.CurrentSearch.CreationDateSearch" />
                     </td>
                     <td>
-                        <input form="searchForm" class="text-right " type="text" placeholder="MM/DD/YYYY" name="ClosingDateSearch" value="@Model.CurrentSearch.ClosingDateSearch" />
+                        <input form="searchForm" class="text-right center-block" type="text" placeholder="MM/DD/YYYY" name="ClosingDateSearch" value="@Model.CurrentSearch.ClosingDateSearch" />
                     </td>
                     <td>
-                        <button type="submit" class="btn btn-default btn-block">Go</button>
+                        <button type="submit" class="btn btn-success center-block">Search</button>
                     </td>
                 </form>
             </tr>
@@ -184,16 +184,11 @@
             {
                 var notesModalId = item.Id + "Notes";
                 <tr>
-
+                    @{ 
+                        string noteColor = item.Notes.Any() ? "orange" : "wheat";
+                    }   
                     <td class="text-center"><input value="@item.Id" type="checkbox" class="check"></td>
-                    @if (item.Notes.Any())
-                    {
-                        <td class="text-center"><a class="glyphicon glyphicon-file" name="noteIcon" style="color:orange" data-toggle="modal" data-target="#@notesModalId"></a></td>
-                    }
-                    else
-                    {
-                        <td class="text-center"><i class="glyphicon glyphicon-file" style="color:wheat"></i></td>
-                    }
+                        <td class="text-center"><a class="glyphicon glyphicon-file" name="noteIcon" style="color:@noteColor" data-toggle="modal" data-target="#@notesModalId"></a></td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Id)
                     </td>

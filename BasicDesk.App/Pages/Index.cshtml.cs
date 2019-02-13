@@ -3,6 +3,7 @@ using BasicDesk.App.Models.Management.ViewModels;
 using BasicDesk.Data.Models;
 using BasicDesk.Data.Models.Requests;
 using BasicDesk.Services;
+using BasicDesk.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
@@ -13,12 +14,12 @@ namespace BasicDesk.App.Pages
     public class IndexModel : PageModel
     {
         private readonly UserManager<User> userManager;
-        private readonly RequestService service;
+        private readonly IRequestService service;
         private readonly ApprovalService approvalService;
 
         public IndexViewModel Model { get; set; }
 
-        public IndexModel(UserManager<User> userManager, RequestService service, ApprovalService approvalService)
+        public IndexModel(UserManager<User> userManager, IRequestService service, ApprovalService approvalService)
         {
             this.Model = new IndexViewModel();
             this.userManager = userManager;

@@ -215,3 +215,4 @@ C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.N
 C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.App\obj\Debug\netcoreapp2.1\Razor\Views\Shared\ReplyListPartial.g.cshtml.cs
 C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.App\obj\Debug\netcoreapp2.1\Razor\Views\Shared\ReplyPartial.g.cshtml.cs
 C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.App\obj\Debug\netcoreapp2.1\Razor\Views\Shared\ApprovalPartial.g.cshtml.cs
+C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.App\obj\Debug\netcoreapp2.1\Razor\Views\Shared\ApprovalDetailsPartial.g.cshtml.cs

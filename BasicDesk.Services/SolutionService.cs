@@ -3,16 +3,15 @@ using AutoMapper.QueryableExtensions;
 using BasicDesk.App.Models.Common.ViewModels;
 using BasicDesk.App.Models.ViewModels;
 using BasicDesk.Data.Models.Solution;
-using BasicDesk.Services.AutoMapping;
+using BasicDesk.Services.Interfaces;
 using BasicDesk.Services.Repository;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace BasicDesk.Services
 {
-    public class SolutionService
+    public class SolutionService : ISolutionService
     {
         private readonly DbRepository<Solution> repository;
 

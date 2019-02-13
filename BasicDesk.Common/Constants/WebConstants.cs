@@ -8,7 +8,6 @@
         public const string HelpdeskRole = "HelpdeskAgent";
         public const string UserRole = "User";
 
-
         public const string ManagementRoles = "Administrator, HelpdeskAgent";
     }
 }

@@ -5,6 +5,7 @@ using BasicDesk.App.Models.Management.BindingModels;
 using BasicDesk.App.Models.Management.ViewModels;
 using BasicDesk.Data.Models;
 using BasicDesk.Data.Models.Requests;
+using BasicDesk.Services.Interfaces;
 using BasicDesk.Services.Repository;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace BasicDesk.Services
 {
-    public class RequestService
+    public class RequestService : IRequestService
     {
         private readonly DbRepository<Request> repository;
         private readonly DbRepository<RequestCategory> categoryRepository;

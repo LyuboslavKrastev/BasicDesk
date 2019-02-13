@@ -2,7 +2,7 @@
     $(this).removeData("#tableModalDiv");
 });
 
-$("#mergeButton").on('click', getPage());
+//$("#mergeButton").on('click', getPage());
 
 //function getPage() {
 //    $("#tableModalDiv").load("/requests");

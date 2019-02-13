@@ -29,6 +29,10 @@ namespace BasicDesk.Services.AutoMapping
             {
                 configuration.CreateMap<User, UserConciseViewModel>();
 
+                configuration.CreateMap<RequestApproval, RequestApprovalViewModel>()
+                .ForMember(rav => rav.Status, opt => opt.MapFrom(ra => ra.Status.Name));
+
+
                 configuration.CreateMap<User, UserDetailsViewModel>()
                 .ForMember(u => u.Phone, opt => opt.MapFrom(u => u.PhoneNumber));
 
