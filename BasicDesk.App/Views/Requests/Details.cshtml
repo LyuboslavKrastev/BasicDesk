@@ -24,11 +24,13 @@
         <button class="btn btn-info" data-toggle="modal" data-target="#@notesId">View Notes</button>
     }
 
-    <button class="btn btn-info pull-right" data-toggle="modal" data-target="#mergeModal" id="mergeButton">Merge Request</button>
+    <button class="btn btn-info pull-right" id="mergeButton">Merge Request</button>
 </div>
 
 <!-- Approval Modal -->
 <partial name="ApprovalPartial" for="ApprovalModel" />
+
+@*<partial name="MergePartial" for="MergingModel" />*@
 
 <!-- Note Modal -->
 <partial name="NotePartial" for="Id" />
@@ -46,8 +48,6 @@
 
 <partial name="ApprovalDetailsPartial" for="Approvals" />
 
-<!-- Merge Modal -->
-<partial name="MergePartial" />
 
 <div class="panel-group" id="request">
     <div class="panel">
@@ -113,7 +113,30 @@
 <partial name="ReplyListPartial" for="Replies" />
 <button class="btn btn-info" data-toggle="modal" data-target="#replyModal">Reply</button>
 
+<div class="modal fade" id="dynamic-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document"></div>
+</div>
+
 @section scriptz{
+    <script src="~/lib/jquery/jquery.unobtrusive-ajax.js"></script>
     <script src="~/js/requests/details/merge.js"></script>
     <script src="~/js/requests/details/request-tabs.js"></script>
+    <script src="~/jquery.unobtrusive-ajax.js"></script>
+    <script>
+        $("#mergeButton").on('click', function() {
+            //setup modal
+            $.ajax('/Requests/GetMergeTable', {
+                type: 'GET',
+                data: {requestId: '@Model.Id', page: 1},
+                dataType: 'html'
+            }).done(function (response) {
+                $('#dynamic-modal').modal({
+                    keyboard: true
+                }).html(response);
+
+                $('dynamic-modal').show();
+            });
+        });
+    </script>
 }
+    

@@ -24,6 +24,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using X.PagedList;
 
+
 namespace BasicDesk.App.Controllers
 {
     [Authorize]
@@ -184,7 +185,11 @@ namespace BasicDesk.App.Controllers
         [HttpPost]
         public async Task<IActionResult> Merge(IEnumerable<string> ids)
         {
-            string referer = Request.Headers["Referer"].ToString();
+            if(ids.Any(i => int.TryParse(i, out _) == false))
+            {
+                return BadRequest();
+            }
+            //string referer = Request.Headers["Referer"].ToString();
             if (!ids.Any())
             {
                 string message = "Please select request[s] for deletion";
@@ -202,7 +207,7 @@ namespace BasicDesk.App.Controllers
 
             return Json(new
             {
-                redirectUrl = referer
+                redirectUrl = "/requests/index"
             });
         }
 
@@ -217,6 +222,32 @@ namespace BasicDesk.App.Controllers
             this.AddMessage(MessageType.Success, "Successfully added note");
 
             return this.RedirectToAction("Details", new { id = requestId });
+        }
+
+        //returns the merge table for the details or manage request pages
+        [HttpGet]
+        [AjaxOnly]
+        public ActionResult GetMergeTable(int requestId, int? page)
+        {
+            int pageInt = page == null ? 1 : Convert.ToInt32(page);
+
+            string userId = userManager.GetUserId(User);
+
+            bool isTechnician = User.IsInRole(WebConstants.AdminRole) || User.IsInRole(WebConstants.HelpdeskRole);
+
+
+            var requests = this.requestService.GetAll(userId, isTechnician).Where(r => r.Id != requestId)
+                  .ProjectTo<RequestMergeListingViewModel>().OrderByDescending(r => r.Id)
+                  .ToArray();
+
+            var model = new MergingTableRequestViewModel
+            {
+                Id = requestId,
+                Requests = requests.ToPagedList(pageInt, 1)
+            };
+
+
+            return PartialView("MergePartial", model);
         }
 
         [HttpPost]
@@ -341,6 +372,10 @@ namespace BasicDesk.App.Controllers
                         Value = u.Id
                     })
                 };
+
+                var requests = this.requestService.GetAll(userId, isTechnician).Where(r => r.Id != requestId)
+                    .ProjectTo<RequestMergeListingViewModel>()
+                    .ToArray();
 
                 return this.View(model);
             }

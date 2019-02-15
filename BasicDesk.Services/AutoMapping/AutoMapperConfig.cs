@@ -29,6 +29,11 @@ namespace BasicDesk.Services.AutoMapping
             {
                 configuration.CreateMap<User, UserConciseViewModel>();
 
+                configuration.CreateMap<Request, RequestMergeListingViewModel>()
+                    .ForMember(r => r.Requester, opt => opt.MapFrom(req => req.Requester.FullName))
+                    .ForMember(r => r.AssignedTo, opt => opt.MapFrom(req => req.AssignedTo.FullName))
+                    .ForMember(r => r.Status, opt => opt.MapFrom(req => req.Status.Name));
+
                 configuration.CreateMap<RequestApproval, RequestApprovalViewModel>()
                 .ForMember(rav => rav.Status, opt => opt.MapFrom(ra => ra.Status.Name));
 
