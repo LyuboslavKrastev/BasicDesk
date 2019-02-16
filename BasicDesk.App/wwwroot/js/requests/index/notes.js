@@ -6,7 +6,7 @@
     for (let id of data) {
         ids.push(id)
     };
-    let url = "/requests/addnotefromtable";
+    let url = "/notes/addnotefromtable";
     let noteDescription = $('#noteDescription').val();
 
 

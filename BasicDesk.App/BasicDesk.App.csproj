@@ -60,9 +60,6 @@
     <Content Update="Pages\_ViewImports.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Areas\Management\Pages\ManagementMergePartial.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
     <Content Update="Views\Shared\NoteListPartial.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

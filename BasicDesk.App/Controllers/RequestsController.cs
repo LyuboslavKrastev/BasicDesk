@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using BasicDesk.App.Common;
+using BasicDesk.App.Common.Interfaces;
 using BasicDesk.App.Helpers.Messages;
 using BasicDesk.App.Models.Common;
 using BasicDesk.App.Models.Common.BindingModels;
@@ -9,13 +10,11 @@ using BasicDesk.Common.Constants;
 using BasicDesk.Data;
 using BasicDesk.Data.Models;
 using BasicDesk.Data.Models.Requests;
-using BasicDesk.Services;
 using BasicDesk.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -33,20 +32,20 @@ namespace BasicDesk.App.Controllers
         private readonly BasicDeskDbContext dbContext;
         private readonly UserManager<User> userManager;
         private readonly IRequestService requestService;
-        private readonly ApprovalService approvalService;
         private readonly RequestSorter requestSorter;
+        private readonly IAlerter alerter;
         private const int DEFAULT_PAGE_NUMBER = 1;
         private const int DEFAULT_REQUESTS_PER_PAGE = 5;
 
 
         public RequestsController(BasicDeskDbContext dbContext, UserManager<User> userManager, 
-            IRequestService requestService, ApprovalService approvalService, RequestSorter requestSorter)
+            IRequestService requestService, RequestSorter requestSorter, IAlerter alerter)
         {
             this.dbContext = dbContext;
             this.userManager = userManager;
             this.requestService = requestService;
-            this.approvalService = approvalService;
             this.requestSorter = requestSorter;
+            this.alerter = alerter;
         }
 
         private bool HasSearchCriteria(SearchModel searchModel)
@@ -58,13 +57,12 @@ namespace BasicDesk.App.Controllers
                 .Any(y => y != null && !String.IsNullOrWhiteSpace(y.ToString()));
             return hasProperty;
         }
-
         [HttpGet]
         public IActionResult Index(string sortOrder, string currentFilter, int? page, int? requestsPerPage, SearchModel searchModel)
         {
             RequestSortingViewModel model = this.requestSorter.ConfigureSorting(sortOrder, currentFilter, searchModel);
 
-            if(model.RequestsPerPage != requestsPerPage)
+            if (model.RequestsPerPage != requestsPerPage)
             {
                 model.RequestsPerPage = requestsPerPage;
             }
@@ -87,7 +85,7 @@ namespace BasicDesk.App.Controllers
             {
                 requests = this.requestService.GetBySearch(userId, isTechnician, searchModel, requests);
             }
-            if(!hasFilter && !hasSearch)
+            if (!hasFilter && !hasSearch)
             {
                 requests = this.requestService.GetAll(userId, isTechnician);
             }
@@ -154,7 +152,7 @@ namespace BasicDesk.App.Controllers
 
             await this.requestService.SaveChangesAsync();
 
-            this.AddMessage(MessageType.Success, message);
+            this.alerter.AddMessage(MessageType.Success, message);
 
             return this.RedirectToAction("Details", new { id = request.Id.ToString()});
         }
@@ -166,14 +164,14 @@ namespace BasicDesk.App.Controllers
             if (!ids.Any())
             {
                 string message = "Please select request[s] for deletion";
-                this.AddMessage(MessageType.Warning, message);
+                this.alerter.AddMessage(MessageType.Warning, message);
             }
             else
             {
                 IEnumerable<int> requestIds = ids.Select(int.Parse);
                 await this.requestService.Delete(requestIds);
                 string message = $"Successfully deleted request[s] {string.Join(", ", ids)}";
-                this.AddMessage(MessageType.Success, message);
+                this.alerter.AddMessage(MessageType.Success, message);
             }
 
             return Json(new
@@ -189,11 +187,10 @@ namespace BasicDesk.App.Controllers
             {
                 return BadRequest();
             }
-            //string referer = Request.Headers["Referer"].ToString();
             if (!ids.Any())
             {
                 string message = "Please select request[s] for deletion";
-                this.AddMessage(MessageType.Warning, message);
+                this.alerter.AddMessage(MessageType.Warning, message);
             }
             else
             {
@@ -202,140 +199,27 @@ namespace BasicDesk.App.Controllers
                 await this.requestService.Merge(requestIds);
                 await this.requestService.Delete(requestIds.SkipLast(1));
                 string message = $"Successfully merged request[s] {string.Join(", ", ids)}";
-                this.AddMessage(MessageType.Success, message);
+                this.alerter.AddMessage(MessageType.Success, message);
             }
 
-            return Json(new
+            bool isAjaxRequest = Request.Headers["X-Requested-With"] == "XMLHttpRequest";
+        
+            if (isAjaxRequest)
             {
-                redirectUrl = "/requests/index"
-            });
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> AddReply(string requestId, string replyDescription)
-        {
-            string userId = this.userManager.GetUserId(User);
-            bool isTechnician = User.IsInRole(WebConstants.AdminRole) || User.IsInRole(WebConstants.HelpdeskRole);
-
-            await this.requestService.AddReply(int.Parse(requestId), userId, isTechnician, replyDescription);
-
-            this.AddMessage(MessageType.Success, "Successfully added note");
-
-            return this.RedirectToAction("Details", new { id = requestId });
-        }
-
-        //returns the merge table for the details or manage request pages
-        [HttpGet]
-        [AjaxOnly]
-        public ActionResult GetMergeTable(int requestId, int? page)
-        {
-            int pageInt = page == null ? 1 : Convert.ToInt32(page);
-
-            string userId = userManager.GetUserId(User);
-
-            bool isTechnician = User.IsInRole(WebConstants.AdminRole) || User.IsInRole(WebConstants.HelpdeskRole);
-
-
-            var requests = this.requestService.GetAll(userId, isTechnician).Where(r => r.Id != requestId)
-                  .ProjectTo<RequestMergeListingViewModel>().OrderByDescending(r => r.Id)
-                  .ToArray();
-
-            var model = new MergingTableRequestViewModel
-            {
-                Id = requestId,
-                Requests = requests.ToPagedList(pageInt, 1)
-            };
-
-
-            return PartialView("MergePartial", model);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> AddApproval(ApprovalCreationBindingModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                this.AddMessage(MessageType.Danger, "Invalid approval data");
-                return this.RedirectToAction("Details", new { id = model.RequestId });
+                string requestsTableAbsoluteUrl = Url.Action("index", "requests");
+                return Json(new
+                {
+                    redirectUrl = requestsTableAbsoluteUrl
+                });
             }
-
-            string userId = this.userManager.GetUserId(User);
-
-            bool isTechnician = User.IsInRole(WebConstants.AdminRole) || User.IsInRole(WebConstants.HelpdeskRole);
-
-            await this.requestService.AddAproval(model.RequestId, userId, isTechnician, model.ApproverId, model.Subject, model.Description);
-
-            this.AddMessage(MessageType.Success, "Successfully submitted for approval");
-
-            return this.RedirectToAction("Details", new { id = model.RequestId });
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> ApproveApproval(string requestId, string approvalId)
-        {
-            if(!int.TryParse(approvalId,  out int appId) || !int.TryParse(requestId, out _))
+            else
             {
-                return BadRequest();
+                return RedirectToAction("index", "requests");
             }
-
-            string userId = this.userManager.GetUserId(User);
-
-            await this.approvalService.ApproveApproval(appId, userId);
-
-            this.AddMessage(MessageType.Success, "Successfully approved approval");
-
-            return this.RedirectToAction("Details", new { id = requestId });
         }
 
-        [HttpPost]
-        public async Task<IActionResult> DenyApproval(string requestId, string approvalId)
-        {
-            if (!int.TryParse(approvalId, out int appId) || !int.TryParse(requestId, out _))
-            {
-                return BadRequest();
-            }
 
-            string userId = this.userManager.GetUserId(User);
-
-            await this.approvalService.DenyApproval(appId, userId);
-
-            this.AddMessage(MessageType.Success, "Successfully denied approval");
-
-            return this.RedirectToAction("Details", new { id = requestId });
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> AddNote(string requestId, string noteDescription)
-        {
-            string userId = this.userManager.GetUserId(User);
-            string userName = this.User.Identity.Name;
-            bool isTechnician = User.IsInRole(WebConstants.AdminRole) || User.IsInRole(WebConstants.HelpdeskRole);
-
-            await this.requestService.AddNote(int.Parse(requestId), userId, userName, isTechnician, noteDescription);
-
-            this.AddMessage(MessageType.Success, "Successfully added note");
-
-            return this.RedirectToAction("Details", new { id = requestId });
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> AddNoteFromTable(IEnumerable<string> ids, string noteDescription)
-        {
-            string referer = Request.Headers["Referer"].ToString();
-
-            string userId = this.userManager.GetUserId(User);
-            string userName = this.User.Identity.Name;
-            bool isTechnician = User.IsInRole(WebConstants.AdminRole) || User.IsInRole(WebConstants.HelpdeskRole);
-
-            await this.requestService.AddNote(ids, userId, userName, isTechnician, noteDescription);
-
-            this.AddMessage(MessageType.Success, "Successfully added note");
-
-            return Json(new
-            {
-                redirectUrl = referer
-            });
-        }
+       
 
         public IActionResult Details(string id)
         {
@@ -381,15 +265,7 @@ namespace BasicDesk.App.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<IActionResult> SaveResolution(int reqId, string resol)
-        {
-            await this.requestService.SaveResolutionAsync(reqId, resol);
 
-            this.AddMessage(MessageType.Success, $"Successfully saved resolution for request {reqId}");
-
-            return this.Redirect($"/Management/Requests/Manage?id={reqId}");
-        }
 
         public async Task<IActionResult> Download(string fileName, string filePath, string requestId)
         {   
@@ -410,7 +286,7 @@ namespace BasicDesk.App.Controllers
             }
             catch (IOException)
             {
-                this.AddMessage(MessageType.Danger, "File not available");
+                this.alerter.AddMessage(MessageType.Danger, "File not available");
 
                 return this.RedirectToAction("Details", new { id = requestId});
             }
@@ -448,15 +324,6 @@ namespace BasicDesk.App.Controllers
 
             }
             return failedAttachments;
-        }
-
-        private void AddMessage(MessageType type, string message)
-        {
-            this.TempData.Put("__Message", new MessageModel()
-            {
-                Type = type,
-                Message = message
-            });
         }
 
         private string GetContentType(string path)

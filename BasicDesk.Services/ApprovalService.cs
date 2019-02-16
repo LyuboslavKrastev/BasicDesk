@@ -1,4 +1,5 @@
 ﻿using BasicDesk.Data.Models.Requests;
+using BasicDesk.Services.Interfaces;
 using BasicDesk.Services.Repository;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BasicDesk.Services
 {
-    public class ApprovalService
+    public class ApprovalService : IApprovalService
     {
         private readonly DbRepository<RequestApproval> repository;
         private readonly DbRepository<ApprovalStatus> statusRepository;

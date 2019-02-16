@@ -6,7 +6,13 @@
         ids.push(id)
     };
     let url = "/requests/merge";
-    $.post(url, { '': ids }, function (data) {
-        window.location.assign(data.redirectUrl)
+
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: {ids},
+        success: function (data) {
+            alert(data);
+        }
     });
 });

@@ -47,10 +47,10 @@
                                 }
                                 else
                                 {
-                                    <form method="post" asp-area="" asp-controller="requests" asp-action="ApproveApproval"  asp-route-approvalId="@approval.Id" asp-route-requestId="@approval.RequestId">
+                                    <form method="post" asp-area="" asp-controller="Approvals" asp-action="ApproveApproval"  asp-route-approvalId="@approval.Id" asp-route-requestId="@approval.RequestId">
                                         <button type="submit" class="btn btn-success">Approve</button>
                                     </form>
-                                    <form method="post" asp-area="" asp-controller="requests" asp-action="DenyApproval" asp-route-approvalId="@approval.Id" asp-route-requestId="@approval.RequestId">
+                                    <form method="post" asp-area="" asp-controller="Approvals" asp-action="DenyApproval" asp-route-approvalId="@approval.Id" asp-route-requestId="@approval.RequestId">
                                         <button type="submit" class="btn btn-danger">Deny</button>
                                     </form>
                                 }

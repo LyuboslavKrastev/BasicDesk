@@ -1,7 +1,5 @@
-﻿using BasicDesk.App.Models.Common.BindingModels;
-using BasicDesk.App.Models.Management.ViewModels;
+﻿using BasicDesk.App.Models.Management.ViewModels;
 using BasicDesk.Data.Models.Requests;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 
 namespace BasicDesk.App.Models.Common.ViewModels

@@ -15,11 +15,11 @@ namespace BasicDesk.App.Pages
     {
         private readonly UserManager<User> userManager;
         private readonly IRequestService service;
-        private readonly ApprovalService approvalService;
+        private readonly IApprovalService approvalService;
 
         public IndexViewModel Model { get; set; }
 
-        public IndexModel(UserManager<User> userManager, IRequestService service, ApprovalService approvalService)
+        public IndexModel(UserManager<User> userManager, IRequestService service, IApprovalService approvalService)
         {
             this.Model = new IndexViewModel();
             this.userManager = userManager;

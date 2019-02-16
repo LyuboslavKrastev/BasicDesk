@@ -142,7 +142,7 @@
         <div class="panel-heading clearfix">
             <div class="pull-left"><strong>Resolution</strong></div>
         </div>
-        <form asp-area="" asp-controller="Requests" asp-action="SaveResolution" method="post">
+        <form asp-area="" asp-controller="Resolutions" asp-action="Create" method="post">
             <div class="panel-body">
                 <input style="display:none" name="reqId" value="@Model.ViewModel.Id" />
                 <textarea disabled class="form-control" rows="4" style="resize:none;" id="resol" name="resol">@Model.ViewModel.Resolution</textarea>
@@ -167,9 +167,14 @@
 
 <partial name="ReplyListPartial" for="ViewModel.Replies" />
 <button class="btn btn-info" data-toggle="modal" data-target="#replyModal">Reply</button>
+
+<div class="modal fade" id="dynamic-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document"></div>
+</div>
+
 <script src="~/lib/jquery/dist/jquery.js"></script>
-<script src="~/js/requests/details/merge.js"></script>
 <script src="~/js/requests/details/request-tabs.js"></script>
+<script src="~/jquery.unobtrusive-ajax.js"></script>
 
 <script>
     $('#btn_edit').on('click', function () {
@@ -178,4 +183,20 @@
     $('#btn_save').on('click', function () {
         $('#resol').attr('disabled');
     });
+</script>
+<script>
+        $("#mergeButton").on('click', function() {
+            //setup modal
+            $.ajax('/Partials/GetMergeTable', {
+                type: 'GET',
+                data: {requestId: '@Model.ViewModel.Id', page: 1},
+                dataType: 'html'
+            }).done(function (response) {
+                $('#dynamic-modal').modal({
+                    keyboard: true
+                }).html(response);
+
+                $('dynamic-modal').show();
+            });
+        });
 </script>

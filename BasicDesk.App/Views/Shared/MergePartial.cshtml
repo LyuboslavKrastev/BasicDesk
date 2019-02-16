@@ -32,7 +32,7 @@
                     @{ 
                         var requestId = Model.Id;
                     }
-                    @Html.PagedListPager(Model.Requests, page => Url.Action("GetMergeTable", "Requests", new { requestId, page }),
+                    @Html.PagedListPager(Model.Requests, page => Url.Action("GetMergeTable", "Partials", new { requestId, page }),
                     PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "callerSearchModal" }))
 
                 </th>
@@ -76,7 +76,7 @@
                                     <input hidden name="ids" value="@Model.Id" />
                                     <input hidden name="ids" value="@item.Id" />
 
-                                    <button type="submit" id="mergeReq" class="btn btn-success btn-block">merge</button>
+                                    <button type="submit" class="btn btn-success btn-block">merge</button>
                                 </form>
                             </td>
                         </tr>

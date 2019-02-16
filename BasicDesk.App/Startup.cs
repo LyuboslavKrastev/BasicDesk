@@ -16,6 +16,7 @@ using BasicDesk.Services;
 using BasicDesk.Services.Repository;
 using BasicDesk.Services.AutoMapping;
 using BasicDesk.Services.Interfaces;
+using BasicDesk.App.Common.Interfaces;
 
 namespace BasicDesk.App
 {
@@ -69,7 +70,8 @@ namespace BasicDesk.App
             services.AddScoped(typeof(DbRepository<>), typeof(DbRepository<>));
             services.AddScoped<IRequestService, RequestService>();
             services.AddScoped<ISolutionService, SolutionService>();
-            services.AddScoped<ApprovalService, ApprovalService>();
+            services.AddScoped<IApprovalService, ApprovalService>();
+            services.AddScoped<IAlerter, Alerter>();
             services.AddScoped<RequestSorter, RequestSorter>();
 
             AutoMapperConfig.RegisterMappings();

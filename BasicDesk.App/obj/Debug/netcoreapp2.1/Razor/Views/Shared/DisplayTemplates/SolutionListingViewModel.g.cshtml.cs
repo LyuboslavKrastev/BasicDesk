@@ -91,7 +91,7 @@ using BasicDesk.Data.Models;
             WriteLiteral("\r\n\r\n<tr>\r\n    <td>\r\n        ");
             EndContext();
             BeginContext(705, 121, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "08f0e0aab51d4c0db607665678ee2ee9", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "98ed6e9c2d0b4936bf12a1bf2f1cd15c", async() => {
                 BeginContext(793, 8, true);
                 WriteLiteral("<strong>");
                 EndContext();

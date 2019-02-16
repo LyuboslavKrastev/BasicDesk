@@ -6,7 +6,7 @@
             <div class="modal-header">
                 <h3 class="modal-title text-center">Submit for Approval</h3>
             </div>
-            <form asp-area="" asp-controller="requests" asp-action="AddApproval" asp-route-requestId="@Model.RequestId" method="post">
+            <form asp-area="" asp-controller="Approvals" asp-action="AddApproval" asp-route-requestId="@Model.RequestId" method="post">
                 <div class="modal-body">
                     <label>To</label>
                     <select asp-for="ApproverId" name="approverId" class="form-control">

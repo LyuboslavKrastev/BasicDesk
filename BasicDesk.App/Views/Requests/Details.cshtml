@@ -119,13 +119,12 @@
 
 @section scriptz{
     <script src="~/lib/jquery/jquery.unobtrusive-ajax.js"></script>
-    <script src="~/js/requests/details/merge.js"></script>
     <script src="~/js/requests/details/request-tabs.js"></script>
     <script src="~/jquery.unobtrusive-ajax.js"></script>
     <script>
         $("#mergeButton").on('click', function() {
             //setup modal
-            $.ajax('/Requests/GetMergeTable', {
+            $.ajax('/Partials/GetMergeTable', {
                 type: 'GET',
                 data: {requestId: '@Model.Id', page: 1},
                 dataType: 'html'
