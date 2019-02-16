@@ -26,7 +26,6 @@ namespace BasicDesk.App.Controllers
             await this.requestService.SaveResolutionAsync(reqId, resol);
 
             alerter.AddMessage(MessageType.Success, $"Successfully saved resolution for request {reqId}");
-
             return this.Redirect($"/Management/Requests/Manage?id={reqId}");
         }
     }

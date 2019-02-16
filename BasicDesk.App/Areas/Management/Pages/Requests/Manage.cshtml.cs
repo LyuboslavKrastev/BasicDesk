@@ -1,5 +1,6 @@
 ﻿using AutoMapper.QueryableExtensions;
 using BasicDesk.App.Common;
+using BasicDesk.App.Common.Attributes;
 using BasicDesk.App.Helpers.Messages;
 using BasicDesk.App.Models.Common.ViewModels;
 using BasicDesk.App.Models.Management.BindingModels;

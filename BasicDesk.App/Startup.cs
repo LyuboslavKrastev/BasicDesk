@@ -17,6 +17,7 @@ using BasicDesk.Services.Repository;
 using BasicDesk.Services.AutoMapping;
 using BasicDesk.Services.Interfaces;
 using BasicDesk.App.Common.Interfaces;
+using BasicDesk.App.Common.Attributes;
 
 namespace BasicDesk.App
 {
@@ -73,10 +74,14 @@ namespace BasicDesk.App
             services.AddScoped<IApprovalService, ApprovalService>();
             services.AddScoped<IAlerter, Alerter>();
             services.AddScoped<RequestSorter, RequestSorter>();
+            services.AddScoped<ILogger, Logger>();
 
             AutoMapperConfig.RegisterMappings();
             services.AddSignalR();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc(options => 
+            {
+                options.Filters.Add(new CustomExceptionFilterAttribute(new Logger()));
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -86,13 +91,13 @@ namespace BasicDesk.App
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
+
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
