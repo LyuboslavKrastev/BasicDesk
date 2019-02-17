@@ -1,32 +1,42 @@
 ﻿using AutoMapper;
-using BasicDesk.App.Common;
 using BasicDesk.App.Helpers.Messages;
 using BasicDesk.Data;
 using BasicDesk.Data.Models.Requests;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Linq;
 using BasicDesk.App.Models.Management;
 using BasicDesk.App.Models.Management.ViewModels;
+using BasicDesk.Services.Interfaces;
+using AutoMapper.QueryableExtensions;
+using BasicDesk.App.Models.Management.BindingModels;
+using BasicDesk.App.Common.Interfaces;
+using System.Threading.Tasks;
+using System;
 
 namespace BasicDesk.App.Areas.Management.Controllers
 {
     public class CategoriesController : BaseAdminController
     {
-        private readonly BasicDeskDbContext dbContext;
+        private readonly ICategoriesService service;
+        private readonly IAlerter alerter;
 
-        public CategoriesController(BasicDeskDbContext dbContext)
+        //private readonly BasicDeskDbContext dbContext;
+
+        public CategoriesController(/*BasicDeskDbContext dbContext*/ICategoriesService service, IAlerter alerter)
         {
-            this.dbContext = dbContext;
+            this.service = service;
+            this.alerter = alerter;
+            //this.dbContext = dbContext;
+
         }
 
         public IActionResult Index()
         {
-            var categories = this.dbContext.RequestCategories.ToArray();
+            var categories = this.service.GetAll();
 
             var model = new CategoryIndexModel
             {
-                CategoryViewModels = Mapper.Map<ICollection<CategoryViewModel>>(categories)
+                CategoryViewModels = categories.ProjectTo<CategoryViewModel>().ToArray()
             };
 
             return View(model);
@@ -36,56 +46,56 @@ namespace BasicDesk.App.Areas.Management.Controllers
         public IActionResult Create(CategoryIndexModel model)
         {
             var category = Mapper.Map<RequestCategory>(model.CategoryCreationBindingModel);
-            if (dbContext.RequestCategories.Any(c => c.Name == category.Name))
-            {
-                this.TempData.Put("__Message", new MessageModel()
-                {
-                    Type = MessageType.Warning,
-                    Message = "Category already exists"
-                });
+            //if (dbContext.RequestCategories.Any(c => c.Name == category.Name))
+            //{
+            //    this.TempData.Put("__Message", new MessageModel()
+            //    {
+            //        Type = MessageType.Warning,
+            //        Message = "Category already exists"
+            //    });
 
-                return this.RedirectToAction("Index");
+            //    return this.RedirectToAction("Index");
+            //}
+
+            Task added = this.service.AddAsync(category);
+            if (added.IsFaulted)
+            {
+                return this.BadRequest();
             }
 
-            this.dbContext.RequestCategories.Add(category);
-            this.dbContext.SaveChanges();
-
-            this.TempData.Put("__Message", new MessageModel()
+            Task success = this.service.SaveChangesAsync();
+            if (success.IsFaulted)
             {
-                Type = MessageType.Success,
-                Message = "Category created successfully"
-            });
+                return this.BadRequest();
+            }
+
+            alerter.AddMessage(MessageType.Success, "Category created successfully");
 
             return this.RedirectToAction("Index");
         }
 
         public IActionResult Edit(int id)
         {
-            var model = Mapper.Map<CategoryViewModel>(this.dbContext.RequestCategories.Find(id));
+            var model = this.service.ById(id).ProjectTo<CategoryViewModel>().First();
 
             return this.View(model);
         }
 
         [HttpPost]
-        public IActionResult Edit(CategoryViewModel model)
+        public async Task<IActionResult> Edit(CategoryEditingBindingModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
 
-            var requestCategory = dbContext.RequestCategories.Find(model.Id);
-            requestCategory.Name = model.Name;
+            await this.service.Edit(model.Id, model.Name);
 
-            this.dbContext.SaveChanges();
+            await this.service.SaveChangesAsync();
 
-            this.TempData.Put("__Message", new MessageModel()
-            {
-                Type = MessageType.Success,
-                Message = "Category updated successfully"
-            });
+            alerter.AddMessage(MessageType.Success, "Category updated successfully");
 
-            return this.Edit(model.Id);
+            return this.RedirectToAction("Edit", new { id = model.Id });
         }
     }
 }

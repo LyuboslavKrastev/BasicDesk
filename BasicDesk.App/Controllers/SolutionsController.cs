@@ -1,4 +1,5 @@
-﻿using BasicDesk.App.Common;
+﻿using AutoMapper.QueryableExtensions;
+using BasicDesk.App.Common;
 using BasicDesk.App.Helpers.Messages;
 using BasicDesk.App.Models.ViewModels;
 using BasicDesk.Data;
@@ -25,7 +26,7 @@ namespace BasicDesk.App.Controllers
 
         public IActionResult Index()
         {      
-            var solutions = service.GetAll();
+            var solutions = service.GetAll().ProjectTo<SolutionListingViewModel>().ToArray();
 
             SolutionTablesViewModel model = new SolutionTablesViewModel();
 

@@ -15,19 +15,19 @@ using System.Threading.Tasks;
 
 namespace BasicDesk.Services
 {
-    public class RequestService : IRequestService
+    public class RequestService : IRequestService, IDbService<Request>
     {
         private readonly DbRepository<Request> repository;
-        private readonly DbRepository<RequestCategory> categoryRepository;
+        private readonly ICategoriesService categoriesService;
         private readonly DbRepository<RequestStatus> statusRepository;
         private readonly DbRepository<User> userRepository;
         private readonly DbRepository<ApprovalStatus> approvalStatusRepository;
 
-        public RequestService(DbRepository<Request> repository, DbRepository<RequestCategory> categoryRepository,
+        public RequestService(DbRepository<Request> repository, ICategoriesService categoriesService,
             DbRepository<RequestStatus> statusRepository, DbRepository<User> userRepository, DbRepository<ApprovalStatus> approvalStatusRepository)
         {
             this.repository = repository;
-            this.categoryRepository = categoryRepository;
+            this.categoriesService = categoriesService;
             this.statusRepository = statusRepository;
             this.userRepository = userRepository;
             this.approvalStatusRepository = approvalStatusRepository;
@@ -89,16 +89,30 @@ namespace BasicDesk.Services
             return this.repository.SaveChangesAsync();
         }
 
+        public IQueryable<Request> GetAll()
+        {
+            return this.repository.All();
+        }
+
         public IQueryable<Request> GetAll(string userId, bool isTechnician)
         {
-            return GetRequestsForRole(userId, isTechnician);
+            if (!isTechnician)
+            {
+                return this.repository.All().Where(r => r.RequesterId == userId);
+            }
+            return this.repository.All();
+        }
+
+        public IQueryable<Request> ById(int id)
+        {
+            return this.repository.All().Where(r => r.Id == id);
         }
 
         public IQueryable<Request> GetBySearch(string userId, bool isTechnician, SearchModel searchModel, IQueryable<Request> requests)
         {
-            if(!requests.Any())
+            if (!requests.Any())
             {
-                requests = GetRequestsForRole(userId, isTechnician);
+                requests = GetAll(userId, isTechnician);
             }
 
             if (int.TryParse(searchModel.IdSearch, out int id))
@@ -132,13 +146,13 @@ namespace BasicDesk.Services
         public IQueryable<Request> GetByFilter(string userId, bool isTechnician, string currentFilter)
         {
             bool isInt = int.TryParse(currentFilter, out int statusId);
-            IQueryable<Request> requests = GetRequestsForRole(userId, isTechnician);
+            IQueryable<Request> requests = GetAll(userId, isTechnician);
 
             if (isInt)
             {
                 return requests.Where(r => r.Status.Id == statusId).AsNoTracking();
             }
-            return GetAll(userId, isTechnician);
+            return requests;
         }
 
 
@@ -180,7 +194,7 @@ namespace BasicDesk.Services
 
             if (model.CategoryId != null && model.CategoryId != request.CategoryId)
             {
-                RequestCategory category = await this.GetAllCategories().FirstOrDefaultAsync(s => s.Id == model.CategoryId);
+                RequestCategory category = await this.categoriesService.ById(Convert.ToInt32(model.CategoryId)).FirstAsync();
                 if (category != null)
                 {
                     request.CategoryId = category.Id;
@@ -200,11 +214,8 @@ namespace BasicDesk.Services
 
         public async Task SaveResolutionAsync(int id, string resolution)
         {
-            this.repository.All()
-                .Where(r => r.Id == id)
-                .FirstOrDefault()
-                .Resolution = resolution;
-
+            Request request = await this.ById(id).FirstAsync();
+            request.Resolution = resolution;
             await this.SaveChangesAsync();
         }
 
@@ -220,11 +231,10 @@ namespace BasicDesk.Services
 
         public async Task AddNote(int requestId, string userId, string userName, bool isTechnician, string noteDescription)
         {
-            Request request = await this.repository.All().FirstOrDefaultAsync(r => r.Id == requestId);
+            Request request = await this.ById(requestId).FirstAsync();
 
             if (isTechnician || userId == request.RequesterId)
             {
-
                 RequestNote note = new RequestNote
                 {
                     RequestId = requestId,
@@ -241,9 +251,9 @@ namespace BasicDesk.Services
 
         public async Task AddReply(int requestId, string userId, bool isTechnician, string noteDescription)
         {
-            Request request = await this.repository.All().FirstOrDefaultAsync(r => r.Id == requestId);
+            Request request = await this.ById(requestId).FirstAsync();
 
-            User author = await this.userRepository.All().FirstOrDefaultAsync(u => u.Id == userId);
+            User author = await this.userRepository.All().FirstAsync(u => u.Id == userId);
 
             if (isTechnician || userId == request.RequesterId)
             {
@@ -318,23 +328,10 @@ namespace BasicDesk.Services
             await this.SaveChangesAsync();
         }
 
-        public IQueryable<RequestCategory> GetAllCategories()
-        {
-            return this.categoryRepository.All().AsNoTracking();
-        }
 
         public IQueryable<RequestStatus> GetAllStatuses()
         {
             return this.statusRepository.All().AsNoTracking();
-        }
-
-        private IQueryable<Request> GetRequestsForRole(string userId, bool isTechnician)
-        {
-            if (!isTechnician)
-            {
-                return this.repository.All().Where(r => r.RequesterId == userId);
-            }
-            return this.repository.All();
         }
     }
 }

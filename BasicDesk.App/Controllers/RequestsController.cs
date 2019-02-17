@@ -33,6 +33,7 @@ namespace BasicDesk.App.Controllers
         private readonly BasicDeskDbContext dbContext;
         private readonly UserManager<User> userManager;
         private readonly IRequestService requestService;
+        private readonly ICategoriesService categoriesService;
         private readonly RequestSorter requestSorter;
         private readonly IAlerter alerter;
         private const int DEFAULT_PAGE_NUMBER = 1;
@@ -40,11 +41,12 @@ namespace BasicDesk.App.Controllers
 
 
         public RequestsController(BasicDeskDbContext dbContext, UserManager<User> userManager, 
-            IRequestService requestService, RequestSorter requestSorter, IAlerter alerter)
+            IRequestService requestService, ICategoriesService categoriesService, RequestSorter requestSorter, IAlerter alerter)
         {
             this.dbContext = dbContext;
             this.userManager = userManager;
             this.requestService = requestService;
+            this.categoriesService = categoriesService;
             this.requestSorter = requestSorter;
             this.alerter = alerter;
         }
@@ -109,7 +111,7 @@ namespace BasicDesk.App.Controllers
         public IActionResult Create()
         {
             var requestBindingModel = new RequestCreationBindingModel();
-            var requestCategories = this.requestService.GetAllCategories().ToArray();
+            var requestCategories = this.categoriesService.GetAll().ToArray();
 
             foreach (var requestCategory in requestCategories)
             {

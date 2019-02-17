@@ -26,18 +26,20 @@ namespace BasicDesk.App.Areas.Management.Pages.Requests
     {
         private readonly UserManager<User> userManager;
         private readonly IRequestService requestService;
+        private readonly ICategoriesService categoriesService;
 
         public RequestManagingModel ViewModel { get; set; }
 
         [BindProperty]
         public RequestEditingBindingModel bindingModel { get; set; }
 
-        public ManageModel(BasicDeskDbContext dbContext, UserManager<User> userManager, IRequestService requestService)
+        public ManageModel(BasicDeskDbContext dbContext, UserManager<User> userManager, IRequestService requestService, ICategoriesService categoriesService)
         {
             this.ViewModel = new RequestManagingModel();
             this.bindingModel = new RequestEditingBindingModel();
             this.userManager = userManager;
             this.requestService = requestService;
+            this.categoriesService = categoriesService;
         }
 
         public async Task<IActionResult> OnGet(string id)
@@ -81,7 +83,7 @@ namespace BasicDesk.App.Areas.Management.Pages.Requests
             this.ViewModel = await this.requestService.GetRequestManagingDetails(requestId)
                 .FirstOrDefaultAsync();
 
-            this.ViewModel.Categories = this.requestService.GetAllCategories().ProjectTo<SelectListItem>();
+            this.ViewModel.Categories = this.categoriesService.GetAll().ProjectTo<SelectListItem>();
             this.ViewModel.Statuses = this.requestService.GetAllStatuses().ProjectTo<SelectListItem>();
 
             var technicians = await this.GetTechnicians();

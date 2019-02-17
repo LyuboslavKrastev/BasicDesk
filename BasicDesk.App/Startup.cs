@@ -66,12 +66,19 @@ namespace BasicDesk.App
                 options.Lockout.AllowedForNewUsers = true;
             });
 
+            /* 
+                Transient objects are always different; a new instance is provided to every controller and every service.
+                Scoped objects are the same within a request, but different across different requests.
+                Singleton objects are the same for every object and every request.
+            */
             services.AddSingleton<IEmailSender, VerificationEmailSender>();
             services.Configure<EmailSenderOptions>(this.Configuration.GetSection("EmailSettings"));
             services.AddScoped(typeof(DbRepository<>), typeof(DbRepository<>));
+            services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
             services.AddScoped<IRequestService, RequestService>();
             services.AddScoped<ISolutionService, SolutionService>();
             services.AddScoped<IApprovalService, ApprovalService>();
+            services.AddScoped<ICategoriesService, CategoriesService>();
             services.AddScoped<IAlerter, Alerter>();
             services.AddScoped<RequestSorter, RequestSorter>();
             services.AddScoped<ILogger, Logger>();

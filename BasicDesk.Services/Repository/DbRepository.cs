@@ -33,6 +33,11 @@ namespace BasicDesk.Services.Repository
             return this.dbSet;
         }
 
+        public TEntity ById(int id)
+        {
+            return this.dbSet.Find(id);
+        }
+
         public void Delete(IEnumerable<TEntity> entities)
         {
             this.dbSet.RemoveRange(entities);

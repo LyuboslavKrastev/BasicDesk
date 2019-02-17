@@ -1,16 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using BasicDesk.App.Models.Common.ViewModels;
-using BasicDesk.App.Models.ViewModels;
 using BasicDesk.Data.Models.Solution;
 
 namespace BasicDesk.Services.Interfaces
 {
-    public interface ISolutionService
+    public interface ISolutionService : IDbService<Solution>
     {
-        Task AddAsync(Solution solution);
-        IEnumerable<SolutionListingViewModel> GetAll();
         Task<SolutionDetailsViewModel> GetSolutionDetails(int id);
-        Task SaveChangesAsync();
     }
 }
