@@ -1,10 +1,11 @@
 ﻿using BasicDesk.Common.Constants;
 using BasicDesk.Common.Constants.Validation;
+using BasicDesk.Data.Models.Interfaces;
 using System.ComponentModel.DataAnnotations;
 
 namespace BasicDesk.Data.Models.Requests
 {
-    public class RequestApproval
+    public class RequestApproval : IEntity
     {
         public int Id { get; set; }
 

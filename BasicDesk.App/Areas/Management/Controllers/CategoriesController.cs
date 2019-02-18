@@ -91,11 +91,20 @@ namespace BasicDesk.App.Areas.Management.Controllers
 
             await this.service.Edit(model.Id, model.Name);
 
-            await this.service.SaveChangesAsync();
-
             alerter.AddMessage(MessageType.Success, "Category updated successfully");
 
             return this.RedirectToAction("Edit", new { id = model.Id });
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await this.service.Delete(new int[] { id });
+
+            alerter.AddMessage(MessageType.Success, "Category updated successfully");
+
+            return this.RedirectToAction("Index");
         }
     }
 }

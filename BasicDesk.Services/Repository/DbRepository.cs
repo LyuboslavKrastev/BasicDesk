@@ -1,4 +1,5 @@
 ﻿using BasicDesk.Data;
+using BasicDesk.Data.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 namespace BasicDesk.Services.Repository
 {
     public class DbRepository<TEntity> : IRepository<TEntity>, IDisposable
-        where TEntity : class
+        where TEntity : class, IEntity
     {
         private readonly BasicDeskDbContext dbContext;
         private DbSet<TEntity> dbSet;
@@ -33,13 +34,14 @@ namespace BasicDesk.Services.Repository
             return this.dbSet;
         }
 
-        public TEntity ById(int id)
+        public IQueryable<TEntity> ById(int id)
         {
-            return this.dbSet.Find(id);
+            return this.dbSet.Where(e => e.Id == id);
         }
 
-        public void Delete(IEnumerable<TEntity> entities)
+        public void Delete(IEnumerable<int> ids)
         {
+            IEnumerable<TEntity> entities = this.All().Where(r => ids.Contains(r.Id));
             this.dbSet.RemoveRange(entities);
         }
 

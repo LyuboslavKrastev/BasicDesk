@@ -7,27 +7,24 @@ using System.Threading.Tasks;
 
 namespace BasicDesk.Services
 {
-    public class ApprovalService : IApprovalService
+    public class ApprovalService : BaseDbService<RequestApproval>, IApprovalService, IDbService<RequestApproval>
     {
-        private readonly DbRepository<RequestApproval> repository;
-        private readonly DbRepository<ApprovalStatus> statusRepository;
+        private readonly IRepository<ApprovalStatus> statusRepository;
 
-
-        public ApprovalService(DbRepository<RequestApproval> repository, DbRepository<ApprovalStatus> statusRepository)
+        public ApprovalService(IRepository<RequestApproval> repository, IRepository<ApprovalStatus> statusRepository) : base(repository)
         {
-            this.repository = repository;
             this.statusRepository = statusRepository;
         }
 
         public IQueryable<RequestApproval> GetUserSubmittedApprovals(string userId)
         {
-            var approvals = this.repository.All().Where(ap => ap.RequesterId == userId && ap.Status.Name == "Pending");
+            var approvals = this.GetAll().Where(ap => ap.RequesterId == userId && ap.Status.Name == "Pending");
             return approvals;
         }
 
         public IQueryable<RequestApproval> GetUserApprovalsToApprove(string userId)
         {
-            var approvals = this.repository.All().Where(ap => ap.ApproverId == userId && ap.Status.Name == "Pending");
+            var approvals = this.GetAll().Where(ap => ap.ApproverId == userId && ap.Status.Name == "Pending");
             return approvals;
         }
 
@@ -43,7 +40,7 @@ namespace BasicDesk.Services
                     if (status != null)
                     {
                         approval.StatusId = status.Id;
-                        await this.repository.SaveChangesAsync();
+                        await this.SaveChangesAsync();
                     }
                 }
             }      
@@ -60,7 +57,7 @@ namespace BasicDesk.Services
                 if (status != null)
                 {
                     approval.StatusId = status.Id;
-                    await this.repository.SaveChangesAsync();
+                    await this.SaveChangesAsync();
                 }
             }
         }

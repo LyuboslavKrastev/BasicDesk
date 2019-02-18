@@ -210,7 +210,7 @@ WriteAttributeValue("", 815, color, 815, 6, false);
             WriteLiteral("                                    ");
             EndContext();
             BeginContext(1862, 316, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f07db09d4f3649dba011dfcaba74747b", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cc0c8d47445242cbabb0fa95bd8a44ab", async() => {
                 BeginContext(2029, 142, true);
                 WriteLiteral("\r\n                                        <button type=\"submit\" class=\"btn btn-success\">Approve</button>\r\n                                    ");
                 EndContext();
@@ -262,7 +262,7 @@ WriteAttributeValue("", 815, color, 815, 6, false);
             WriteLiteral("\r\n                                    ");
             EndContext();
             BeginContext(2216, 308, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "74c4e81e63ed4f4fb69de07dd141332e", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4f5704e54c4c4b48839b104c02daac4a", async() => {
                 BeginContext(2379, 138, true);
                 WriteLiteral("\r\n                                        <button type=\"submit\" class=\"btn btn-danger\">Deny</button>\r\n                                    ");
                 EndContext();

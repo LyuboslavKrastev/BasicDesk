@@ -1,9 +1,10 @@
 ﻿using BasicDesk.Common.Constants.Validation;
+using BasicDesk.Data.Models.Interfaces;
 using System.ComponentModel.DataAnnotations;
 
 namespace BasicDesk.Data.Models.Solution
 {
-    public class SolutionAttachment
+    public class SolutionAttachment : IEntity
     {
         public int Id { get; set; }
 

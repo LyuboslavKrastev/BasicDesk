@@ -1,11 +1,12 @@
 ﻿using BasicDesk.Common.Constants.Validation;
+using BasicDesk.Data.Models.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace BasicDesk.Data.Models.Solution
 {
-    public class Solution
+    public class Solution :IEntity
     {
         public int Id { get; set; }
 

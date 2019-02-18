@@ -1,0 +1,25 @@
+----------------------------------------------------------------------------------------------------------
+18-02-2019 19:13:40
+BasicDesk.App.Controllers.ApprovalsController.AddApproval (BasicDesk.App)
+An error occurred while updating the entries. See the inner exception for details.
+
+----------------------------------------------------------------------------------------------------------
+18-02-2019 19:38:57
+BasicDesk.App.Controllers.RequestsController.Merge (BasicDesk.App)
+Collection was modified; enumeration operation may not execute.
+
+----------------------------------------------------------------------------------------------------------
+18-02-2019 19:39:03
+BasicDesk.App.Controllers.RequestsController.Merge (BasicDesk.App)
+Collection was modified; enumeration operation may not execute.
+
+----------------------------------------------------------------------------------------------------------
+18-02-2019 19:42:56
+/Requests/Manage
+Object reference not set to an instance of an object.
+
+----------------------------------------------------------------------------------------------------------
+18-02-2019 19:45:27
+/Requests/Manage
+Object reference not set to an instance of an object.
+

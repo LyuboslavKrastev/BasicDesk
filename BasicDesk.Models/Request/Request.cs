@@ -1,4 +1,5 @@
 ﻿using BasicDesk.Common.Constants.Validation;
+using BasicDesk.Data.Models.Interfaces;
 using BasicDesk.Data.Models.Solution;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BasicDesk.Data.Models.Requests
 {
-    public class Request
+    public class Request : IEntity
     {
         public int Id { get; set; }
 

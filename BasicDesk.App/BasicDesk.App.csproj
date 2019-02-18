@@ -22,11 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Files\Requests\" />
-    <Folder Include="Files\Solutions\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Update="Areas\Management\Pages\Reports\Index.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

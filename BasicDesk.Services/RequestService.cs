@@ -7,6 +7,7 @@ using BasicDesk.Data.Models;
 using BasicDesk.Data.Models.Requests;
 using BasicDesk.Services.Interfaces;
 using BasicDesk.Services.Repository;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -15,27 +16,20 @@ using System.Threading.Tasks;
 
 namespace BasicDesk.Services
 {
-    public class RequestService : IRequestService, IDbService<Request>
+    public class RequestService : BaseDbService<Request>, IRequestService, IDbService<Request>
     {
-        private readonly DbRepository<Request> repository;
         private readonly ICategoriesService categoriesService;
         private readonly DbRepository<RequestStatus> statusRepository;
-        private readonly DbRepository<User> userRepository;
+        private readonly UserManager<User> userManager;
         private readonly DbRepository<ApprovalStatus> approvalStatusRepository;
 
-        public RequestService(DbRepository<Request> repository, ICategoriesService categoriesService,
-            DbRepository<RequestStatus> statusRepository, DbRepository<User> userRepository, DbRepository<ApprovalStatus> approvalStatusRepository)
+        public RequestService(IRepository<Request> repository, ICategoriesService categoriesService, DbRepository<RequestStatus> statusRepository, 
+            UserManager<User> userManager, DbRepository<ApprovalStatus> approvalStatusRepository) : base(repository)
         {
-            this.repository = repository;
             this.categoriesService = categoriesService;
+            this.userManager = userManager;
             this.statusRepository = statusRepository;
-            this.userRepository = userRepository;
             this.approvalStatusRepository = approvalStatusRepository;
-        }
-
-        public Task AddAsync(Request request)
-        {
-            return this.repository.AddAsync(request);
         }
 
         public async Task Merge(IEnumerable<int> requestIds)
@@ -84,16 +78,6 @@ namespace BasicDesk.Services
             await this.SaveChangesAsync();
         }
 
-        public Task SaveChangesAsync()
-        {
-            return this.repository.SaveChangesAsync();
-        }
-
-        public IQueryable<Request> GetAll()
-        {
-            return this.repository.All();
-        }
-
         public IQueryable<Request> GetAll(string userId, bool isTechnician)
         {
             if (!isTechnician)
@@ -101,11 +85,6 @@ namespace BasicDesk.Services
                 return this.repository.All().Where(r => r.RequesterId == userId);
             }
             return this.repository.All();
-        }
-
-        public IQueryable<Request> ById(int id)
-        {
-            return this.repository.All().Where(r => r.Id == id);
         }
 
         public IQueryable<Request> GetBySearch(string userId, bool isTechnician, SearchModel searchModel, IQueryable<Request> requests)
@@ -203,7 +182,7 @@ namespace BasicDesk.Services
 
             if (model.AssignToId != null && model.AssignToId != request.AssignedToId)
             {
-                User technician = await this.userRepository.All().FirstOrDefaultAsync(s => s.Id == model.AssignToId);
+                User technician = await this.userManager.FindByIdAsync(model.AssignToId);
                 if (technician != null)
                 {
                     request.AssignedToId = technician.Id;
@@ -216,16 +195,6 @@ namespace BasicDesk.Services
         {
             Request request = await this.ById(id).FirstAsync();
             request.Resolution = resolution;
-            await this.SaveChangesAsync();
-        }
-
-        public async Task Delete(IEnumerable<int> requestIds)
-        {
-            var requests = this.repository.All()
-                .Where(r => requestIds.Contains(r.Id));
-
-            this.repository.Delete(requests);
-
             await this.SaveChangesAsync();
         }
 
@@ -253,7 +222,7 @@ namespace BasicDesk.Services
         {
             Request request = await this.ById(requestId).FirstAsync();
 
-            User author = await this.userRepository.All().FirstAsync(u => u.Id == userId);
+            User author = await this.userManager.FindByIdAsync(userId);
 
             if (isTechnician || userId == request.RequesterId)
             {
@@ -277,7 +246,7 @@ namespace BasicDesk.Services
         {
             Request request = await this.repository.All().FirstOrDefaultAsync(r => r.Id == requestId);
 
-            User author = await this.userRepository.All().FirstOrDefaultAsync(u => u.Id == userId);
+            User author = await this.userManager.FindByIdAsync(userId);
 
             if (isTechnician || userId == request.RequesterId)
             {

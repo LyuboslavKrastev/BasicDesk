@@ -107,7 +107,7 @@ using BasicDesk.Common.Constants;
             WriteLiteral(" <nav class=\"navbar-inverse navbar-fixed-top\">\n     <div class=\"container-fluid\">\n         <div class=\"navbar-header\">\n             ");
             EndContext();
             BeginContext(166, 67, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c8e6ff9c7af14354a6dc70ecf7b1242b", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e4ced5501c8448ad9288e526f0aaf008", async() => {
                 BeginContext(220, 9, true);
                 WriteLiteral("BasicDesk");
                 EndContext();
@@ -132,7 +132,7 @@ using BasicDesk.Common.Constants;
             WriteLiteral("\n         </div>\n         <ul class=\"nav navbar-nav\">\n                     <li>");
             EndContext();
             BeginContext(312, 83, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "36a5f47f765840d1954f6aee9b4dcbf5", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9a95a334f42e4f50a7e386f9a21e5aac", async() => {
                 BeginContext(345, 46, true);
                 WriteLiteral("<span class=\"glyphicon glyphicon-home\"></span>");
                 EndContext();
@@ -156,7 +156,7 @@ using BasicDesk.Common.Constants;
             WriteLiteral("</li>\n                     <li>");
             EndContext();
             BeginContext(426, 72, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9889be4e9a414821ba4f16b0073bc0ac", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a77d884339734b7c9d7e1b98f53ddbd6", async() => {
                 BeginContext(486, 8, true);
                 WriteLiteral("Requests");
                 EndContext();
@@ -182,7 +182,7 @@ using BasicDesk.Common.Constants;
             WriteLiteral("</li>\n                     <li>");
             EndContext();
             BeginContext(529, 74, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d83c420d19b54ce0a740213fdce8bbf0", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "700d9616024b4a25993c5e3c564d884a", async() => {
                 BeginContext(590, 9, true);
                 WriteLiteral("Solutions");
                 EndContext();
@@ -208,7 +208,7 @@ using BasicDesk.Common.Constants;
             WriteLiteral("</li>\n                     <li>");
             EndContext();
             BeginContext(634, 40, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "eb2fb4b8c5b1443e92da50f2a4e8d51f", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e6c4d18d043b4e4297547226052dffa0", async() => {
                 BeginContext(666, 4, true);
                 WriteLiteral("Chat");
                 EndContext();
@@ -247,7 +247,7 @@ using BasicDesk.Common.Constants;
                          <li>");
             EndContext();
             BeginContext(1065, 76, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c1ca497719674cdf8b40a75cfa9b2119", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cd0b4cd1944849e0a9e65565b3de6a57", async() => {
                 BeginContext(1132, 5, true);
                 WriteLiteral("Users");
                 EndContext();
@@ -273,7 +273,7 @@ using BasicDesk.Common.Constants;
             WriteLiteral("</li>\n                         <li>");
             EndContext();
             BeginContext(1176, 86, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "dd6143899cee443e9c2cd875fc6cdeee", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "71aeab7656d6447ea39e9fd2c2c0e7d8", async() => {
                 BeginContext(1248, 10, true);
                 WriteLiteral("Categories");
                 EndContext();
@@ -299,7 +299,7 @@ using BasicDesk.Common.Constants;
             WriteLiteral("</li>\n                         <li>");
             EndContext();
             BeginContext(1297, 96, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f37263725c194a04911b04ea9e906a39", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "56a2e5e79b734437b8036a6978c827bc", async() => {
                 BeginContext(1368, 21, true);
                 WriteLiteral("Create Request Status");
                 EndContext();
@@ -333,7 +333,7 @@ using BasicDesk.Common.Constants;
             WriteLiteral("                 <li class=\"pull-right\">\n                             ");
             EndContext();
             BeginContext(1611, 174, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "106c2a768eea4b16913cdfff9205941b", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3064a88096e34e6c8f2a7078f41f7f79", async() => {
                 BeginContext(1672, 109, true);
                 WriteLiteral("\n                                 Create Request <i class=\"glyphicon-plus\"></i>\n                             ");
                 EndContext();
@@ -359,7 +359,7 @@ using BasicDesk.Common.Constants;
             WriteLiteral("\n                 </li>\n         </ul>\n         ");
             EndContext();
             BeginContext(1833, 32, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("partial", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "fe39054b23ce41fa8bee9f05d2e428fd", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("partial", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "e44d0bb5eb4f441eb65b1c4e8e180f50", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_TagHelpers_PartialTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.PartialTagHelper>();

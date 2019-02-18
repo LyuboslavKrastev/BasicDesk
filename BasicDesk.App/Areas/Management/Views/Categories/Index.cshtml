@@ -39,12 +39,23 @@
                         @Html.DisplayFor(modelItem => category.Name)
                     </td>
                     <td>
-                        <a asp-area="management" asp-controller="categories" asp-action="edit" asp-route-id="@category.Id" class="btn btn-info">Edit</a>
+                        <div>
+                            <div style="float: left;">
+                                <a asp-area="management" asp-controller="categories" asp-action="edit" asp-route-id="@category.Id" class="btn btn-info">Edit</a>
+                            </div>
+                            <div>
+                                <form class="form-inline" asp-area="management" asp-controller="categories" asp-action="delete">
+                                    <input hidden="hidden" name="id" value="@category.Id" />
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>                            
+                            </div>
+                        </div>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
+
 </div>
 <br />
 @section Scripts{
