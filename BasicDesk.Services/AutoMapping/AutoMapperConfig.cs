@@ -64,7 +64,9 @@ namespace BasicDesk.Services.AutoMapping
 
                 configuration.CreateMap<Solution, SolutionListingViewModel>()
 					.ForMember(r => r.Author, opt => opt.MapFrom(s => s.Author.FullName));
-                configuration.CreateMap<SolutionCreationBindingModel, Solution>();
+
+                configuration.CreateMap<SolutionCreationBindingModel, Solution>()
+					.ForMember(s => s.Attachments, opt => opt.Ignore());
 
                 configuration.CreateMap<Request, RequestDetailsViewModel>()
 					.ForMember(r => r.CreatedOn, opt => opt.MapFrom(req => req.StartTime.ToString()))

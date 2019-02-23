@@ -29,15 +29,14 @@
                     Status
                 </th>
                 <th>
-                    @{ 
+                    @{
                         var requestId = Model.Id;
                     }
                     @Html.PagedListPager(Model.Requests, page => Url.Action("GetMergeTable", "Partials", new { requestId, page }),
                     PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "callerSearchModal" }))
 
                 </th>
-
-
+                </thead>
                 <tbody>
 
                     @foreach (var item in Model.Requests)
@@ -86,3 +85,5 @@
         </div>
     </div>
 </div>
+
+

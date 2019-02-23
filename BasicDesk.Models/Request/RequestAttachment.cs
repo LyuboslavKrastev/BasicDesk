@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BasicDesk.Data.Models.Requests
 {
-    public class RequestAttachment : IEntity
+    public class RequestAttachment : IEntity, IAttachment
     {
         public int Id { get; set; }
 

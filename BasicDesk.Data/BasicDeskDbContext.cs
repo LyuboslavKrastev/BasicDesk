@@ -3,6 +3,7 @@ using BasicDesk.Data.Models.Requests;
 using BasicDesk.Data.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using BasicDesk.Common.Constants;
 
 namespace BasicDesk.Data
 {
@@ -58,11 +59,11 @@ namespace BasicDesk.Data
             );
 
             builder.Entity<RequestStatus>().HasData(
-                new RequestStatus { Id = 1, Name = "Open"},
-                new RequestStatus { Id = 2, Name = "Closed" },
-                new RequestStatus { Id = 3, Name = "Rejected" },
-                new RequestStatus { Id = 4, Name = "On Hold" },
-                new RequestStatus { Id = 5, Name = "For Approval" }
+                new RequestStatus { Id = WebConstants.OpenStatusId, Name = "Open"},
+                new RequestStatus { Id = WebConstants.ClosedStatusId, Name = "Closed" },
+                new RequestStatus { Id = WebConstants.RejectedStatusId, Name = "Rejected" },
+                new RequestStatus { Id = WebConstants.OnHoldStatusId, Name = "On Hold" },
+                new RequestStatus { Id = WebConstants.ForApprovalStatusId, Name = "For Approval" }
            );
 
  

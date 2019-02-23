@@ -23,7 +23,7 @@
                     {
                         <label asp-for="@attachment">Attachment: </label>
                         <a asp-controller="Solutions" asp-action="Download"
-                           asp-route-filename="@attachment.FileName" asp-route-filePath="@attachment.PathToFile" asp-route-requestId="@Model.Id">
+                           asp-route-filename="@attachment.FileName" asp-route-filePath="@attachment.PathToFile" asp-route-attachmentId="@attachment.Id">
                             @attachment.FileName
                         </a>
                         <br />

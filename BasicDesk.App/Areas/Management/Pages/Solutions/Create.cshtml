@@ -10,7 +10,7 @@
 <form method="post" class="form-horizontal" enctype="multipart/form-data">
     @Html.InputFormGroupFor(m => m.Model.Title)
     @Html.TextAreaFormGroupFor(m => m.Model.Content)
-    <input class="center-block" asp-for="Model.Attachment" />
+    <input class="center-block" asp-for="Model.Attachments" type="file" multiple />
     <div class="form-group">
         <div class="col-sm-10 col-sm-push-2">
             <input type="submit" value="Create" class="btn btn-success" />

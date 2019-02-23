@@ -100,7 +100,7 @@ namespace BasicDesk.App.Areas.Management.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
-            await this.service.Delete(new int[] { id });
+            await this.service.DeleteRange(new int[] { id });
 
             alerter.AddMessage(MessageType.Success, "Category updated successfully");
 

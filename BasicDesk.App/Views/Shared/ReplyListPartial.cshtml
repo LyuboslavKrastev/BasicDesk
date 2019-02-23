@@ -27,7 +27,7 @@
                             @foreach (var attachment in reply.Attachments)
                             {
                                 <label asp-for="@attachment">Attachment: </label>
-                                <a asp-controller="Requests" asp-action="Download"
+                                <a asp-area="" asp-controller="Requests" asp-action="Download"
                                    asp-route-filename="@attachment.FileName" asp-route-filePath="@attachment.PathToFile" asp-route-requestId="@attachment.Id">
                                     @attachment.FileName
                                 </a>

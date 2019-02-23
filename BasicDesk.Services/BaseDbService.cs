@@ -22,6 +22,11 @@ namespace BasicDesk.Services
             return this.repository.AddAsync(entity);
         }
 
+        public Task AddRangeAsync(IEnumerable<T> entities)
+        {
+            return this.repository.AddRangeAsync(entities);
+        }
+
         public IQueryable<T> ById(int id)
         {
             return this.repository.ById(id);
@@ -32,16 +37,25 @@ namespace BasicDesk.Services
             return this.repository.All();
         }
 
-        public async Task Delete(IEnumerable<int> ids)
+        public async Task DeleteRange(IEnumerable<int> ids)
         {
-            this.repository.Delete(ids);
+            this.repository.DeleteRange(ids);
 
             await this.SaveChangesAsync();
-        } 
+        }
+
+        public async Task Delete(int id)
+        {
+            this.repository.Delete(id);
+
+            await this.SaveChangesAsync();
+        }
 
         public Task SaveChangesAsync()
         {
             return this.repository.SaveChangesAsync();
         }
+
+ 
     }
 }

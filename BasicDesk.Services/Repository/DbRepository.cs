@@ -39,7 +39,13 @@ namespace BasicDesk.Services.Repository
             return this.dbSet.Where(e => e.Id == id);
         }
 
-        public void Delete(IEnumerable<int> ids)
+        public void Delete(int id)
+        {
+            TEntity entity = this.ById(id).First();
+            this.dbSet.Remove(entity);
+        }
+
+        public void DeleteRange(IEnumerable<int> ids)
         {
             IEnumerable<TEntity> entities = this.All().Where(r => ids.Contains(r.Id));
             this.dbSet.RemoveRange(entities);

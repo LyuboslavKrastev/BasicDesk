@@ -1,6 +1,7 @@
 ﻿using BasicDesk.Common.Constants.Validation;
 using Microsoft.AspNetCore.Http;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace BasicDesk.App.Models.Management.BindingModels
@@ -17,7 +18,7 @@ namespace BasicDesk.App.Models.Management.BindingModels
         [MaxLength(SolutionConstants.ContentMaxLength)]
         public string Content { get; set; }
 
-        public IFormFile Attachment { get; set; }
+        public ICollection<IFormFile> Attachments { get; set; }
 
         public DateTime CreationTime { get; set; } = DateTime.Now;
 

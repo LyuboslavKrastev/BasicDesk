@@ -6,6 +6,7 @@ namespace BasicDesk.App.Common
 {
     public class RequestSorter
     {
+        //Prepares the view model
         public RequestSortingViewModel ConfigureSorting(string sortOrder, string currentFilter, SearchModel searchModel)
         {
             var viewModel = new RequestSortingViewModel
@@ -25,6 +26,7 @@ namespace BasicDesk.App.Common
             return viewModel;
         }
 
+        //Sorts by the provided filter
         public IQueryable<RequestListingViewModel> SortRequests(IQueryable<RequestListingViewModel> requests, string sortOrder)
         {
             switch (sortOrder)

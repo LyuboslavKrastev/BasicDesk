@@ -1,4 +1,5 @@
-﻿using BasicDesk.Common.Constants.Validation;
+﻿using BasicDesk.Common.Constants;
+using BasicDesk.Common.Constants.Validation;
 using BasicDesk.Data.Models.Interfaces;
 using BasicDesk.Data.Models.Solution;
 using System;
@@ -21,7 +22,7 @@ namespace BasicDesk.Data.Models.Requests
         [MaxLength(RequestConstants.DescriptionMaxLength)]
         public string Description { get; set; }
 
-        public int StatusId { get; set; }
+        public int StatusId { get; set; } = WebConstants.OpenStatusId; // this is the open status id
         public RequestStatus Status { get; set; }
 
         public int CategoryId { get; set; }

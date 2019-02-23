@@ -11,8 +11,10 @@ using BasicDesk.Common.Constants;
 using BasicDesk.Data;
 using BasicDesk.Data.Models;
 using BasicDesk.Data.Models.Requests;
+using BasicDesk.Services;
 using BasicDesk.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -28,38 +30,33 @@ using X.PagedList;
 namespace BasicDesk.App.Controllers
 {
     [Authorize]
-    public class RequestsController : Controller
+    public class RequestsController : ControllerWithAttachments<RequestAttachment>
     {
-        private readonly BasicDeskDbContext dbContext;
         private readonly UserManager<User> userManager;
         private readonly IRequestService requestService;
         private readonly ICategoriesService categoriesService;
+        private readonly AttachmentService<RequestAttachment> attachmentService;
         private readonly RequestSorter requestSorter;
         private readonly IAlerter alerter;
+        private readonly IFileUploader fileUploader;
         private const int DEFAULT_PAGE_NUMBER = 1;
         private const int DEFAULT_REQUESTS_PER_PAGE = 5;
 
 
-        public RequestsController(BasicDeskDbContext dbContext, UserManager<User> userManager, 
-            IRequestService requestService, ICategoriesService categoriesService, RequestSorter requestSorter, IAlerter alerter)
+        public RequestsController(UserManager<User> userManager, 
+            IRequestService requestService, ICategoriesService categoriesService, 
+            AttachmentService<RequestAttachment> attachmentService, RequestSorter requestSorter, 
+            IAlerter alerter, IFileUploader fileUploader) : base(attachmentService)
         {
-            this.dbContext = dbContext;
             this.userManager = userManager;
             this.requestService = requestService;
             this.categoriesService = categoriesService;
+            this.attachmentService = attachmentService;
             this.requestSorter = requestSorter;
             this.alerter = alerter;
+            this.fileUploader = fileUploader;
         }
 
-        private bool HasSearchCriteria(SearchModel searchModel)
-        {
-            //Using a bit of reflection to check if any of the properties are not empty
-            var type = searchModel.GetType();
-            var properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
-            var hasProperty = properties.Select(x => x.GetValue(searchModel, null))
-                .Any(y => y != null && !String.IsNullOrWhiteSpace(y.ToString()));
-            return hasProperty;
-        }
         [HttpGet]
         public IActionResult Index(string sortOrder, string currentFilter, int? page, int? requestsPerPage, SearchModel searchModel)
         {
@@ -107,6 +104,9 @@ namespace BasicDesk.App.Controllers
 
             return this.View(model);
         }
+        #region CRUD OPERATIONS
+
+        #region Create
 
         public IActionResult Create()
         {
@@ -134,99 +134,43 @@ namespace BasicDesk.App.Controllers
             }
 
             var request = Mapper.Map<Request>(model);
-            var openStatusId = this.dbContext.RequestStatuses.FirstOrDefault(s => s.Name == "Open").Id;
             request.RequesterId = this.userManager.GetUserId(User);
-            request.StatusId = openStatusId;
 
             await this.requestService.AddAsync(request);
 
-            string failedAttachments = string.Empty;
-
             if (model.Attachments != null)
             {
-                failedAttachments = await CreateAttachmentAsync(model, request);
-            }
+                string path = await fileUploader.CreateAttachmentAsync(model.Subject, model.Attachments, "Requests");
 
-            string message = "Request created successfully";
-            if(failedAttachments != string.Empty)
-            {
-                message += failedAttachments;
+                ICollection<RequestAttachment> attachments = new List<RequestAttachment>();
+
+                foreach (var attachment in model.Attachments)
+                {
+                    RequestAttachment requestAttachment = new RequestAttachment
+                    {
+                        FileName = attachment.FileName,
+                        PathToFile = Path.Combine(path, attachment.FileName),
+                        RequestId = request.Id
+                    };
+                    attachments.Add(requestAttachment);
+                }
+
+                await this.attachmentService.AddRangeAsync(attachments);
             }
 
             await this.requestService.SaveChangesAsync();
 
-            this.alerter.AddMessage(MessageType.Success, message);
+            this.alerter.AddMessage(MessageType.Success, "Request created successfully");
 
-            return this.RedirectToAction("Details", new { id = request.Id.ToString()});
+            return this.RedirectToAction("Details", new { id = request.Id.ToString() });
         }
+        #endregion
 
-        [HttpPost]
-        public async Task<IActionResult> Delete(IEnumerable<string> ids)
-        {
-            string referer = Request.Headers["Referer"].ToString();
-            if (!ids.Any())
-            {
-                string message = "Please select request[s] for deletion";
-                this.alerter.AddMessage(MessageType.Warning, message);
-            }
-            else
-            {
-                IEnumerable<int> requestIds = ids.Select(int.Parse);
-                await this.requestService.Delete(requestIds);
-                string message = $"Successfully deleted request[s] {string.Join(", ", ids)}";
-                this.alerter.AddMessage(MessageType.Success, message);
-            }
-
-            return Json(new
-            {
-                redirectUrl = referer
-            });
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Merge(IEnumerable<string> ids)
-        {
-            if(ids.Any(i => int.TryParse(i, out _) == false))
-            {
-                return BadRequest();
-            }
-            if (!ids.Any())
-            {
-                string message = "Please select request[s] for deletion";
-                this.alerter.AddMessage(MessageType.Warning, message);
-            }
-            else
-            {
-                IEnumerable<int> requestIds = ids.Select(int.Parse).OrderByDescending(i => i);
-
-                await this.requestService.Merge(requestIds);
-                await this.requestService.Delete(requestIds.SkipLast(1));
-                string message = $"Successfully merged request[s] {string.Join(", ", ids)}";
-                this.alerter.AddMessage(MessageType.Success, message);
-            }
-
-            bool isAjaxRequest = Request.Headers["X-Requested-With"] == "XMLHttpRequest";
-        
-            if (isAjaxRequest)
-            {
-                string requestsTableAbsoluteUrl = Url.Action("index", "requests");
-                return Json(new
-                {
-                    redirectUrl = requestsTableAbsoluteUrl
-                });
-            }
-            else
-            {
-                return RedirectToAction("index", "requests");
-            }
-        }
-
-
-       
-
+        #region Read, Update, Delete
+        [HttpGet]
         public IActionResult Details(string id)
         {
-            if(int.TryParse(id, out _) == false)
+            if (int.TryParse(id, out _) == false)
             {
                 return BadRequest();
             }
@@ -243,9 +187,9 @@ namespace BasicDesk.App.Controllers
 
                 RequestDetailsViewModel model = this.requestService.GetRequestDetails(requestId, userId)
                     .FirstOrDefault();
-                
+
                 //If the request that the user is trying to access, is not his own, the model shall be null
-                if(model == null)
+                if (model == null)
                 {
                     return this.Forbid();
                 }
@@ -268,72 +212,77 @@ namespace BasicDesk.App.Controllers
             }
         }
 
-
-
-        public async Task<IActionResult> Download(string fileName, string filePath, string requestId)
-        {   
-            try
-            {
-                if (fileName == null)
-                {
-                    return Content("filename not present");
-                }
-
-                var memory = new MemoryStream();
-                using (var stream = new FileStream(filePath, FileMode.Open))
-                {
-                    await stream.CopyToAsync(memory);
-                }
-                memory.Position = 0;
-                return File(memory, GetContentType(filePath), Path.GetFileName(filePath));
-            }
-            catch (IOException)
-            {
-                this.alerter.AddMessage(MessageType.Danger, "File not available");
-
-                return this.RedirectToAction("Details", new { id = requestId});
-            }
-        }
-
-        private async Task<string> CreateAttachmentAsync(RequestCreationBindingModel model, Request request)
+        [HttpPost]
+        public async Task<IActionResult> Merge(IEnumerable<string> ids)
         {
-            string failedAttachments = string.Empty;
-            foreach (var attachment in model.Attachments)
+            if (ids.Any(i => int.TryParse(i, out _) == false))
             {
-                var extension = attachment.FileName.Split('.').Last();
-                var isAllowedFileFormat = FileFormatValidator.IsValidFormat(extension);
+                return BadRequest();
+            }
+            if (!ids.Any())
+            {
+                string message = "Please select request[s] for deletion";
+                this.alerter.AddMessage(MessageType.Warning, message);
+            }
+            else
+            {
+                IEnumerable<int> requestIds = ids.Select(int.Parse).OrderByDescending(i => i);
 
-                if (!isAllowedFileFormat)
+                await this.requestService.Merge(requestIds);
+                await this.requestService.DeleteRange(requestIds.SkipLast(1));
+                string message = $"Successfully merged request[s] {string.Join(", ", ids)}";
+                this.alerter.AddMessage(MessageType.Success, message);
+            }
+
+            bool isAjaxRequest = Request.Headers["X-Requested-With"] == "XMLHttpRequest";
+
+            if (isAjaxRequest)
+            {
+                string requestsTableAbsoluteUrl = Url.Action("index", "requests");
+                return Json(new
                 {
-                    failedAttachments += Environment.NewLine;
-                    failedAttachments += $"{attachment.FileName} failed to upload because the file format is forbidden.";               
-                    continue;
-                }
-                string currentDirectory = Directory.GetCurrentDirectory();
-                string destination = currentDirectory + "/Files" + "/Requests/" + model.Subject;
-                Directory.CreateDirectory(destination);
-                string path = Path.Combine(destination, attachment.FileName);
-                var fileStream = new FileStream(path, FileMode.Create);
-                using (fileStream)
-                {
-                    await attachment.CopyToAsync(fileStream);
-                }
-                this.dbContext.RequestAttachments.Add(new RequestAttachment
-                {
-                    FileName = attachment.FileName,
-                    PathToFile = path,
-                    RequestId = request.Id
+                    redirectUrl = requestsTableAbsoluteUrl
                 });
-
             }
-            return failedAttachments;
+            else
+            {
+                return RedirectToAction("index", "requests");
+            }
         }
 
-        private string GetContentType(string path)
+        [HttpPost]
+        public async Task<IActionResult> Delete(IEnumerable<string> ids)
         {
-            var types = FileFormatValidator.GetMimeTypes();
-            var ext = Path.GetExtension(path).ToLowerInvariant();
-            return types[ext];
-        }     
+            string referer = Request.Headers["Referer"].ToString();
+            if (!ids.Any())
+            {
+                string message = "Please select request[s] for deletion";
+                this.alerter.AddMessage(MessageType.Warning, message);
+            }
+            else
+            {
+                IEnumerable<int> requestIds = ids.Select(int.Parse);
+                await this.requestService.DeleteRange(requestIds);
+                string message = $"Successfully deleted request[s] {string.Join(", ", ids)}";
+                this.alerter.AddMessage(MessageType.Success, message);
+            }
+
+            return Json(new
+            {
+                redirectUrl = referer
+            });
+        }          
+        #endregion
+        #endregion
+
+        private bool HasSearchCriteria(SearchModel searchModel)
+        {
+            //Using a bit of reflection to check if any of the properties are not empty
+            var type = searchModel.GetType();
+            var properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            var hasProperty = properties.Select(x => x.GetValue(searchModel, null))
+                .Any(y => y != null && !String.IsNullOrWhiteSpace(y.ToString()));
+            return hasProperty;
+        }
     }
 }

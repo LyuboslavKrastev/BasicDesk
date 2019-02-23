@@ -24,7 +24,7 @@ namespace BasicDesk.App.Controllers
 
         [HttpGet]
         [AjaxOnly]
-        public ActionResult GetMergeTable(int requestId, int? page)
+        public ActionResult GetMergeTable(int requestId, int? page, int? perPage)
         {
             int pageInt = page == null ? 1 : Convert.ToInt32(page);
 

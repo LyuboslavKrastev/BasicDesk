@@ -82,6 +82,10 @@ namespace BasicDesk.App
             services.AddScoped<IAlerter, Alerter>();
             services.AddScoped<RequestSorter, RequestSorter>();
             services.AddScoped<ILogger, Logger>();
+            services.AddScoped(typeof(AttachmentService<>));
+            services.AddScoped<IFileUploader, FileUploader>();
+            services.AddScoped<StatusService>();
+
 
             AutoMapperConfig.RegisterMappings();
             services.AddSignalR();

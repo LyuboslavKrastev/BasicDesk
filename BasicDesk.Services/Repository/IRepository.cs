@@ -12,7 +12,9 @@ namespace BasicDesk.Services.Repository
         IQueryable<TEntity> ById(int id);
         Task AddAsync(TEntity entity);
         Task AddRangeAsync(IEnumerable<TEntity> entities);
-        void Delete(IEnumerable<int> entities);
+        void DeleteRange(IEnumerable<int> entities);
+        void Delete(int id);
+
 
         Task<int> SaveChangesAsync();
     }

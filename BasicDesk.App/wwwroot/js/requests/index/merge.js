@@ -12,7 +12,7 @@
         type: "POST",
         data: {ids},
         success: function (data) {
-            alert(data);
+            location.reload();
         }
     });
 });

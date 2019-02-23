@@ -10,22 +10,34 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using BasicDesk.App.Models.Management.BindingModels;
+using BasicDesk.Services;
+using BasicDesk.Services.Interfaces;
+using System.Collections.Generic;
+using BasicDesk.Data.Models.Requests;
+using BasicDesk.App.Common.Interfaces;
 
 namespace BasicDesk.App.Areas.Management.Pages.Solutions
 {
     public class CreateModel : BasePageModel
     {
-        private BasicDeskDbContext dbContext;
+        private readonly ISolutionService solutionService;
         private UserManager<User> userManager;
+        private readonly AttachmentService<SolutionAttachment> attachmentService;
+        private readonly IFileUploader fileUploader;
+        private readonly IAlerter alerter;
 
         [BindProperty]
         public SolutionCreationBindingModel Model {get; set; }
 
-        public CreateModel(BasicDeskDbContext dbContext, UserManager<User> userManager)
+        public CreateModel(ISolutionService solutionService, UserManager<User> userManager, 
+            AttachmentService<SolutionAttachment>  attachmentService, IFileUploader fileUploader, IAlerter alerter)
         {
             this.Model = new SolutionCreationBindingModel();
-            this.dbContext = dbContext;
+            this.solutionService = solutionService;
             this.userManager = userManager;
+            this.attachmentService = attachmentService;
+            this.fileUploader = fileUploader;
+            this.alerter = alerter;
         }
 
         public async Task<IActionResult> OnPost()
@@ -38,54 +50,34 @@ namespace BasicDesk.App.Areas.Management.Pages.Solutions
             var solution = Mapper.Map<Solution>(Model);
             solution.AuthorId = this.userManager.GetUserId(User);
 
-            this.dbContext.Solutions.Add(solution);
 
-            if (Model.Attachment != null)
+            await this.solutionService.AddAsync(solution);
+
+            if (Model.Attachments != null)
             {
-                var extension = Model.Attachment.FileName.Split('.').Last();
+                string path = await fileUploader.CreateAttachmentAsync(Model.Title, Model.Attachments, "Solutions");
 
-                var isAllowedFileFormat = FileFormatValidator.IsValidFormat(extension);
+                ICollection<SolutionAttachment> attachments = new List<SolutionAttachment>();
 
-                if (!isAllowedFileFormat)
+                foreach (var attachment in Model.Attachments)
                 {
-                    this.TempData.Put("__Message", new MessageModel()
+                    SolutionAttachment solutionAttachment = new SolutionAttachment
                     {
-                        Type = MessageType.Danger,
-                        Message = "Forbidden file type!"
-                    });
-                    return this.Page();
+                        FileName = attachment.FileName,
+                        PathToFile = Path.Combine(path, attachment.FileName),
+                        SolutionId = solution.Id
+                    };
+                    attachments.Add(solutionAttachment);
                 }
 
-                await CreateAttachmentAsync(Model, solution);
+                await this.attachmentService.AddRangeAsync(attachments);
             }
 
-            this.dbContext.SaveChanges();
+            await  this.solutionService.SaveChangesAsync();
 
-            this.TempData.Put("__Message", new MessageModel()
-            {
-                Type = MessageType.Success,
-                Message = "Solution created successfully"
-            });
+            alerter.AddMessage(MessageType.Success, "Solution created successfully");
 
-
-            return RedirectToPage("/Index");
-        }
-
-        private async Task CreateAttachmentAsync(SolutionCreationBindingModel model, Solution solution)
-        {
-            string path = Path.Combine(Directory.GetCurrentDirectory(), "Files", "Solutions", model.Attachment.FileName);
-            var fileStream = new FileStream(path, FileMode.Create);
-            using (fileStream)
-            {
-                await model.Attachment.CopyToAsync(fileStream);
-            }
-
-            this.dbContext.SolutionAttachments.Add(new SolutionAttachment
-            {
-                FileName = model.Attachment.FileName,
-                PathToFile = path,
-                SolutionId = solution.Id
-            });
+            return Redirect($"/Solutions/Details/{solution.Id}");
         }
     }
 }

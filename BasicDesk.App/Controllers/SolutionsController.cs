@@ -3,6 +3,8 @@ using BasicDesk.App.Common;
 using BasicDesk.App.Helpers.Messages;
 using BasicDesk.App.Models.ViewModels;
 using BasicDesk.Data;
+using BasicDesk.Data.Models.Solution;
+using BasicDesk.Services;
 using BasicDesk.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,26 +15,25 @@ using System.Threading.Tasks;
 namespace BasicDesk.App.Controllers
 {
     [Authorize]
-    public class SolutionsController : Controller
+    public class SolutionsController :  ControllerWithAttachments<SolutionAttachment>
     {
-        private readonly BasicDeskDbContext dbContext;
         private readonly ISolutionService service;
 
-        public SolutionsController(BasicDeskDbContext dbContext, ISolutionService service)
+        public SolutionsController(ISolutionService service, AttachmentService<SolutionAttachment> attachmentService) : base(attachmentService)
         {
             this.service = service;
-            this.dbContext = dbContext;
         }
 
         public IActionResult Index()
         {      
             var solutions = service.GetAll().ProjectTo<SolutionListingViewModel>().ToArray();
 
-            SolutionTablesViewModel model = new SolutionTablesViewModel();
+            SolutionTablesViewModel model = new SolutionTablesViewModel
+            {
+                MostRecent = solutions.OrderByDescending(s => s.CreationTime),
 
-            model.MostRecent = solutions.OrderByDescending(s => s.CreationTime);
-
-            model.MostViewed = solutions.OrderByDescending(s => s.Views);
+                MostViewed = solutions.OrderByDescending(s => s.Views)
+            };
 
 
             return View(model);
@@ -49,40 +50,6 @@ namespace BasicDesk.App.Controllers
             }
 
             return this.View(solution);
-        }
-
-        public async Task<IActionResult> Download(string fileName, string filePath, string solutionId)
-        {
-            try
-            {
-                if (fileName == null)
-                    return Content("filename not present");
-
-                var memory = new MemoryStream();
-                using (var stream = new FileStream(filePath, FileMode.Open))
-                {
-                    await stream.CopyToAsync(memory);
-                }
-                memory.Position = 0;
-                return File(memory, GetContentType(filePath), Path.GetFileName(filePath));
-            }
-            catch (IOException)
-            {
-                this.TempData.Put("__Message", new MessageModel()
-                {
-                    Type = MessageType.Warning,
-                    Message = "File still uploading"
-                });
-
-                return this.RedirectToAction("Details", new { id = solutionId });
-            }
-        }
-
-        private string GetContentType(string path)
-        {
-            var types = FileFormatValidator.GetMimeTypes();
-            var ext = Path.GetExtension(path).ToLowerInvariant();
-            return types[ext];
         }
     }
 }

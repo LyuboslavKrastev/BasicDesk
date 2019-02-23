@@ -93,7 +93,7 @@ using BasicDesk.Data.Models.Solution;
             WriteLiteral("\n<h2 class=\"text-center\">User Details</h2>\n<hr />\n");
             EndContext();
             BeginContext(141, 110, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cef905e1badd44229133a431d9ced820", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ee088ebf60c642a3b01783d03fcb5f2c", async() => {
                 BeginContext(198, 5, true);
                 WriteLiteral("\n    ");
                 EndContext();
