@@ -8,9 +8,9 @@
     ".NETCoreApp,Version=v2.1": {
       "BasicDesk.Services/1.0.0": {
         "dependencies": {
-          "AutoMapper": "8.0.0",
           "BasicDesk.App.Models": "1.0.0",
-          "BasicDesk.Data": "1.0.0"
+          "BasicDesk.Data": "1.0.0",
+          "BasicDesk.Mapping": "1.0.0"
         },
         "runtime": {
           "BasicDesk.Services.dll": {}
@@ -1282,6 +1282,17 @@
         "runtime": {
           "BasicDesk.Data.Models.dll": {}
         }
+      },
+      "BasicDesk.Mapping/1.0.0": {
+        "dependencies": {
+          "AutoMapper": "8.0.0",
+          "BasicDesk.App.Models": "1.0.0",
+          "BasicDesk.Data": "1.0.0",
+          "BasicDesk.Data.Models": "1.0.0"
+        },
+        "runtime": {
+          "BasicDesk.Mapping.dll": {}
+        }
       }
     }
   },
@@ -2133,6 +2144,11 @@
       "sha512": ""
     },
     "BasicDesk.Data.Models/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BasicDesk.Mapping/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

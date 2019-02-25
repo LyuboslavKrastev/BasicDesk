@@ -34,3 +34,5 @@ C:\Users\Zibu\Desktop\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\Basic
 C:\Users\Zibu\Desktop\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Services\bin\Debug\netcoreapp2.1\BasicDesk.Services.deps.json
 C:\Users\Zibu\Desktop\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Services\bin\Debug\netcoreapp2.1\BasicDesk.Services.dll
 C:\Users\Zibu\Desktop\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Services\bin\Debug\netcoreapp2.1\BasicDesk.Services.pdb
+C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Services\bin\Debug\netcoreapp2.1\BasicDesk.Mapping.dll
+C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.Services\bin\Debug\netcoreapp2.1\BasicDesk.Mapping.pdb

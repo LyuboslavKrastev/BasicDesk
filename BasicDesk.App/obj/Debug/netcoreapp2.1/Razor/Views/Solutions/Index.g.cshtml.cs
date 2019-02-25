@@ -143,7 +143,7 @@ using BasicDesk.Common.Constants;
             WriteLiteral("    <div class=\"text-center\">\r\n        ");
             EndContext();
             BeginContext(908, 177, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8be7c7cdcbbf4427a51107b010c400fc", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "03632eb2c45a44fa85a95d1dab9de6c3", async() => {
                 BeginContext(1011, 70, true);
                 WriteLiteral("\r\n            Create Solution <i class=\"glyphicon-plus\"></i>\r\n        ");
                 EndContext();

@@ -1858,6 +1858,22 @@
         "runtime": {
           "bin/placeholder/BasicDesk.Data.Models.dll": {}
         }
+      },
+      "BasicDesk.Mapping/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.1",
+        "dependencies": {
+          "AutoMapper": "8.0.0",
+          "BasicDesk.App.Models": "1.0.0",
+          "BasicDesk.Data": "1.0.0",
+          "BasicDesk.Data.Models": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/BasicDesk.Mapping.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BasicDesk.Mapping.dll": {}
+        }
       }
     }
   },
@@ -5674,13 +5690,18 @@
       "type": "project",
       "path": "../BasicDesk.Models/BasicDesk.Data.Models.csproj",
       "msbuildProject": "../BasicDesk.Models/BasicDesk.Data.Models.csproj"
+    },
+    "BasicDesk.Mapping/1.0.0": {
+      "type": "project",
+      "path": "../BasicDesk.Mapping/BasicDesk.Mapping.csproj",
+      "msbuildProject": "../BasicDesk.Mapping/BasicDesk.Mapping.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
-      "AutoMapper >= 8.0.0",
       "BasicDesk.App.Models >= 1.0.0",
       "BasicDesk.Data >= 1.0.0",
+      "BasicDesk.Mapping >= 1.0.0",
       "Microsoft.NETCore.App >= 2.1.0"
     ]
   },
@@ -5719,6 +5740,9 @@
             },
             "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Data\\BasicDesk.Data.csproj": {
               "projectPath": "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Data\\BasicDesk.Data.csproj"
+            },
+            "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Mapping\\BasicDesk.Mapping.csproj": {
+              "projectPath": "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Mapping\\BasicDesk.Mapping.csproj"
             }
           }
         }
@@ -5732,10 +5756,6 @@
     "frameworks": {
       "netcoreapp2.1": {
         "dependencies": {
-          "AutoMapper": {
-            "target": "Package",
-            "version": "[8.0.0, )"
-          },
           "Microsoft.NETCore.App": {
             "suppressParent": "All",
             "target": "Package",

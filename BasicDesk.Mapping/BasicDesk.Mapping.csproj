@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BasicDesk.App.Models\BasicDesk.App.Models.csproj" />
+    <ProjectReference Include="..\BasicDesk.Data\BasicDesk.Data.csproj" />
+    <ProjectReference Include="..\BasicDesk.Models\BasicDesk.Data.Models.csproj" />
+  </ItemGroup>
+
+</Project>

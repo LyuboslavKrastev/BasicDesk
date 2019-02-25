@@ -18,6 +18,7 @@
     <ProjectReference Include="..\BasicDesk.App.Models\BasicDesk.App.Models.csproj" />
     <ProjectReference Include="..\BasicDesk.Common\BasicDesk.Common.csproj" />
     <ProjectReference Include="..\BasicDesk.Data\BasicDesk.Data.csproj" />
+    <ProjectReference Include="..\BasicDesk.Mapping\BasicDesk.Mapping.csproj" />
     <ProjectReference Include="..\BasicDesk.Services\BasicDesk.Services.csproj" />
   </ItemGroup>
 

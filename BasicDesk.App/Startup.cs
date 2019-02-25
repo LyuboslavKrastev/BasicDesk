@@ -14,10 +14,10 @@ using BasicDesk.App.Common;
 using BasicDesk.App.Hubs;
 using BasicDesk.Services;
 using BasicDesk.Services.Repository;
-using BasicDesk.Services.AutoMapping;
 using BasicDesk.Services.Interfaces;
 using BasicDesk.App.Common.Interfaces;
 using BasicDesk.App.Common.Attributes;
+using BasicDesk.Mapping;
 
 namespace BasicDesk.App
 {

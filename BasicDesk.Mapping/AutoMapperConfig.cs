@@ -2,7 +2,6 @@
 using BasicDesk.App.Models.Common.BindingModels;
 using BasicDesk.App.Models.ViewModels;
 using BasicDesk.Data.Models.Solution;
-using System.Linq;
 using BasicDesk.Data.Models.Requests;
 using BasicDesk.App.Models.Management.ViewModels;
 using BasicDesk.Data.Models;
@@ -10,7 +9,7 @@ using BasicDesk.App.Models.Common.ViewModels;
 using BasicDesk.App.Models.Management.BindingModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace BasicDesk.Services.AutoMapping
+namespace BasicDesk.Mapping
 {
     public static class AutoMapperConfig
     {

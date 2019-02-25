@@ -4745,13 +4745,29 @@
           "bin/placeholder/BasicDesk.Data.Models.dll": {}
         }
       },
-      "BasicDesk.Services/1.0.0": {
+      "BasicDesk.Mapping/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.1",
         "dependencies": {
           "AutoMapper": "8.0.0",
           "BasicDesk.App.Models": "1.0.0",
-          "BasicDesk.Data": "1.0.0"
+          "BasicDesk.Data": "1.0.0",
+          "BasicDesk.Data.Models": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/BasicDesk.Mapping.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BasicDesk.Mapping.dll": {}
+        }
+      },
+      "BasicDesk.Services/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.1",
+        "dependencies": {
+          "BasicDesk.App.Models": "1.0.0",
+          "BasicDesk.Data": "1.0.0",
+          "BasicDesk.Mapping": "1.0.0"
         },
         "compile": {
           "bin/placeholder/BasicDesk.Services.dll": {}
@@ -12469,6 +12485,11 @@
       "path": "../BasicDesk.Models/BasicDesk.Data.Models.csproj",
       "msbuildProject": "../BasicDesk.Models/BasicDesk.Data.Models.csproj"
     },
+    "BasicDesk.Mapping/1.0.0": {
+      "type": "project",
+      "path": "../BasicDesk.Mapping/BasicDesk.Mapping.csproj",
+      "msbuildProject": "../BasicDesk.Mapping/BasicDesk.Mapping.csproj"
+    },
     "BasicDesk.Services/1.0.0": {
       "type": "project",
       "path": "../BasicDesk.Services/BasicDesk.Services.csproj",
@@ -12481,6 +12502,7 @@
       "BasicDesk.App.Models >= 1.0.0",
       "BasicDesk.Common >= 1.0.0",
       "BasicDesk.Data >= 1.0.0",
+      "BasicDesk.Mapping >= 1.0.0",
       "BasicDesk.Services >= 1.0.0",
       "Microsoft.AspNetCore.App >= 2.1.1",
       "Microsoft.NETCore.App >= 2.1.0",
@@ -12528,6 +12550,9 @@
             },
             "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Data\\BasicDesk.Data.csproj": {
               "projectPath": "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Data\\BasicDesk.Data.csproj"
+            },
+            "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Mapping\\BasicDesk.Mapping.csproj": {
+              "projectPath": "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Mapping\\BasicDesk.Mapping.csproj"
             },
             "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Services\\BasicDesk.Services.csproj": {
               "projectPath": "C:\\Users\\Zorko\\Documents\\BasicDesk\\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\\BasicDesk.Services\\BasicDesk.Services.csproj"

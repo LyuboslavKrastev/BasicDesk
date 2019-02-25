@@ -174,7 +174,7 @@ using X.PagedList.Mvc.Common;
             WriteLiteral("\r\n                            </td>\r\n                            <td>\r\n                                ");
             EndContext();
             BeginContext(1757, 103, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a8f5e01fd452420f911c96ad14e2f0af", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2c91df67eef8442e8ebb3b154808ac40", async() => {
                 BeginContext(1844, 12, false);
 #line 49 "C:\Users\Zorko\Documents\BasicDesk\BasicDesk-Project-CSharp-MVC-Frameworks-ASP.NET-Core\BasicDesk.App\Views\Shared\MergePartial.cshtml"
                                                                                                                  Write(item.Subject);
@@ -294,7 +294,7 @@ using X.PagedList.Mvc.Common;
             WriteLiteral("\r\n                            </td>\r\n                            <td>\r\n                                ");
             EndContext();
             BeginContext(3042, 393, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7e5f1a8f9623474aae51b27118400e21", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8144e21cb88c4db5918fb18e5d4fe58f", async() => {
                 BeginContext(3119, 62, true);
                 WriteLiteral("\r\n                                    <input hidden name=\"ids\"");
                 EndContext();
